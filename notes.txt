@@ -1,0 +1,30 @@
+Logo Dark Green:
+Dark Green: This could be used for headers or footer backgrounds, and for text over light backgrounds.
+Hex: #004D40 (Again, this is an estimate.)
+
+Gradient Dark Background:
+Starting with a dark color that can blend well with the teal for the gradient.
+Hex: #12232E
+
+Gradient Light Background:
+A mid-tone that transitions between the dark background and the logo colors.
+Hex: #4DA8DA
+
+Accent Purple:
+Since purple is already present in the design, a similar purple can be used for accents.
+Hex: #9C27B0
+
+Highlight Accent:
+A lighter teal for hover states or to highlight secondary information.
+Hex: #88E0EF
+
+Complementary Accent:
+A complementary coral or orange could work as a warm contrast.
+Hex: #FF5722
+
+Typography and Icons:
+White for text and icons to ensure readability.
+Hex: #FFFFFF
+
+Light gray for secondary text.
+Hex: #E0E0E0
