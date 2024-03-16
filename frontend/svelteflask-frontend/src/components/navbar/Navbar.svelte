@@ -1,10 +1,20 @@
-<script>
+<script lang='ts'>
     import logo from '../../assets/logo.ico';
+    import NavSection from './NavSection.svelte';
+    import type { SectionData } from './NavSection.svelte';
+
+    let test: SectionData = [
+        {
+            url: "test",
+            displayName: "Some Section"
+        }
+    ]
 </script>
 
-<div class="container">
+<nav class="container">
     <img src={logo} alt="Main Logo" width="75">
-</div>
+    <NavSection displayText="SomeButton" sectionData={test}></NavSection>
+</nav>
 
 <style>
     .container {
