@@ -18,7 +18,7 @@ def handle_request(environ: dict, start_response: Callable):
 def root():
     return send_from_directory('static', 'index.html')
 
-@app.route('/api/test')
+@app.route('/api')
 def api():
     return 'API'
 
