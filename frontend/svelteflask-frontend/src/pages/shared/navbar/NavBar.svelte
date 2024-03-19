@@ -1,11 +1,11 @@
 <script lang='ts'>
-    import logo from '../../assets/logo.ico';
+    import logo from '../../../assets/logo.ico';
     import NavSection from './NavSection.svelte';
     import type { SectionData } from './NavSection.svelte';
 
     let test: SectionData = [
         {
-            url: "test",
+            url: "/another",
             displayName: "Some Section"
         }
     ]

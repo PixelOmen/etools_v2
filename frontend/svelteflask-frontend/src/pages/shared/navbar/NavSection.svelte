@@ -1,12 +1,10 @@
 <script context="module" lang='ts'>
-    interface AnchorData {
-        displayName: string;
-        url: string;
-    }
+    import type { AnchorData } from './NavAnchor.svelte'
     export type SectionData = AnchorData[];
 </script>
 
 <script lang="ts">
+    import NavAnchor from './NavAnchor.svelte';
     let sectionVisible: boolean = false;
 
     function toggleSection(): void {
@@ -21,22 +19,12 @@
     <button on:click={toggleSection}>{displayText}&#9207;</button>
     <ul style="display: {sectionVisible ? 'flex' : 'none'}">
         {#each sectionData as data}
-            <li>
-                <a href={data.url}>{data.displayName}</a>
-            </li>
+            <NavAnchor {data}></NavAnchor>
         {/each}
     </ul>
 </li>
 
 <style>
-    a {
-        text-decoration: none;
-        color: rgb(225, 225, 225);
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-
     button {
         cursor: pointer;
         border: none;

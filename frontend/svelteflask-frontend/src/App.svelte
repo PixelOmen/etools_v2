@@ -1,19 +1,12 @@
 <script lang="ts">
-  import HeroSection from "./components/sections/HeroSection.svelte";
+  import { Router, Link, Route } from "svelte-routing";
+  import Home from "./pages/home/Home.svelte";
+  import Another from "./pages/another/Another.svelte";
 
-  fetch('/api/test')
-    .then(response => response.text())
-    .then(data => console.log(data))
+  export let url = "";
 </script>
 
-<main>
-  <HeroSection>
-    <div class="test"></div>
-  </HeroSection>
-</main>
-
-<style>
-  .test {
-    height: 300px;
-  }
-</style>
+<Router {url}>
+  <Route path="/another" component={Another}></Route>
+  <Route path="/" component={Home}></Route>
+</Router>
