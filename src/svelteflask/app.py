@@ -4,8 +4,7 @@ from typing import Callable
 
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
-from flask import (Flask, request, Response,
-                   send_from_directory, render_template)
+from flask import Flask, request, Response, send_from_directory
 
 
 mimetypes.add_type("application/javascript", ".js", True)
