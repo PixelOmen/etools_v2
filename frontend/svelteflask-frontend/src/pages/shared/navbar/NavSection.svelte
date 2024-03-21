@@ -1,18 +1,21 @@
 <script context="module" lang='ts'>
     import type { AnchorData } from './NavAnchor.svelte'
-    export type SectionData = AnchorData[];
+    export type SectionLinks = AnchorData[];
 </script>
 
 <script lang="ts">
+    import { createEventDispatcher } from 'svelte';
     import NavAnchor from './NavAnchor.svelte';
-    let sectionVisible: boolean = false;
+
+    export let sectionVisible: boolean = false;
+    export let sectionData: SectionLinks;
+    export let displayText: string;
+
+    const dispatch = createEventDispatcher();
 
     function toggleSection(): void {
-        sectionVisible = sectionVisible ? false : true;
+        dispatch('navSectionOpen', displayText)
     }
-
-    export let sectionData: SectionData;
-    export let displayText: string;
 </script>
 
 <li class="navSection">

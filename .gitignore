@@ -1,6 +1,7 @@
 # Project and Backend
 .venv
 .vscode
+__pycache__
 
 # Logs
 logs
