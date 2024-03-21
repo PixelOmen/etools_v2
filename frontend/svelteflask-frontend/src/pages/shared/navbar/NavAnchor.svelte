@@ -25,4 +25,7 @@
     a:hover {
         text-decoration: underline;
     }
+    /* li {
+        text-align: center;
+    } */
 </style>

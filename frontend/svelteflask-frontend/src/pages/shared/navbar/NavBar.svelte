@@ -36,7 +36,11 @@
 
 <header class="container">
     <a href="/">
-        <img src={logo} alt="Main Logo" width="75" height="75">
+        <img src={logo} alt="Main Logo" width="50" height="50">
+        <span>
+            ROUNDABOUT
+        </span>
+            
     </a>
     <nav bind:this={navElement}>
         <ul>
@@ -58,9 +62,24 @@
         justify-content: space-between;
         align-items: center;
         width: 90%;
-        border: solid 1px blue;
+        /* border: solid 1px blue; */
         margin-left: auto;
         margin-right: auto;
+        margin-top: 20px;
+    }
+    a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+    a > span {
+        outline: none;
+        color: rgb(237, 237, 237);
+        margin-left: 5px;
+        font-size: 25pt;
+        font-weight: 900;
+        letter-spacing: -2px;
+        font-stretch: ultra-condensed;
     }
     nav {
         margin-right: 3%;

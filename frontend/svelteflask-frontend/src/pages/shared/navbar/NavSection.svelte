@@ -29,17 +29,26 @@
 
 <style>
     button {
+        padding: 5px 10px;
         cursor: pointer;
         border: none;
         outline: none;
         background: none;
+        background-color: rgba(225, 225, 225, 0);
+        border-radius: 20px;
         color: rgb(225, 225, 225);
         font-size: inherit;
         font-family: inherit;
         transition: color 0.3s;
+        transition: background-color 0.3s;
+        font-size: 14pt;
     }
     button:hover {
-        color: rgb(179, 179, 179);
+        border-radius: 20px;
+        background-color: #88dfef1e;
+    }
+    button:focus {
+        background-color: rgba(225, 225, 225, 0);
     }
 
     .navSection {
@@ -48,8 +57,12 @@
 
     ul {
         position: absolute;
-        border: solid 1px purple;
-        width: max-content;
+        min-width: 80%;
         padding: 10px;
+        background-color: #88dfef1e;
+        border-radius: 5px;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
     }
 </style>
