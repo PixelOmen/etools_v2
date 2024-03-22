@@ -12,15 +12,27 @@
     export let displayText: string;
 
     const dispatch = createEventDispatcher();
-
     function toggleSection(): void {
         dispatch('navSectionOpen', displayText)
+    }
+    
+    let sectionUL: HTMLUListElement;
+    $: {
+        if (sectionUL) {
+            console.log("test")
+            if (sectionVisible) {
+                sectionUL.classList.remove('hidden');
+            } else {
+                sectionUL.classList.add('hidden')
+            }
+        }
     }
 </script>
 
 <li class="navSection">
     <button on:click={toggleSection}>{displayText}&#9207;</button>
-    <ul style="display: {sectionVisible ? 'flex' : 'none'}">
+    <!-- <ul bind:this={sectionUL} style="display: {sectionVisible ? 'flex' : 'none'}"> -->
+    <ul bind:this={sectionUL} class="hidden">
         {#each sectionData as data}
             <NavAnchor {data}></NavAnchor>
         {/each}
@@ -56,13 +68,22 @@
     }
 
     ul {
+        display: flex;
+        flex-direction: column;
         position: absolute;
-        min-width: 80%;
+        top: 35px;
+        left: 10px;
+        justify-content: space-between;
+        min-width: 60%;
         padding: 10px;
+        gap: 5px;
         background-color: #88dfef1e;
         border-radius: 5px;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 10px;
+        transition: gap 0.3s;
+        overflow: hidden;
+    }
+    .hidden {
+        top: -600px;
+        gap: 0px;
     }
 </style>

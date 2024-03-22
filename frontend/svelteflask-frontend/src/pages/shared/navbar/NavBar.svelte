@@ -40,7 +40,6 @@
         <span>
             ROUNDABOUT
         </span>
-            
     </a>
     <nav bind:this={navElement}>
         <ul>

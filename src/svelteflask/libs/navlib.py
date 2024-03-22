@@ -6,7 +6,7 @@ def navlinks() -> str:
             "sectionName" : "Rendering",
             "contents": [
                 {
-                    "url": "localhost:4090",
+                    "url": "/rendering/create",
                     "displayName": "Create"
                 },
                 {
@@ -19,7 +19,7 @@ def navlinks() -> str:
             "sectionName" : "Reports",
             "contents": [
                 {
-                    "url": "/another",
+                    "url": "/reports/schedule",
                     "displayName": "Schedule"
                 }
             ]
@@ -28,17 +28,49 @@ def navlinks() -> str:
             "sectionName" : "File Tools",
             "contents": [
                 {
-                    "url": "/another",
-                    "displayName": "Another"
-                }
+                    "url": "/filetools/audioflag",
+                    "displayName": "Flag Audio"
+                },
+                {
+                    "url": "/filetools/setTC",
+                    "displayName": "Set TC"
+                },
+                {
+                    "url": "/filetools/dvmeta",
+                    "displayName": "Validate DV"
+                },
+                {
+                    "url": "/filetools/dvhr0",
+                    "displayName": "DV Hour 0"
+                },
+                {
+                    "url": "/filetools/ltolabels",
+                    "displayName": "LTO Labels"
+                },
+                {
+                    "url": "/filetools/filediff",
+                    "displayName": "File Diff"
+                },
+                {
+                    "url": "/filetools/calc",
+                    "displayName": "TC Calc"
+                },
+                {
+                    "url": "/filetools/ioextract",
+                    "displayName": "PDF Extract"
+                },                
             ]
         },
         {
             "sectionName" : "San Tools",
             "contents": [
                 {
-                    "url": "/another",
-                    "displayName": "Another"
+                    "url": "10.0.20.6",
+                    "displayName": "ARC"
+                },              
+                {
+                    "url": "10.0.20.103",
+                    "displayName": "SIGHT"
                 }
             ]
         }
