@@ -23,9 +23,6 @@
         color: rgb(225, 225, 225);
     }
     a:hover {
-        text-decoration: underline;
+        color: #7acfde;
     }
-    /* li {
-        text-align: center;
-    } */
 </style>

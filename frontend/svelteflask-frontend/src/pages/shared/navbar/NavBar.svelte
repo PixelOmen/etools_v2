@@ -61,10 +61,8 @@
         justify-content: space-between;
         align-items: center;
         width: 90%;
-        /* border: solid 1px blue; */
         margin-left: auto;
         margin-right: auto;
-        margin-top: 20px;
     }
     a {
         text-decoration: none;

@@ -19,7 +19,6 @@
     let sectionUL: HTMLUListElement;
     $: {
         if (sectionUL) {
-            console.log("test")
             if (sectionVisible) {
                 sectionUL.classList.remove('hidden');
             } else {
@@ -31,7 +30,6 @@
 
 <li class="navSection">
     <button on:click={toggleSection}>{displayText}&#9207;</button>
-    <!-- <ul bind:this={sectionUL} style="display: {sectionVisible ? 'flex' : 'none'}"> -->
     <ul bind:this={sectionUL} class="hidden">
         {#each sectionData as data}
             <NavAnchor {data}></NavAnchor>
@@ -72,15 +70,17 @@
         flex-direction: column;
         position: absolute;
         top: 35px;
-        left: 10px;
+        left: 5px;
         justify-content: space-between;
+        width: max-content;
         min-width: 60%;
-        padding: 10px;
+        padding: 20px;
         gap: 5px;
         background-color: #88dfef1e;
         border-radius: 5px;
         transition: gap 0.3s;
         overflow: hidden;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.345);
     }
     .hidden {
         top: -600px;
