@@ -11,13 +11,14 @@
     export let boxHeight = "200px";
     export let listData: ListData;
     export let header: string;
+    export let searchPlaceholder = "Search";
 </script>
 
 <div class="container" style="width: {boxWidth}">
     <h3 style="margin-bottom: 10px">
         {header}
     </h3>
-    <SearchBox boxWidth="auto" placeholder="Search Certs"/>
+    <SearchBox boxWidth="auto" placeholder="{searchPlaceholder}"/>
     <ul style="height: {boxHeight}">
         {#each listData as item}
             <ListItem listdata={item}/>
@@ -26,6 +27,22 @@
 </div>
 
 <style>
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: #334c5d;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        width: 5px;
+        background-color: #5fa2ae;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #71becc;
+    }    
+
     .container {
         flex-direction: column;
         /* border: solid 1px blue; */
@@ -35,12 +52,13 @@
     }
     ul {
         margin-top: 5px;
-        border: 3px solid transparent;
+        border: 4px solid transparent;
         background: linear-gradient(#12232E, #12232E) padding-box,
                     linear-gradient(90deg, #923214, #ce4820 90%) border-box;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
-        padding: 10px;
+        padding: 5px 10px;
+        overflow: auto;
     }
 </style>

@@ -60,7 +60,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 90%;
+        max-width: 90%;
         margin-left: auto;
         margin-right: auto;
     }
