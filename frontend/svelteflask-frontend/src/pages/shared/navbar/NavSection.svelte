@@ -45,7 +45,6 @@
         outline: none;
         background: none;
         background-color: rgba(225, 225, 225, 0);
-        border-radius: 20px;
         color: rgb(225, 225, 225);
         font-size: inherit;
         font-family: inherit;
@@ -54,7 +53,7 @@
         font-size: 14pt;
     }
     button:hover {
-        border-radius: 20px;
+        border-radius: 10px;
         background-color: #88dfef1e;
     }
     button:focus {
@@ -76,7 +75,7 @@
         min-width: 60%;
         padding: 20px;
         gap: 5px;
-        background-color: #88dfef1e;
+        background-color: #1d3a43;
         border-radius: 5px;
         transition: gap 0.3s;
         overflow: hidden;

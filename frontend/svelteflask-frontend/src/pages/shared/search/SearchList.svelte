@@ -4,14 +4,20 @@
 </script>
 
 <script lang="ts">
+    import { createEventDispatcher } from 'svelte';
     import SearchBox from './SearchBox.svelte';
     import ListItem from './ListItem.svelte';
 
-    export let boxWidth = "500px";
-    export let boxHeight = "200px";
+    export let boxWidth = "auto";
+    export let boxHeight = "auto";
     export let listData: ListData;
     export let header: string;
     export let searchPlaceholder = "Search";
+
+    const dispatch = createEventDispatcher();
+    function searchItemSelected(e: CustomEvent) {
+        dispatch("searchItemSelected", {header: header, data: e.detail});
+    }
 </script>
 
 <div class="container" style="width: {boxWidth}">
@@ -21,7 +27,7 @@
     <SearchBox boxWidth="auto" placeholder="{searchPlaceholder}"/>
     <ul style="height: {boxHeight}">
         {#each listData as item}
-            <ListItem listdata={item}/>
+            <ListItem listdata={item} on:searchItemSelected={searchItemSelected}/>
         {/each}
     </ul>
 </div>
@@ -35,9 +41,8 @@
         border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb {
-        width: 5px;
         background-color: #5fa2ae;
-        border-radius: 10px;
+        border-radius: 20px;
     }
     ::-webkit-scrollbar-thumb:hover {
         background-color: #71becc;
@@ -45,11 +50,12 @@
 
     .container {
         flex-direction: column;
-        /* border: solid 1px blue; */
     }
+
     h3 {
         margin: 0;
     }
+
     ul {
         margin-top: 5px;
         border: 4px solid transparent;
@@ -58,7 +64,7 @@
         border-radius: 10px;
         display: flex;
         flex-direction: column;
-        padding: 5px 10px;
+        padding: 5px 5px;
         overflow: auto;
     }
 </style>
