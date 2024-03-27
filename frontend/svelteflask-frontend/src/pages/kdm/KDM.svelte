@@ -6,6 +6,8 @@
     import HeroSection from "../shared/sections/HeroSection.svelte";
     import SearchList from "../shared/search/SearchList.svelte";
     import DateSelect from '../shared/dates/DateSelect.svelte';
+    import FsInput from '../shared/filesystem/FSInput.svelte';
+    import Timezone from '../shared/dates/Timezone.svelte';
     import Selected from "./Selected.svelte";
     import { listData } from "../../TestData";
 
@@ -22,7 +24,7 @@
 
 <main>
     <HeroSection>
-        <div class="fileSelect">
+        <div class="certSection">
             <div style="width: 40%">
                 <SearchList {listData}
                     header="Certificate"
@@ -42,10 +44,14 @@
         </div>
     </HeroSection>
     <section class="dateSection">
-        <div class="formContainer">
+        <div class="sectionContainer">
             <div class="dateContainer">
-                <DateSelect width=300px/>
-                <DateSelect width=300px header="To"/>
+                <Timezone/>
+                <DateSelect/>
+                <DateSelect header="End"/>
+            </div>
+            <div class="fileContainer">
+                <FsInput header="Output"/>
             </div>
         </div>
     </section>
@@ -58,7 +64,8 @@
     main {
         min-width: 950px;
     }
-    .fileSelect {
+
+    .certSection {
         /* border: 1px solid blue; */
         display: flex;
         justify-content: space-around;
@@ -68,21 +75,57 @@
         margin-right: auto;
         overflow: hidden;
     }
+
+    .sectionContainer {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        /* border: 1px solid yellow; */
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 20px;
+    }
+
     .dateSection {
-        padding-top: 20px;
-        /* padding-left: 4%; */
+        padding: 20px 0px;
         width: 100%;
-        height: 200px;
         background: linear-gradient(310deg, #197a87 0%, #652a6f 99%);
     }
     .dateContainer {
-        border: 1px solid blue;
+        /* border: 1px solid green; */
         display: flex;
-        justify-content: space-around;
-        max-width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        flex-direction: row;
+        width: 100%;
+        gap: 5%;
+        margin-left: 5%;
     }
+    @media (min-width: 1000px) {
+        .dateContainer {
+            margin-left: 0;
+            flex-direction: column;
+            width: 30%;
+            gap: 15px;
+        }
+        .sectionContainer {
+            gap: 0px;
+        }
+    }
+
+    .fileContainer {
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid green; */
+        min-width: 90%;
+        padding: 5px;
+        gap: 10px
+    }
+    @media (min-width: 1000px) {
+        .fileContainer {
+            min-width: 50%;
+        }
+    }
+
 
     footer {
         height: 200px;

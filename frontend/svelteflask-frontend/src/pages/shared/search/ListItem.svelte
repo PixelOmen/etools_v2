@@ -36,7 +36,6 @@
         text-align: left;
         overflow: hidden;
         text-overflow: ellipsis;
-        transition: 0.3s;
     }
     .container:hover {
         cursor: pointer;

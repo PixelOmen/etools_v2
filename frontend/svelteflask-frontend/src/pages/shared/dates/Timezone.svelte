@@ -1,13 +1,19 @@
 <script lang='ts'>
-    export let header = "Start";
-    export let width = "auto";
+    let offsets = Array.from({length: 24}, (_, i) => {
+        let hroffset = i - 11;
+        return hroffset < 0 ? hroffset : `+${hroffset}`
+    });
 </script>
 
-<div style="width: {width}">
+<div>
     <h3>
-        {header}
+        Timezone
     </h3>
-    <input type="datetime-local" id="dateInput-from" min="2022-01-01" max="2099-01-01">
+    <select name="Timezone" id="timezone">
+        {#each offsets as tzoffset}
+            <option value={tzoffset}>{`UTC${tzoffset}`}</option>
+        {/each}
+    </select>
 </div>
 
 <style>
@@ -18,24 +24,23 @@
         margin-top: 0;
         margin-bottom: 10px;
     }
-    input {
+    select {
+        width: 150px;
         border-radius: 10px;
         border: none;
         padding: 3px 10px;
-        font-size: 11pt;
+        font-size: 12pt;
         background-color: #162a37;
         border: 2px solid transparent;
         background: linear-gradient(#12232E, #12232E) padding-box,
                     linear-gradient(45deg, #1c9bab 0%, #0e6764) border-box;
-        filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.3));                    
+        filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.3));
     }
-    input:focus {
+    select:focus {
         outline: none;
         border: 2px solid #ce4820;
     }
-    @media (min-width: 1000px) {
-        input {
-            font-size: 12pt;
-        }
+    option {
+        background-color: #12232E;
     }
 </style>
