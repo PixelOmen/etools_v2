@@ -4,7 +4,7 @@
     export let boxWidth = "200px";
     export let placeholder = "Test Placeholder";
 
-    let searchInput: HTMLInputElement;
+    export let searchInput: HTMLInputElement;
 </script>
 
 <div class="container" style="width: {boxWidth}">
@@ -25,5 +25,6 @@
         border: none;
         outline: none;
         background: none;
+        width: 100%;
     }
 </style>

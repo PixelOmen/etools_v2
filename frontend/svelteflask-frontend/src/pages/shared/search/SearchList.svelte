@@ -14,6 +14,25 @@
     export let header: string;
     export let searchPlaceholder = "Search";
 
+    let filteredData = listData;
+
+    let searchInput: HTMLInputElement;
+    $: {
+        if (searchInput) {
+            searchInput.addEventListener('change', () => {
+                if (!searchInput.value) {
+                    filteredData = listData;
+                } else {
+                    filteredData = listData.filter((item) => {
+                        let lowerName = item.displayName.toLowerCase();
+                        let lowerValue = searchInput.value.toLowerCase();
+                        return lowerName.includes(lowerValue)
+                    })
+                }
+            });
+        }
+    }
+
     const dispatch = createEventDispatcher();
     function searchItemSelected(e: CustomEvent) {
         dispatch("searchItemSelected", {header: header, data: e.detail});
@@ -24,9 +43,9 @@
     <h3 style="margin-bottom: 10px">
         {header}
     </h3>
-    <SearchBox boxWidth="auto" placeholder="{searchPlaceholder}"/>
+    <SearchBox bind:searchInput={searchInput} boxWidth="auto" placeholder="{searchPlaceholder}"/>
     <ul style="height: {boxHeight}">
-        {#each listData as item}
+        {#each filteredData as item}
             <ListItem listdata={item} on:searchItemSelected={searchItemSelected}/>
         {/each}
     </ul>
@@ -34,7 +53,7 @@
 
 <style>
     ::-webkit-scrollbar {
-        width: 12px;
+        width: 10px;
     }
     ::-webkit-scrollbar-track {
         background-color: #334c5d;

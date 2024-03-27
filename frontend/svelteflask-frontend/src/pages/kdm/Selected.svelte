@@ -7,7 +7,7 @@
 
     let displayName: string;
     $: {
-        if (selected == null) {
+        if (selected === null) {
             displayName = "None";
         } else {
             displayName = selected.displayName;
@@ -17,7 +17,7 @@
 
 <div>
     <h4>
-        Selected
+        Selected:
     </h4>
     <div class="displayBox" title={displayName}>
         {displayName}
@@ -27,6 +27,7 @@
 
 <style>
     h4 {
+        margin-top: 10px;
         margin-bottom: 10px;
     }
     .displayBox {

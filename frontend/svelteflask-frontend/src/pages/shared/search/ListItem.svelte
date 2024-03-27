@@ -36,12 +36,13 @@
         text-align: left;
         overflow: hidden;
         text-overflow: ellipsis;
+        transition: 0.3s;
     }
     .container:hover {
         cursor: pointer;
         border-radius: 5px;
-        background-color: rgb(77, 122, 147);
-        filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.472));
+        background-color: #1a7c89;
+        filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.7));
         font-weight: 900;        
     }
 </style>
