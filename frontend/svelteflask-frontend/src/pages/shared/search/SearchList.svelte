@@ -53,7 +53,7 @@
 
 <style>
     ::-webkit-scrollbar {
-        width: 10px;
+        width: 8px;
     }
     ::-webkit-scrollbar-track {
         background-color: #334c5d;
@@ -77,7 +77,7 @@
 
     ul {
         margin-top: 5px;
-        border: 4px solid transparent;
+        border: 3px solid transparent;
         background: linear-gradient(#12232E, #12232E) padding-box,
                     linear-gradient(90deg, #923214, #ce4820 90%) border-box;
         border-radius: 10px;

@@ -53,6 +53,9 @@
             </div>
             <div class="fileContainer">
                 <FsInput header="Output"/>
+                <button class="submitBtn">
+                    Submit
+                </button>
             </div>
         </div>
     </section>
@@ -98,13 +101,16 @@
     }
     .dateContainer {
         /* border: 1px solid green; */
+        /* margin-left: 5%; */
+        /* flex-direction: row; */
         display: flex;
-        flex-direction: row;
+        justify-content: center;
         width: 100%;
         gap: 5%;
-        margin-left: 5%;
+        margin-left: auto;
+        margin-right: auto;
     }
-    @media (min-width: 1000px) {
+    /* @media (min-width: 1000px) {
         .dateContainer {
             margin-left: 0;
             flex-direction: column;
@@ -114,20 +120,41 @@
         .sectionContainer {
             gap: 0px;
         }
-    }
+    } */
 
     .fileContainer {
-        display: flex;
-        flex-direction: column;
         /* border: 1px solid green; */
-        min-width: 90%;
+        display: flex;
+        align-items: flex-end;
+        width: 90%;
         padding: 5px;
         gap: 10px
     }
     @media (min-width: 1000px) {
         .fileContainer {
-            min-width: 50%;
+            max-width: 60%;
         }
+    }
+    .submitBtn {
+        cursor: pointer;
+        padding: 3px 15px;
+        /* border: 4px solid rgb(71, 71, 71); */
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        font-size: 13pt;
+        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3));
+        background: linear-gradient(45deg, #923214, #ce4820 99%);
+        color: rgb(228, 228, 228);
+        font-family: inherit;
+        font-weight: 900;
+    }
+    .submitBtn:hover {
+        background: linear-gradient(45deg, #ce4820, #ce4820 99%);
+    }
+    .submitBtn:active {
+        background: #ad3e1c;
+        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.0));
     }
 
     .footerSection {

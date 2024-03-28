@@ -10,9 +10,10 @@
 </div>
 
 <style>
-    /* .container {
-        border: 1px solid blue;
-    } */
+    .container {
+        /* border: 1px solid blue; */
+        width: 100%;
+    }
     h3 {
         margin-top: 0px;
         margin-bottom: 10px;
