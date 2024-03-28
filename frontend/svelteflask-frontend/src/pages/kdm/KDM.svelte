@@ -9,6 +9,7 @@
     import FsInput from '../shared/filesystem/FSInput.svelte';
     import Timezone from '../shared/dates/Timezone.svelte';
     import Selected from "./Selected.svelte";
+    import Footer from '../shared/sections/Footer.svelte';
     import { listData } from "../../TestData";
 
     let selectedCert: ListItemData | null = null; 
@@ -55,8 +56,11 @@
             </div>
         </div>
     </section>
-    <footer>
-
+    <footer class="footerSection">
+        <div class="footerContainer">
+            <hr>
+            <Footer/>
+        </div>
     </footer>
 </main>
 
@@ -126,8 +130,21 @@
         }
     }
 
-
-    footer {
-        height: 200px;
+    .footerSection {
+        /* border: 1px solid yellow; */
+        background: radial-gradient(ellipse at 10% -10%, #163139 0%, #12232E 40%, transparent),
+                    radial-gradient(ellipse at 90% 120%, #163139 0%, #12232E 40%);
+    }
+    
+    .footerContainer {
+        width: 80%;
+        padding-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    hr {
+        width: 100%;
+        margin-top: 0px;
+        margin-bottom: 20px;
     }
 </style>

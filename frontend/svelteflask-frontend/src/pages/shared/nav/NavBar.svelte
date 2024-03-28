@@ -1,18 +1,20 @@
+<script context='module' lang='ts'>
+    import type { SectionLinks } from './NavSection.svelte';
+    export type AllNavSections = {
+        sectionName: string;
+        contents: SectionLinks;
+    }[];    
+</script>
+
 <script lang='ts'>
     import { onMount, onDestroy } from 'svelte';
     import logo from '../../../assets/logo.ico';
     import NavSection from './NavSection.svelte';
-    import type { SectionLinks } from './NavSection.svelte';
-
-    type AllNavSections = {
-        sectionName: string;
-        contents: SectionLinks;
-    }[];
-
+    
     let allsections: AllNavSections = [];
     fetch("/api/nav")
         .then(res => res.json())
-        .then(output => allsections = output)
+        .then(output => allsections = output);
 
     let openSection: string|null = null;
     function setOpenSection(e: CustomEvent): void {

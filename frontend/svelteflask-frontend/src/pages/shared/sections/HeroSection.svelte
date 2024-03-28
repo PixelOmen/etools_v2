@@ -1,5 +1,5 @@
 <script>
-    import NavBar from '../navbar/NavBar.svelte'
+    import NavBar from '../nav/NavBar.svelte'
 </script>
 
 <main>
@@ -18,7 +18,7 @@
   section {
     margin-left: auto;
     margin-right: auto;
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 30px;
   }
 </style>

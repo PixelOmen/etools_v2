@@ -19,6 +19,7 @@
         margin-bottom: 10px;
     }
     input {
+        cursor: pointer;
         border-radius: 10px;
         border: none;
         padding: 3px 10px;

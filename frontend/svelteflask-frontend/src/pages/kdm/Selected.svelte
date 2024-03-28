@@ -31,6 +31,7 @@
         margin-bottom: 10px;
     }
     .displayBox {
+        cursor: default;
         font-size: 11pt;
         font-weight: bold;
         border: 1px solid rgb(52, 51, 51);

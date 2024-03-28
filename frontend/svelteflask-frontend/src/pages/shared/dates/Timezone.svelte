@@ -25,6 +25,7 @@
         margin-bottom: 10px;
     }
     select {
+        cursor: pointer;
         width: 150px;
         border-radius: 10px;
         border: none;
@@ -33,7 +34,7 @@
         background-color: #162a37;
         border: 2px solid transparent;
         background: linear-gradient(#12232E, #12232E) padding-box,
-                    linear-gradient(45deg, #1c9bab 0%, #0e6764) border-box;
+                    linear-gradient(270deg, #1c9bab 0%, #0e6764) border-box;
         filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.3));
     }
     select:focus {
