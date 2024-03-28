@@ -14,7 +14,7 @@
     export let header: string;
     export let searchPlaceholder = "Search";
 
-    let filteredData = listData;
+    $: filteredData = listData;
 
     let searchInput: HTMLInputElement;
     $: {

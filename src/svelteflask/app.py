@@ -9,7 +9,7 @@ from flask import Flask, request, Response, send_from_directory
 
 from libs.navlib import navlinks
 from libs.config import get_config
-from libs.filesystem import get_certs
+from libs.filesystem import get_certs, get_dkdms
 
 mimetypes.add_type("application/javascript", ".js", True)
 APP = Flask(__name__)
@@ -29,6 +29,10 @@ def nav():
 @APP.route('/api/certs')
 def certs():
     return get_certs(CONFIG.certdir)
+
+@APP.route('/api/dkdms')
+def dkdms():
+    return get_dkdms(CONFIG.dkdmdir)
 
 @APP.route('/', defaults={'pathvar': ''})
 @APP.route('/<path:pathvar>')

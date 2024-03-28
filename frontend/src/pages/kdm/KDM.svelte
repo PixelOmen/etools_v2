@@ -14,7 +14,12 @@
     let certData: ListItemData[] = [];
     fetch('/api/certs')
         .then(res => res.json())
-        .then(data => certData = data);
+        .then(data => {certData = data});
+
+    let dkdmData: ListItemData[] = [];
+    fetch('/api/dkdms')
+        .then(res => res.json())
+        .then(data => {dkdmData = data});
 
     let selectedCert: ListItemData | null = null; 
     let selectedDKDM: ListItemData | null = null;
@@ -31,19 +36,23 @@
     <HeroSection>
         <div class="certSection">
             <div style="width: 40%">
-                <SearchList listData={certData}
-                    header="Certificate"
-                    boxHeight="200px"
-                    searchPlaceholder="Search Certs"
-                    on:searchItemSelected={itemSelected}/>
+                {#if {certData}}
+                    <SearchList listData={certData}
+                        header="Certificate"
+                        boxHeight="200px"
+                        searchPlaceholder="Search Certs"
+                        on:searchItemSelected={itemSelected}/>
+                {/if}
                 <Selected selected={selectedCert}/>
             </div>
             <div style="width: 40%">
-                <SearchList listData={certData}
-                    header="CPL DKDM"
-                    boxHeight="200px"
-                    searchPlaceholder="Search CPLs"
-                    on:searchItemSelected={itemSelected}/>
+                {#if {certData}}
+                    <SearchList listData={dkdmData}
+                        header="CPL DKDM"
+                        boxHeight="200px"
+                        searchPlaceholder="Search CPLs"
+                        on:searchItemSelected={itemSelected}/>
+                {/if}
                 <Selected selected={selectedDKDM}/>
             </div>
         </div>
@@ -51,9 +60,9 @@
     <section class="dateSection">
         <div class="sectionContainer">
             <div class="dateContainer">
-                <Timezone/>
                 <DateSelect/>
                 <DateSelect header="End"/>
+                <Timezone/>
             </div>
             <div class="fileContainer">
                 <FsInput header="Output"/>
@@ -110,7 +119,7 @@
         display: flex;
         justify-content: center;
         width: 100%;
-        gap: 5%;
+        gap: 4%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -136,7 +145,7 @@
     }
     @media (min-width: 1200px) {
         .fileContainer {
-            max-width: 70%;
+            max-width: 60%;
         }
     }
     .submitBtn {
