@@ -10,7 +10,11 @@
     import Timezone from '../shared/dates/Timezone.svelte';
     import Selected from "./Selected.svelte";
     import Footer from '../shared/sections/Footer.svelte';
-    import { listData } from "../../TestData";
+
+    let certData: ListItemData[] = [];
+    fetch('/api/certs')
+        .then(res => res.json())
+        .then(data => certData = data);
 
     let selectedCert: ListItemData | null = null; 
     let selectedDKDM: ListItemData | null = null;
@@ -27,7 +31,7 @@
     <HeroSection>
         <div class="certSection">
             <div style="width: 40%">
-                <SearchList {listData}
+                <SearchList listData={certData}
                     header="Certificate"
                     boxHeight="200px"
                     searchPlaceholder="Search Certs"
@@ -35,7 +39,7 @@
                 <Selected selected={selectedCert}/>
             </div>
             <div style="width: 40%">
-                <SearchList {listData}
+                <SearchList listData={certData}
                     header="CPL DKDM"
                     boxHeight="200px"
                     searchPlaceholder="Search CPLs"

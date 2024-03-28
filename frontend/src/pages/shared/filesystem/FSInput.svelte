@@ -20,6 +20,7 @@
         margin-bottom: 10px;
     }
     input {
+        color: inherit;
         border-radius: 10px;
         border: none;
         padding: 3px 10px;
@@ -31,6 +32,10 @@
         filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.3));
         width: 100%;
         box-sizing: border-box;
+    }
+    input:focus {
+        outline: none;
+        border: 2px solid #ce4820;
     }
     input::placeholder {
         color: grey;
