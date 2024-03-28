@@ -25,6 +25,7 @@
         margin-bottom: 10px;
     }
     select {
+        color: inherit;
         cursor: pointer;
         width: 150px;
         border-radius: 10px;

@@ -1,5 +1,19 @@
+@font-face {
+  font-family: "MyVerdana";
+  src: url('/verdana-font-family/verdana.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MyVerdana";
+  src: url('/verdana-font-family/verdana-bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 :root {
-  font-family: Verdana, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "MyVerdana";
   line-height: 1.5;
   font-weight: 400;
 

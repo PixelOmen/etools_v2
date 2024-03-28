@@ -1,12 +1,13 @@
 <script lang='ts'>
     export let header: string;
+    export let placeholder = "Output Directory";
 </script>
 
 <div class="container">
     <h3>
         {header}
     </h3>
-    <input type="text">
+    <input type="text" placeholder={placeholder}>
 </div>
 
 <style>
@@ -30,5 +31,8 @@
         filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.3));
         width: 100%;
         box-sizing: border-box;
+    }
+    input::placeholder {
+        color: grey;
     }
 </style>

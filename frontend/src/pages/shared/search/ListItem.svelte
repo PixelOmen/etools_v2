@@ -32,6 +32,7 @@
         border: 1px solid black;
         border-radius: 5px;
         font-family: inherit;
+        color: inherit;
         width: 100%;
         text-align: left;
         overflow: hidden;

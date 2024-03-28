@@ -27,4 +27,7 @@
         background: none;
         width: 100%;
     }
+    input::placeholder {
+        color: grey;
+    }
 </style>

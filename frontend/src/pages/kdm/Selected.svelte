@@ -36,6 +36,7 @@
         font-weight: bold;
         border: 1px solid rgb(52, 51, 51);
         padding-left: 10px;
+        padding-right: 10px;
         border-radius: 5px;
         background-color: #1a333a;
         border: 2px solid transparent;

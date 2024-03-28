@@ -130,9 +130,9 @@
         padding: 5px;
         gap: 10px
     }
-    @media (min-width: 1000px) {
+    @media (min-width: 1200px) {
         .fileContainer {
-            max-width: 60%;
+            max-width: 70%;
         }
     }
     .submitBtn {

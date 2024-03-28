@@ -19,11 +19,12 @@
         margin-bottom: 10px;
     }
     input {
+        color: inherit;
         cursor: pointer;
         border-radius: 10px;
         border: none;
         padding: 3px 10px;
-        font-size: 11pt;
+        font-size: 12pt;
         background-color: #162a37;
         border: 2px solid transparent;
         background: linear-gradient(#12232E, #12232E) padding-box,
@@ -33,10 +34,5 @@
     input:focus {
         outline: none;
         border: 2px solid #ce4820;
-    }
-    @media (min-width: 1000px) {
-        input {
-            font-size: 12pt;
-        }
     }
 </style>
