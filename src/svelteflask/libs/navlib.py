@@ -65,11 +65,11 @@ def navlinks() -> str:
             "sectionName" : "San Tools",
             "contents": [
                 {
-                    "url": "10.0.20.6",
+                    "url": "http://10.0.20.6",
                     "displayName": "ARC"
                 },              
                 {
-                    "url": "10.0.20.103",
+                    "url": "http://10.0.20.103",
                     "displayName": "SIGHT"
                 }
             ]

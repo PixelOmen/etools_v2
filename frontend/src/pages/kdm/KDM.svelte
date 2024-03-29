@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
     import type { SvelteComponent } from 'svelte';
     import type { ListItemData } from '../shared/search/ListItem.svelte'
+    import * as coms from '../../libs/coms';
 </script>
 
 <script lang="ts">
@@ -30,7 +31,7 @@
     let timezoneComp: SvelteComponent;
     let outputDirComp: SvelteComponent;
 
-    function submit() {
+    async function submit() {
         startDateComp.clearError();
         endDateComp.clearError();
         outputDirComp.clearError();
@@ -54,9 +55,17 @@
             return;
         }
         let tz = timezoneComp.getValue();
-        console.log(start);
-        console.log(end);
-        console.log(tz);
+
+        let data = {
+            "startDate": start,
+            "endDate": end,
+            "timezone": tz,
+            "outputDir": outputDir
+        }
+
+        let res = coms.submitJSON('/api/submit', data);
+        res.then(jsonres => console.log(jsonres));
+
     }
 </script>
 

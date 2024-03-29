@@ -34,6 +34,13 @@ def certs():
 def dkdms():
     return get_dkdms(CONFIG.dkdmdir)
 
+@APP.route('/api/submit', methods=["POST"])
+def submit():
+    if request.method != "POST":
+        return Response(status=400)
+    print(request.json)
+    return {"Status": "Success"}
+
 @APP.route('/', defaults={'pathvar': ''})
 @APP.route('/<path:pathvar>')
 def root(pathvar: str):

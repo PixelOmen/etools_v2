@@ -1,5 +1,5 @@
 <script lang='ts'>
-    export let errMsg = "Required";
+    export let errMsg = "-Required-";
     let errorCard: HTMLDivElement;
 
     export function setError(): void {
@@ -35,7 +35,7 @@
         font-weight: bold;
         background-color: #183549;
         border-radius: 10px 10px 0px 0px;
-        transition: top 0.5s;
+        transition: top 0.3s;
     }
 
     .errorCardEnd {
