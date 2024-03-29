@@ -44,6 +44,6 @@
                     linear-gradient(270deg, #1c9bab 10%, #0e6764) border-box;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-wrap: nowrap;
+        white-space: nowrap;
     }
 </style>

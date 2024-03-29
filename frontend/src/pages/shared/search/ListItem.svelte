@@ -37,7 +37,7 @@
         text-align: left;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-wrap: nowrap;
+        white-space: nowrap;
     }
     .container:hover {
         cursor: pointer;
