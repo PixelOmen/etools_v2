@@ -1,13 +1,19 @@
 <script lang='ts'>
     export let header = "Start";
     export let width = "auto";
+
+    let dateInput: HTMLInputElement;
+
+    export function getValue(): string {
+        return dateInput.value;
+    }
 </script>
 
 <div style="width: {width}">
     <h3>
         {header}
     </h3>
-    <input type="datetime-local" id="dateInput-from" min="2022-01-01" max="2099-01-01">
+    <input bind:this={dateInput} type="datetime-local" id="dateInput-from" min="2022-01-01" max="2099-01-01">
 </div>
 
 <style>

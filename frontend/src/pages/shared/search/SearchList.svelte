@@ -33,8 +33,10 @@
         }
     }
 
+    export let selected: ListItemData|null = null;
     const dispatch = createEventDispatcher();
     function searchItemSelected(e: CustomEvent) {
+        selected = e.detail;
         dispatch("searchItemSelected", {header: header, data: e.detail});
     }
 </script>

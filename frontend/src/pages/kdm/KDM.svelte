@@ -1,14 +1,16 @@
 <script context="module" lang="ts">
+    import type { SvelteComponent } from 'svelte';
     import type { ListItemData } from '../shared/search/ListItem.svelte'
 </script>
 
 <script lang="ts">
     import HeroSection from "../shared/sections/HeroSection.svelte";
     import SearchList from "../shared/search/SearchList.svelte";
-    import DateSelect from '../shared/dates/DateSelect.svelte';
-    import FsInput from '../shared/filesystem/FSInput.svelte';
-    import Timezone from '../shared/dates/Timezone.svelte';
     import Selected from "./Selected.svelte";
+    import DateSelect from '../shared/dates/DateSelect.svelte';
+    import Timezone from '../shared/dates/Timezone.svelte';
+    import FsInput from '../shared/filesystem/FSInput.svelte';
+    import ImportantBtn from '../shared/ui/ImportantBtn.svelte';
     import Footer from '../shared/sections/Footer.svelte';
 
     let certData: ListItemData[] = [];
@@ -23,12 +25,12 @@
 
     let selectedCert: ListItemData | null = null; 
     let selectedDKDM: ListItemData | null = null;
-    function itemSelected(e: CustomEvent) {
-        if (e.detail.header == "Certificate") {
-            selectedCert = e.detail.data;
-        } else {
-            selectedDKDM = e.detail.data;
-        }
+
+    let startDate: SvelteComponent;
+    let endDate: SvelteComponent;
+
+    function submit() {
+        console.log(startDate.getValue())
     }
 </script>
 
@@ -38,20 +40,20 @@
             <div style="width: 40%">
                 {#if {certData}}
                     <SearchList listData={certData}
+                        bind:selected={selectedCert}
                         header="Certificate"
                         boxHeight="200px"
-                        searchPlaceholder="Search Certs"
-                        on:searchItemSelected={itemSelected}/>
+                        searchPlaceholder="Search Certs"/>
                 {/if}
                 <Selected selected={selectedCert}/>
             </div>
             <div style="width: 40%">
                 {#if {certData}}
                     <SearchList listData={dkdmData}
+                        bind:selected={selectedDKDM}
                         header="CPL DKDM"
                         boxHeight="200px"
-                        searchPlaceholder="Search CPLs"
-                        on:searchItemSelected={itemSelected}/>
+                        searchPlaceholder="Search CPLs"/>
                 {/if}
                 <Selected selected={selectedDKDM}/>
             </div>
@@ -60,15 +62,13 @@
     <section class="dateSection">
         <div class="sectionContainer">
             <div class="dateContainer">
-                <DateSelect/>
-                <DateSelect header="End"/>
+                <DateSelect bind:this={startDate}/>
+                <DateSelect bind:this={endDate} header="End"/>
                 <Timezone/>
             </div>
             <div class="fileContainer">
                 <FsInput header="Output"/>
-                <button class="submitBtn">
-                    Submit
-                </button>
+                <ImportantBtn on:click={submit} content="Submit"/>
             </div>
         </div>
     </section>
@@ -113,9 +113,6 @@
         background: linear-gradient(310deg, #197a87 0%, #652a6f 99%);
     }
     .dateContainer {
-        /* border: 1px solid green; */
-        /* margin-left: 5%; */
-        /* flex-direction: row; */
         display: flex;
         justify-content: center;
         width: 100%;
@@ -123,17 +120,6 @@
         margin-left: auto;
         margin-right: auto;
     }
-    /* @media (min-width: 1000px) {
-        .dateContainer {
-            margin-left: 0;
-            flex-direction: column;
-            width: 30%;
-            gap: 15px;
-        }
-        .sectionContainer {
-            gap: 0px;
-        }
-    } */
 
     .fileContainer {
         /* border: 1px solid green; */
@@ -147,27 +133,6 @@
         .fileContainer {
             max-width: 60%;
         }
-    }
-    .submitBtn {
-        cursor: pointer;
-        padding: 3px 15px;
-        /* border: 4px solid rgb(71, 71, 71); */
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        font-size: 13pt;
-        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3));
-        background: linear-gradient(45deg, #923214, #ce4820 99%);
-        color: rgb(228, 228, 228);
-        font-family: inherit;
-        font-weight: 900;
-    }
-    .submitBtn:hover {
-        background: linear-gradient(45deg, #ce4820, #ce4820 99%);
-    }
-    .submitBtn:active {
-        background: #ad3e1c;
-        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.0));
     }
 
     .footerSection {
