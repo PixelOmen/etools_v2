@@ -8,7 +8,6 @@
     import SearchList from "../shared/search/SearchList.svelte";
     import Selected from "./Selected.svelte";
     import DateSelect from '../shared/dates/DateSelect.svelte';
-    import Timezone from '../shared/dates/Timezone.svelte';
     import FsInput from '../shared/filesystem/FSInput.svelte';
     import ImportantBtn from '../shared/ui/ImportantBtn.svelte';
     import FooterLinks from '../shared/sections/FooterLinks.svelte';
@@ -70,7 +69,7 @@
             <div class="dateContainer">
                 <DateSelect bind:this={startDate}/>
                 <DateSelect bind:this={endDate} header="End"/>
-                <Timezone bind:this={timezone}/>
+                <DateSelect bind:this={timezone} isTimezone={true} header="Timezone"/>
             </div>
             <div class="fileContainer">
                 <FsInput header="Output"/>
