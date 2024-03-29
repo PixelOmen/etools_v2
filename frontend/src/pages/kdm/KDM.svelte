@@ -11,7 +11,7 @@
     import Timezone from '../shared/dates/Timezone.svelte';
     import FsInput from '../shared/filesystem/FSInput.svelte';
     import ImportantBtn from '../shared/ui/ImportantBtn.svelte';
-    import Footer from '../shared/sections/Footer.svelte';
+    import FooterLinks from '../shared/sections/FooterLinks.svelte';
 
     let certData: ListItemData[] = [];
     fetch('/api/certs')
@@ -28,9 +28,15 @@
 
     let startDate: SvelteComponent;
     let endDate: SvelteComponent;
+    let timezone: SvelteComponent;
 
     function submit() {
-        console.log(startDate.getValue())
+        let start = startDate.getValue();
+        let end = endDate.getValue();
+        let tz = timezone.getValue();
+        console.log(start);
+        console.log(end);
+        console.log(tz);
     }
 </script>
 
@@ -48,7 +54,7 @@
                 <Selected selected={selectedCert}/>
             </div>
             <div style="width: 40%">
-                {#if {certData}}
+                {#if {dkdmData}}
                     <SearchList listData={dkdmData}
                         bind:selected={selectedDKDM}
                         header="CPL DKDM"
@@ -64,7 +70,7 @@
             <div class="dateContainer">
                 <DateSelect bind:this={startDate}/>
                 <DateSelect bind:this={endDate} header="End"/>
-                <Timezone/>
+                <Timezone bind:this={timezone}/>
             </div>
             <div class="fileContainer">
                 <FsInput header="Output"/>
@@ -75,7 +81,7 @@
     <footer class="footerSection">
         <div class="footerContainer">
             <hr>
-            <Footer/>
+            <FooterLinks/>
         </div>
     </footer>
 </main>

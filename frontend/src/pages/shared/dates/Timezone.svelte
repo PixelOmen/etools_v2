@@ -3,13 +3,18 @@
         let hroffset = i - 11;
         return hroffset < 0 ? hroffset : `+${hroffset}`
     });
+
+    let element: HTMLSelectElement;
+    export function getValue(): string {
+        return element.value;
+    }
 </script>
 
 <div>
     <h3>
         Timezone
     </h3>
-    <select name="Timezone" id="timezone">
+    <select bind:this={element} name="Timezone" id="timezone">
         {#each offsets as tzoffset}
             <option value={tzoffset}>{`UTC${tzoffset}`}</option>
         {/each}
