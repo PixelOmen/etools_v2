@@ -25,14 +25,35 @@
     let selectedCert: ListItemData | null = null; 
     let selectedDKDM: ListItemData | null = null;
 
-    let startDate: SvelteComponent;
-    let endDate: SvelteComponent;
-    let timezone: SvelteComponent;
+    let startDateComp: SvelteComponent;
+    let endDateComp: SvelteComponent;
+    let timezoneComp: SvelteComponent;
+    let outputDirComp: SvelteComponent;
 
     function submit() {
-        let start = startDate.getValue();
-        let end = endDate.getValue();
-        let tz = timezone.getValue();
+        startDateComp.clearError();
+        endDateComp.clearError();
+        outputDirComp.clearError();
+
+        let start = startDateComp.getValue();
+        if (!start) {
+            startDateComp.setError();
+        }
+
+        let end = endDateComp.getValue();
+        if (!end) {
+            endDateComp.setError();
+        }
+
+        let outputDir = outputDirComp.getValue();
+        if (!outputDir) {
+            outputDirComp.setError();
+        }
+
+        if (!(start && end && outputDir)) {
+            return;
+        }
+        let tz = timezoneComp.getValue();
         console.log(start);
         console.log(end);
         console.log(tz);
@@ -67,12 +88,12 @@
     <section class="dateSection">
         <div class="sectionContainer">
             <div class="dateContainer">
-                <DateSelect bind:this={startDate}/>
-                <DateSelect bind:this={endDate} header="End"/>
-                <DateSelect bind:this={timezone} isTimezone={true} header="Timezone"/>
+                <DateSelect bind:this={startDateComp}/>
+                <DateSelect bind:this={endDateComp} header="End"/>
+                <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>
             <div class="fileContainer">
-                <FsInput header="Output"/>
+                <FsInput bind:this={outputDirComp} header="Output"/>
                 <ImportantBtn on:click={submit} content="Submit"/>
             </div>
         </div>

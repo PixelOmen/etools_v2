@@ -1,18 +1,39 @@
 <script lang='ts'>
+    import type { SvelteComponent } from 'svelte';
+    import ErrorCard from '../ui/ErrorCard.svelte';
+
     export let header: string;
     export let placeholder = "Output Directory";
+
+    let inputElem: HTMLInputElement;
+    let errorCard: SvelteComponent;
+
+    export function setError(): void {
+        errorCard.setError();
+    }
+
+    export function clearError(): void {
+        errorCard.clearError();
+    }
+
+    export function getValue(): string {
+        return inputElem.value;
+    }
 </script>
 
 <div class="container">
     <h3>
         {header}
     </h3>
-    <input type="text" placeholder={placeholder}>
+    <ErrorCard bind:this={errorCard}>
+        <input bind:this={inputElem} type="text" placeholder={placeholder}>
+    </ErrorCard>
 </div>
 
 <style>
     .container {
         /* border: 1px solid blue; */
+        position: relative;
         width: 100%;
     }
     h3 {
