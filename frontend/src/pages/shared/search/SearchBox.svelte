@@ -21,6 +21,7 @@
         box-sizing: border-box;
     }
     input {
+        color: inherit;
         margin-left: 5px;
         border: none;
         outline: none;

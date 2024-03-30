@@ -63,7 +63,7 @@
             "outputDir": outputDir
         }
 
-        let res = coms.submitJSON('/api/submit', data);
+        let res = coms.submitJSON('/api/kdm/submit', data);
         res.then(jsonres => console.log(jsonres));
 
     }
@@ -171,7 +171,7 @@
     }
 
     .footerSection {
-        /* border: 1px solid yellow; */
+        height: 100%;
         background: radial-gradient(ellipse at 10% -10%, #163139 0%, #12232E 40%, transparent),
                     radial-gradient(ellipse at 90% 120%, #163139 0%, #12232E 40%);
     }

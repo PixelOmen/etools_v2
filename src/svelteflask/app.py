@@ -7,6 +7,7 @@ from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 from flask import Flask, request, Response, send_from_directory
 
+from libs import dcpomatic
 from libs.navlib import navlinks
 from libs.config import get_config
 from libs.filesystem import get_certs, get_dkdms
@@ -34,12 +35,15 @@ def certs():
 def dkdms():
     return get_dkdms(CONFIG.dkdmdir)
 
-@APP.route('/api/submit', methods=["POST"])
+@APP.route('/api/kdm/submit', methods=["POST"])
 def submit():
     if request.method != "POST":
         return Response(status=400)
-    print(request.json)
-    return {"Status": "Success"}
+    try:
+        jdict = request.json
+    except Exception as e:
+        return {"Status": "Error", "Error": str(e)}
+    return dcpomatic.process_request(jdict)
 
 @APP.route('/', defaults={'pathvar': ''})
 @APP.route('/<path:pathvar>')
