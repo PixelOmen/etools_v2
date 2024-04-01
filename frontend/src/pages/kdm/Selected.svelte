@@ -1,9 +1,13 @@
 <script context="module" lang="ts">
     import type { ListItemData } from '../shared/search/ListItem.svelte'
+    import type { SvelteComponent } from 'svelte';
 </script>
 
 <script lang='ts'>
+    import ErrorCard from '../shared/ui/ErrorCard.svelte';
     export let selected: ListItemData | null = null;
+
+    let errorCard: SvelteComponent;
 
     let displayName: string;
     $: {
@@ -13,19 +17,32 @@
             displayName = selected.displayName;
         }
     }
+
+    export function setError(): void {
+        errorCard.setError();
+    }
+
+    export function clearError(): void {
+        errorCard.clearError();
+    }
 </script>
 
 <div>
     <h4>
         Selected:
     </h4>
-    <div class="displayBox" title={displayName}>
-        {displayName}
-    </div>
+    <ErrorCard bind:this={errorCard}>
+        <div class="displayBox" title={displayName}>
+            {displayName}
+        </div>
+    </ErrorCard>
 </div>
 
 
 <style>
+    div {
+        position: relative;
+    }
     h4 {
         margin-top: 10px;
         margin-bottom: 10px;

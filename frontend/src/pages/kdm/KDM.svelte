@@ -11,6 +11,7 @@
     import DateSelect from '../shared/dates/DateSelect.svelte';
     import FsInput from '../shared/filesystem/FSInput.svelte';
     import ImportantBtn from '../shared/ui/ImportantBtn.svelte';
+    import ResultsTable from './results/ResultsTable.svelte';
     import FooterLinks from '../shared/sections/FooterLinks.svelte';
 
     let certData: ListItemData[] = [];
@@ -23,8 +24,10 @@
         .then(res => res.json())
         .then(data => {dkdmData = data});
 
-    let selectedCert: ListItemData | null = null; 
-    let selectedDKDM: ListItemData | null = null;
+    let selectedCertElem: SvelteComponent;
+    let selectedDKDMElem: SvelteComponent;
+    let selectedCertValue: ListItemData | null = null; 
+    let selectedDKDMValue: ListItemData | null = null;
 
     let startDateComp: SvelteComponent;
     let endDateComp: SvelteComponent;
@@ -35,6 +38,16 @@
         startDateComp.clearError();
         endDateComp.clearError();
         outputDirComp.clearError();
+        selectedCertElem.clearError();
+        selectedDKDMElem.clearError();
+
+        if (!selectedCertValue) {
+            selectedCertElem.setError();
+        }
+
+        if (!selectedDKDMValue) {
+            selectedDKDMElem.setError();
+        }        
 
         let start = startDateComp.getValue();
         if (!start) {
@@ -54,6 +67,7 @@
         if (!(start && end && outputDir)) {
             return;
         }
+        
         let tz = timezoneComp.getValue();
 
         let data = {
@@ -65,7 +79,6 @@
 
         let res = coms.submitJSON('/api/kdm/submit', data);
         res.then(jsonres => console.log(jsonres));
-
     }
 </script>
 
@@ -75,22 +88,22 @@
             <div style="width: 40%">
                 {#if {certData}}
                     <SearchList listData={certData}
-                        bind:selected={selectedCert}
+                        bind:selected={selectedCertValue}
                         header="Certificate"
                         boxHeight="200px"
                         searchPlaceholder="Search Certs"/>
                 {/if}
-                <Selected selected={selectedCert}/>
+                <Selected bind:this={selectedCertElem} selected={selectedCertValue}/>
             </div>
             <div style="width: 40%">
                 {#if {dkdmData}}
                     <SearchList listData={dkdmData}
-                        bind:selected={selectedDKDM}
+                        bind:selected={selectedDKDMValue}
                         header="CPL DKDM"
                         boxHeight="200px"
                         searchPlaceholder="Search CPLs"/>
                 {/if}
-                <Selected selected={selectedDKDM}/>
+                <Selected bind:this={selectedDKDMElem} selected={selectedDKDMValue}/>
             </div>
         </div>
     </HeroSection>
@@ -105,6 +118,11 @@
                 <FsInput bind:this={outputDirComp} header="Output"/>
                 <ImportantBtn on:click={submit} content="Submit"/>
             </div>
+        </div>
+    </section>
+    <section class="resultsSection">
+        <div class="sectionContainer">
+            <ResultsTable/>
         </div>
     </section>
     <footer class="footerSection">
@@ -128,7 +146,6 @@
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
-        overflow: hidden;
     }
 
     .sectionContainer {
@@ -169,6 +186,14 @@
             max-width: 60%;
         }
     }
+
+    .resultsSection {
+        padding: 20px 0px;
+        width: 100%;
+        background: radial-gradient(ellipse at 50% -10%, #16323a 0%, #12232E 50%, transparent), 
+                    linear-gradient(0deg, #12232E 10%, #5a2251 99%);
+        
+    }    
 
     .footerSection {
         height: 100%;
