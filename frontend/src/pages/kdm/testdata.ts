@@ -7,7 +7,8 @@ export let testData = [
         "end": "01/01/25T02:00",
         "timezone": "-11",
         "outputDir": "mnt/my/output/dir",
-        "status": "ok"
+        "status": "error",
+        "error": "Test Error"
     },
     {
         "id": 2,

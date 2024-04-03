@@ -5,24 +5,32 @@
     export let headers: {
         key: string,
         displayName: string,
-        minwidth: string
+        minwidth: string,
+        payloadKey?: string
     }[];
+
     let colData: {
         header: string,
-        data: string[],
+        data: {displayName: string, payload: string}[],
         minwidth: string
     }[] = [];
 
     $: {
         if (tableData && headers) {
             headers.forEach(header => {
-                let columnData = tableData.map(row => row[header.key]);
+                let columnData = tableData.map(row => {
+                    if (header.payloadKey) {
+                        return {displayName: row[header.key], payload: row[header.payloadKey]}
+                    } else {
+                        return {displayName: row[header.key], payload: ""}
+                    }
+                });
                 colData.push({
                     header: header.displayName,
                     data: columnData,
                     minwidth: header.minwidth
                 });
-            })
+            });
         }
     }
 </script>
@@ -30,6 +38,7 @@
 <table class="container">
     {#each colData as col}
         <TableCol
+            on:tableCellClick
             header={col.header}
             data={col.data}
             minwidth={col.minwidth}/>

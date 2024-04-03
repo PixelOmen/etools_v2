@@ -12,6 +12,7 @@
     import FsInput from '../shared/filesystem/FSInput.svelte';
     import ImportantBtn from '../shared/ui/ImportantBtn.svelte';
     import DataTable from '../shared/tables/DataTable.svelte';
+    import { historyHeaders } from './tableHeaders';
     import FooterLinks from '../shared/sections/FooterLinks.svelte';
 
     import { testData } from './testdata';
@@ -38,38 +39,9 @@
     let timezoneComp: SvelteComponent;
     let outputDirComp: SvelteComponent;
 
-    let resultHeaders = [
-        {
-            key: "cert",
-            displayName: "Cert",
-            minwidth: "120px"
-        },
-        {
-            key: "dkdm",
-            displayName: "DKDM",
-            minwidth: "120px"
-        },
-        {
-            key: "start",
-            displayName: "Start",
-            minwidth: "150px"
-        },
-        {
-            key: "end",
-            displayName: "End",
-            minwidth: "150px"
-        },
-        {
-            key: "timezone",
-            displayName: "TZ",
-            minwidth: "50px"
-        },
-        {
-            key: "status",
-            displayName: "Status",
-            minwidth: "80px"
-        }
-    ]
+    setTimeout(() => {
+        console.log(document.querySelector("main")?.parentElement)
+    }, 200)
 
     async function submit() {
         startDateComp.clearError();
@@ -119,7 +91,7 @@
     }
 </script>
 
-<main>
+<main id="main">
     <HeroSection>
         <div class="certSection">
             <div style="width: 40%">
@@ -157,9 +129,15 @@
             </div>
         </div>
     </section>
-    <section class="resultsSection">
+    <section class="historySection">
         <div class="sectionContainer">
-            <DataTable headers={resultHeaders} tableData={resultData}/>
+            <h3 id="historyHeader">
+                History
+            </h3>
+            <DataTable
+                headers={historyHeaders}
+                tableData={resultData}
+                on:tableCellClick={(e) => console.log(e.detail)}/>
         </div>
     </section>
     <footer class="footerSection">
@@ -176,7 +154,6 @@
     }
 
     .certSection {
-        /* border: 1px solid blue; */
         display: flex;
         justify-content: space-around;
         gap: 20px;
@@ -224,23 +201,27 @@
         }
     }
 
-    .resultsSection {
+    .historySection {
         padding: 20px 0px;
         width: 100%;
         background: radial-gradient(ellipse at 50% -10%, #16323a 0%, #12232E 50%, transparent), 
                     linear-gradient(0deg, #12232E 10%, #5a2251 99%);
         
-    }    
+    }
+    #historyHeader {
+        margin: 0;
+    }
 
     .footerSection {
-        height: 100%;
-        background: radial-gradient(ellipse at 10% -10%, #163139 0%, #12232E 40%, transparent),
-                    radial-gradient(ellipse at 90% 120%, #163139 0%, #12232E 40%);
+        /* background: radial-gradient(ellipse at 10% 120%, #081114 0%, #12232E 80%, transparent),
+                    radial-gradient(ellipse at 20% 120%, #163139 0%, #12232E 20%); */
+        background: linear-gradient(#12232E 0%, #0e1f25 100%, transparent);   
     }
     
     .footerContainer {
         width: 80%;
         padding-top: 50px;
+        padding-bottom: 10px;
         margin-left: auto;
         margin-right: auto;
     }
