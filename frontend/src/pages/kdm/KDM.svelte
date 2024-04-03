@@ -11,8 +11,10 @@
     import DateSelect from '../shared/dates/DateSelect.svelte';
     import FsInput from '../shared/filesystem/FSInput.svelte';
     import ImportantBtn from '../shared/ui/ImportantBtn.svelte';
-    import ResultsTable from './results/ResultsTable.svelte';
+    import DataTable from '../shared/tables/DataTable.svelte';
     import FooterLinks from '../shared/sections/FooterLinks.svelte';
+
+    import { testData } from './testdata';
 
     let certData: ListItemData[] = [];
     fetch('/api/certs')
@@ -24,6 +26,8 @@
         .then(res => res.json())
         .then(data => {dkdmData = data});
 
+    let resultData = testData;
+
     let selectedCertElem: SvelteComponent;
     let selectedDKDMElem: SvelteComponent;
     let selectedCertValue: ListItemData | null = null; 
@@ -33,6 +37,39 @@
     let endDateComp: SvelteComponent;
     let timezoneComp: SvelteComponent;
     let outputDirComp: SvelteComponent;
+
+    let resultHeaders = [
+        {
+            key: "cert",
+            displayName: "Cert",
+            minwidth: "120px"
+        },
+        {
+            key: "dkdm",
+            displayName: "DKDM",
+            minwidth: "120px"
+        },
+        {
+            key: "start",
+            displayName: "Start",
+            minwidth: "150px"
+        },
+        {
+            key: "end",
+            displayName: "End",
+            minwidth: "150px"
+        },
+        {
+            key: "timezone",
+            displayName: "TZ",
+            minwidth: "50px"
+        },
+        {
+            key: "status",
+            displayName: "Status",
+            minwidth: "80px"
+        }
+    ]
 
     async function submit() {
         startDateComp.clearError();
@@ -122,7 +159,7 @@
     </section>
     <section class="resultsSection">
         <div class="sectionContainer">
-            <ResultsTable/>
+            <DataTable headers={resultHeaders} tableData={resultData}/>
         </div>
     </section>
     <footer class="footerSection">
