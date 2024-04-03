@@ -5,6 +5,7 @@
 </script>
 
 <script lang="ts">
+    import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
     import SearchList from "../shared/search/SearchList.svelte";
     import Selected from "./Selected.svelte";
@@ -29,6 +30,7 @@
 
     let resultData = testData;
 
+    let errorModal: SvelteComponent;
     let selectedCertElem: SvelteComponent;
     let selectedDKDMElem: SvelteComponent;
     let selectedCertValue: ListItemData | null = null; 
@@ -39,9 +41,14 @@
     let timezoneComp: SvelteComponent;
     let outputDirComp: SvelteComponent;
 
-    setTimeout(() => {
-        console.log(document.querySelector("main")?.parentElement)
-    }, 200)
+    function showError(e: CustomEvent): void {
+        errorModal.setError(e.detail);
+        errorModal.show();
+    }
+
+    function closeError() {
+        errorModal.hide();
+    }
 
     async function submit() {
         startDateComp.clearError();
@@ -92,6 +99,7 @@
 </script>
 
 <main id="main">
+    <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection>
         <div class="certSection">
             <div style="width: 40%">
@@ -137,7 +145,7 @@
             <DataTable
                 headers={historyHeaders}
                 tableData={resultData}
-                on:tableCellClick={(e) => console.log(e.detail)}/>
+                on:tableCellClick={showError}/>
         </div>
     </section>
     <footer class="footerSection">
@@ -150,6 +158,7 @@
 
 <style>
     main {
+        position: relative;
         min-width: 950px;
     }
 

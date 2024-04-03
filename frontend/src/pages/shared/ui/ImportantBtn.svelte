@@ -1,16 +1,20 @@
 <script lang='ts'>
     export let content = "MyButton";
+    export let fontSize = "13pt";
+    export let padding = "3px 15px";
 </script>
 
-<button on:click>
+<button 
+    on:click 
+    style="font-size: {fontSize};
+    padding: {padding}"
+>
     {content}
 </button>
 
 <style>
     button {
         cursor: pointer;
-        padding: 3px 15px;
-        /* border: 4px solid rgb(71, 71, 71); */
         border: none;
         outline: none;
         border-radius: 5px;

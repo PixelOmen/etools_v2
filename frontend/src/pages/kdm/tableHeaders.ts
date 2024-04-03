@@ -1,13 +1,18 @@
 export const historyHeaders = [
     {
+        key: "submitted",
+        displayName: "Submitted",
+        minwidth: "150px"
+    },    
+    {
         key: "cert",
         displayName: "Cert",
-        minwidth: "120px"
+        minwidth: "80px"
     },
     {
         key: "dkdm",
         displayName: "DKDM",
-        minwidth: "120px"
+        minwidth: "80px"
     },
     {
         key: "start",
