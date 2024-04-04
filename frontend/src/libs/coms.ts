@@ -8,5 +8,5 @@ export function submitJSON(url: string, data: object): Promise<any> {
         headers: payloadheaders,
         body: JSON.stringify(data)
     };
-    return fetch(url, payload).then(res => res.json())
+    return fetch(url, payload);
 }

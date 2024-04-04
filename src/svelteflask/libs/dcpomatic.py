@@ -16,7 +16,8 @@ from datetime import datetime
 #     "error": "From the first one"
 # }
 
-DATE_FORMAT = "%Y-%m-%dT%H:%M"
+HTML_DATE_FORMAT = "%Y-%m-%dT%H:%M"
+SERVER_DATE_FORMAT = "%d/%m/%Y %H:%M"
 
 @dataclasses.dataclass
 class KDMSession:
@@ -31,6 +32,12 @@ class KDMSession:
     status: str = 'ok'
     error: str = ''
 
+    def __post_init__(self):
+        if self.start:
+            self.start = self._html_to_server_date(self.start)
+        if self.end:
+            self.end = self._html_to_server_date(self.end)            
+
     def as_dict(self) -> dict:
         return dataclasses.asdict(self)
 
@@ -41,26 +48,42 @@ class KDMSession:
             return
         if not self._validate_dir():
             return
+        
+    def _html_to_server_date(self, datestr: str) -> str:
+        dateobj = datetime.strptime(datestr, HTML_DATE_FORMAT)
+        return dateobj.strftime(SERVER_DATE_FORMAT)
+        
+    def _seterror(self, msg: str) -> None:
+        self.status = "error"
+        self.error = msg
     
     def _validate_dir(self) -> bool:
         outputdir = Path(self.outputDir)
         if not outputdir.is_dir():
-            self.status = "error"
-            self.error = f"Not a valid directory: {self.outputDir}"
+            self._seterror(f"Not a valid directory: {self.outputDir}")
             return False
         return True
 
     def _validate_dates(self) -> bool:
-        print(datetime.strptime(self.start, DATE_FORMAT))
-        print(datetime.strptime(self.end, DATE_FORMAT))
-        print(self.jobid)
-        print(datetime.now().strftime(DATE_FORMAT))
+        start = datetime.strptime(self.start, SERVER_DATE_FORMAT)
+        end = datetime.strptime(self.end, SERVER_DATE_FORMAT)
+        if end <= start:
+            self._seterror("End time is less than or equal to Start time")
+            return False
         return True
 
 
 
+def process_request(userdata: Any, jobid: str) -> KDMSession:
+    if not isinstance(userdata, dict):
+        return _bad_request(jobid)
+    kdmsession = _create_session(userdata, jobid)
+    kdmsession.validate()
+    return kdmsession
+
+
 def _now_str() -> str:
-    return datetime.now().strftime("%Y-%m-%dT%H:%M")
+    return datetime.now().strftime(SERVER_DATE_FORMAT)
 
 def _bad_request(jobid: str) -> KDMSession:
     return KDMSession(
@@ -91,11 +114,3 @@ def _create_session(userdata: dict, jobid: str) -> KDMSession:
         timezone=timezone,
         outputDir=outputDir
     )
-
-
-def process_request(userdata: Any, jobid: str) -> KDMSession:
-    if not isinstance(userdata, dict):
-        return _bad_request(jobid)
-    kdmsession = _create_session(userdata, jobid)
-    kdmsession.validate()
-    return kdmsession

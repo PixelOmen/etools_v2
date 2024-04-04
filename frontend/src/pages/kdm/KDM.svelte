@@ -17,8 +17,6 @@
     import { historyHeaders } from './tableHeaders';
     import FooterLinks from '../shared/sections/FooterLinks.svelte';
 
-    import { testData } from './testdata';
-
     let certData: ListItemData[] = [];
     fetch('/api/certs')
         .then(res => res.json())
@@ -29,8 +27,17 @@
         .then(res => res.json())
         .then(data => {dkdmData = data});
 
-    let historyData: KDMHistory[] = testData;
-    // fetch(/api)
+    let historyData: KDMHistory[] = [];
+    function updateHistory(): void {
+        fetch('api/kdm/history')
+            .then(res => res.json())
+            .then(data => {
+                historyData = data;
+                console.log(historyData);
+            });
+    }
+    updateHistory();
+    $: tableData = historyData;
 
     let errorModal: SvelteComponent;
     let selectedCertElem: SvelteComponent;
@@ -82,15 +89,19 @@
             outputDirComp.setError();
         }
 
-        if (!(start && end && outputDir)) {
+        if (!(
+            selectedCertValue &&
+            selectedDKDMValue &&
+            start && end && outputDir
+        )) {
             return;
         }
         
         let tz = timezoneComp.getValue();
 
         let data = {
-            "cert": selectedCertValue,
-            "dkdm": selectedDKDMValue,
+            "cert": selectedCertValue.displayName,
+            "dkdm": selectedDKDMValue.displayName,
             "startDate": start,
             "endDate": end,
             "timezone": tz,
@@ -98,9 +109,11 @@
         }
 
         let res = coms.submitJSON('/api/kdm/submit', data);
-        res.then(jsonres => console.log(jsonres));
+        res.then(res => console.log(res.status));
+        setTimeout(() => updateHistory(), 500);
     }
 </script>
+
 
 <main id="main">
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
@@ -141,17 +154,19 @@
             </div>
         </div>
     </section>
-    <section class="historySection">
-        <div class="sectionContainer">
-            <h3 id="historyHeader">
-                History
-            </h3>
-            <DataTable
-                headers={historyHeaders}
-                tableData={historyData}
-                on:tableCellClick={showError}/>
-        </div>
-    </section>
+    {#if historyData.length > 0}
+        <section class="historySection">
+            <div class="sectionContainer">
+                <h3 id="historyHeader">
+                    History
+                </h3>
+                <DataTable
+                    headers={historyHeaders}
+                    tableData={tableData}
+                    on:tableCellClick={showError}/>
+            </div>
+        </section>
+    {/if}
     <footer class="footerSection">
         <div class="footerContainer">
             <hr>

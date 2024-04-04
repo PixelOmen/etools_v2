@@ -37,7 +37,7 @@
     .container {
         flex-grow: 1;
         overflow: hidden;
-        font-size: 11pt;
+        font-size: 10pt;
         box-sizing: content-box;
         border: 1px solid #197a87;
         border-radius: 2px;
@@ -53,6 +53,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         border-radius: 2px;
+        white-space: nowrap;
     }
     button {
         padding: 0;
@@ -64,5 +65,6 @@
         outline: none;
         cursor: pointer;
         text-decoration: underline;
+        color: #ff7931;
     }
 </style>

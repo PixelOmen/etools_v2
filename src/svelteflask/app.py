@@ -52,6 +52,7 @@ def submit():
         jobid = str(int(session['lastid']) + 1)
     else:
         jobid = "0"
+        session.permanent = True
         session['history'] = []
 
     session['lastid'] = jobid

@@ -9,28 +9,33 @@
         payloadKey?: string
     }[];
 
-    let colData: {
+    interface ColData {
         header: string,
         data: {displayName: string, payload: string}[],
         minwidth: string
-    }[] = [];
+    }
+
+    let colData: ColData[] = [];
 
     $: {
         if (tableData && headers) {
+            let reversed = tableData.reverse();
+            let newData: ColData[] = [];
             headers.forEach(header => {
-                let columnData = tableData.map(row => {
+                let columnData = reversed.map(row => {
                     if (header.payloadKey) {
                         return {displayName: row[header.key], payload: row[header.payloadKey]}
                     } else {
                         return {displayName: row[header.key], payload: ""}
                     }
                 });
-                colData.push({
+                newData.push({
                     header: header.displayName,
                     data: columnData,
                     minwidth: header.minwidth
                 });
             });
+            colData = newData;
         }
     }
 </script>
