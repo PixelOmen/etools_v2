@@ -23,7 +23,12 @@
             Error Details:
         </h4>
         <div class="btn">
-            <ImportantBtn on:click content="X" fontSize="10pt" padding="3px 8px"/>
+            <ImportantBtn on:click
+                content="X"
+                fontSize="8pt"
+                padding="5px 8px"
+                hasShadow={false}
+                isClose={true}/>
         </div>
     </div>
     <p>
@@ -34,12 +39,12 @@
 <style>
     .container {
         position: fixed;
-        top: 40%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         border: 3px solid black;
         padding: 20px 20px;
-        min-width: 400px;
+        min-width: 500px;
         max-width: 80%;
         z-index: 100;
         background-color: #16323a;
@@ -57,7 +62,6 @@
     p {
         border: 1px solid black;
         margin: 0;
-        margin-left: 10px;
         margin-bottom: 10px;
         margin-right: 10px;
         padding: 0px 10px;

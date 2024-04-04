@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
     import type { SvelteComponent } from 'svelte';
     import type { ListItemData } from '../shared/search/ListItem.svelte'
+    import type { KDMHistory } from './kdmHistory'
     import * as coms from '../../libs/coms';
 </script>
 
@@ -28,7 +29,8 @@
         .then(res => res.json())
         .then(data => {dkdmData = data});
 
-    let resultData = testData;
+    let historyData: KDMHistory[] = testData;
+    // fetch(/api)
 
     let errorModal: SvelteComponent;
     let selectedCertElem: SvelteComponent;
@@ -87,6 +89,8 @@
         let tz = timezoneComp.getValue();
 
         let data = {
+            "cert": selectedCertValue,
+            "dkdm": selectedDKDMValue,
             "startDate": start,
             "endDate": end,
             "timezone": tz,
@@ -144,7 +148,7 @@
             </h3>
             <DataTable
                 headers={historyHeaders}
-                tableData={resultData}
+                tableData={historyData}
                 on:tableCellClick={showError}/>
         </div>
     </section>

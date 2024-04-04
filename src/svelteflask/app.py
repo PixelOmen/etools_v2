@@ -1,11 +1,12 @@
 import json
+import uuid
 import signal
 import mimetypes
 from typing import Callable
 
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
-from flask import Flask, request, Response, send_from_directory
+from flask import Flask, request, Response, send_from_directory, session
 
 from libs import dcpomatic
 from libs.navlib import navlinks
@@ -16,6 +17,7 @@ mimetypes.add_type("application/javascript", ".js", True)
 APP = Flask(__name__)
 APP.config['TEMPLATES_AUTO_RELOAD'] = True
 APP.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+APP.secret_key = str(uuid.uuid4())
 
 CONFIG = get_config()
 
@@ -35,15 +37,33 @@ def certs():
 def dkdms():
     return get_dkdms(CONFIG.dkdmdir)
 
+@APP.route("/api/kdm/history")
+def kdmhistory():
+    if "history" in session:
+        return session['history']
+    return []
+
 @APP.route('/api/kdm/submit', methods=["POST"])
 def submit():
     if request.method != "POST":
         return Response(status=400)
+
+    if 'lastid' in session:
+        jobid = str(int(session['lastid']) + 1)
+    else:
+        jobid = "0"
+        session['history'] = []
+
+    session['lastid'] = jobid
+
     try:
         jdict = request.json
     except Exception as e:
-        return {"Status": "Error", "Error": str(e)}
-    return dcpomatic.process_request(jdict)
+        return {"status": "error", "error": str(e)}
+    
+    kdmsession = dcpomatic.process_request(jdict, jobid)
+    session['history'].append(kdmsession.as_dict())
+    return Response(status=200)
 
 @APP.route('/', defaults={'pathvar': ''})
 @APP.route('/<path:pathvar>')

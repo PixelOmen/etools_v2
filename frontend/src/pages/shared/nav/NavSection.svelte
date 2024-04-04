@@ -51,9 +51,9 @@
         transition: color 0.3s;
         transition: background-color 0.3s;
         font-size: 14pt;
+        border-radius: 10px;
     }
     button:hover {
-        border-radius: 10px;
         background-color: #88dfef1e;
     }
     button:focus {
