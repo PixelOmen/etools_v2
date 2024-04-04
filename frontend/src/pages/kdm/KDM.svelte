@@ -109,8 +109,10 @@
         }
 
         let res = coms.submitJSON('/api/kdm/submit', data);
-        res.then(res => console.log(res.status));
-        setTimeout(() => updateHistory(), 500);
+        res.then(res => {
+            console.log(res.status);
+            updateHistory();
+        });
     }
 </script>
 
