@@ -9,9 +9,9 @@ from flask import Flask, request, Response, send_from_directory, session
 
 from libs import dcpomatic
 from libs.navlib import navlinks
-from libs.config import get_kdm_config
+from libs.config import get_config
 
-CONFIG = get_kdm_config()
+CONFIG = get_config()
 dcpomatic.set_config(CONFIG)
 
 mimetypes.add_type("application/javascript", ".js", True)

@@ -1,9 +1,9 @@
 from libs import dcpomatic
-from libs.config import get_kdm_config
+from libs.config import get_config
 
 from rosettapath import RosettaPath
 
-config = get_kdm_config()
+config = get_config()
 dcpomatic.set_config(config)
 
 TEST_REQUEST = {
@@ -16,5 +16,5 @@ TEST_REQUEST = {
 }
 
 test = dcpomatic.process_request(TEST_REQUEST, "1")
-print(test.error)
+print(test.cli_cmd())
 

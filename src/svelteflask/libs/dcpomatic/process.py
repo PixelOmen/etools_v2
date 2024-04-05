@@ -20,24 +20,24 @@ from .kdmsession import KDMSession, SERVER_DATE_FORMAT
 def process_request(userdata: Any, jobid: str) -> KDMSession:
     if not isinstance(userdata, dict):
         return _bad_request(jobid)
-    config = get_config()
     kdmsession = _create_session(userdata, jobid)
-    kdmsession.validate(config)
+    kdmsession.validate()
     if kdmsession.status == "ok":
-        _start_subprocess(kdmsession, config)
+        _start_subprocess(kdmsession)
     return kdmsession
 
 
 
 
-def _start_subprocess(kdmsession: KDMSession, config: "Config") -> None:
-    cmd = kdmsession.cli_cmd(config)
+def _start_subprocess(kdmsession: KDMSession) -> None:
+    cmd = kdmsession.cli_cmd()
 
 def _now_str() -> str:
     return datetime.now().strftime(SERVER_DATE_FORMAT)
 
 def _bad_request(jobid: str) -> KDMSession:
     return KDMSession(
+        config=get_config(),
         jobid=jobid,
         submitted=_now_str(),
         status='error',
@@ -56,6 +56,7 @@ def _create_session(userdata: dict, jobid: str) -> KDMSession:
         return _bad_request(jobid)
 
     return KDMSession(
+        config=get_config(),
         jobid=jobid,
         submitted=_now_str(),
         cert=cert,

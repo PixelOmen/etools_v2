@@ -12,7 +12,6 @@ def set_config(config: Config) -> None:
         server = CONFIG.server.replace("\\", "\\\\")
         RosettaPath.input_mount_patterns['server'] = f'^{server}'
         
-
 def get_config() -> Config:
     if CONFIG is None:
         raise RuntimeError("CONFIG not set in dcpomatic module")

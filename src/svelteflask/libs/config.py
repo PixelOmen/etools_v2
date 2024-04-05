@@ -22,7 +22,7 @@ def _verify_keys(jdict: dict, keys: list[str]) -> dict:
         valid_dict[k] = value
     return valid_dict
 
-def get_kdm_config() -> Config:
+def get_config() -> Config:
     with open(JSONPATH, 'r') as fp:
         jdict = json.loads(fp.read())
     valid_dict = _verify_keys(jdict, KEYS)

@@ -1,5 +1,11 @@
 from pathlib import Path
+from typing import TYPE_CHECKING
 from dataclasses import dataclass, field
+
+from .config import RosettaPath
+
+if TYPE_CHECKING:
+    from .config import Config
 
 ACCEPTED_CERT_EXTS = [".pem", ".cert", ".crt"]
 ACCEPTED_DKDM_EXTS = [".xml"]
@@ -42,3 +48,13 @@ def get_dkdms(rootdir: str|Path) -> list[dict]:
             continue
         certs.append(ListItemData(item).as_dict())
     return certs
+
+
+def server_path(userpath: Path) -> str:
+    return RosettaPath(userpath).server_path()
+
+def server_cert(config: "Config", certname: str) -> str:
+    return server_path(config.certdir / certname)
+
+def server_dkdm(config: "Config", dkdmname: str) -> str:
+    return server_path(config.dkdmdir / dkdmname)
