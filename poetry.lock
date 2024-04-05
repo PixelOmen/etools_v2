@@ -382,6 +382,21 @@ files = [
 ]
 
 [[package]]
+name = "rosettapath"
+version = "1.0.0"
+description = "RossetaPath objects translate network paths mounted to local volumes from one mount point to another across operating systems."
+optional = false
+python-versions = "^3.10"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/PixelOmen/rosettapath.git"
+reference = "HEAD"
+resolved_reference = "8f21beffefc70f8714345bc1a6cab5ce98df21ba"
+
+[[package]]
 name = "setuptools"
 version = "69.2.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
@@ -488,4 +503,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "ea69bde3058b022a586255f80620b92ba8421fad0abd652525525d1ac7eb4e43"
+content-hash = "72834f99266d6d45d79e1967299745959fb6b2d21f2780da34d9549fbd0d3b64"

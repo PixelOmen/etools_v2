@@ -11,6 +11,7 @@ python = "^3.10"
 flask = "^3.0.2"
 gevent = "^24.2.1"
 gevent-websocket = "^0.10.1"
+rosettapath = {git = "https://github.com/PixelOmen/rosettapath.git"}
 
 
 [build-system]

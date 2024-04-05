@@ -1,4 +1,3 @@
-import json
 import uuid
 import signal
 import mimetypes
@@ -10,8 +9,10 @@ from flask import Flask, request, Response, send_from_directory, session
 
 from libs import dcpomatic
 from libs.navlib import navlinks
-from libs.config import get_config
-from libs.filesystem import get_certs, get_dkdms
+from libs.config import get_kdm_config
+
+CONFIG = get_kdm_config()
+dcpomatic.set_config(CONFIG)
 
 mimetypes.add_type("application/javascript", ".js", True)
 APP = Flask(__name__)
@@ -19,7 +20,6 @@ APP.config['TEMPLATES_AUTO_RELOAD'] = True
 APP.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 APP.secret_key = str(uuid.uuid4())
 
-CONFIG = get_config()
 
 
 def handle_request(environ: dict, start_response: Callable):
@@ -31,11 +31,11 @@ def nav():
 
 @APP.route('/api/certs')
 def certs():
-    return get_certs(CONFIG.certdir)
+    return dcpomatic.get_certs(CONFIG.certdir)
 
 @APP.route('/api/dkdms')
 def dkdms():
-    return get_dkdms(CONFIG.dkdmdir)
+    return dcpomatic.get_dkdms(CONFIG.dkdmdir)
 
 @APP.route("/api/kdm/history")
 def kdmhistory():

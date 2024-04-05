@@ -1,20 +1,13 @@
 import dataclasses
-from typing import Any
+import subprocess as sub
 from pathlib import Path
 from datetime import datetime
+from typing import TYPE_CHECKING
 
-# {
-#     "id": 1,
-#     "cert": "somecert1",
-#     "dkdm": "somedkdm1",
-#     "submitted": "01/01/25T01:00",
-#     "start": "01/01/25T01:00",
-#     "end": "01/01/25T02:00",
-#     "timezone": "-11",
-#     "outputDir": "mnt/my/output/dir",
-#     "status": "error",
-#     "error": "From the first one"
-# }
+from rosettapath import RosettaPath
+
+if TYPE_CHECKING:
+    from ..config import Config
 
 HTML_DATE_FORMAT = "%Y-%m-%dT%H:%M"
 SERVER_DATE_FORMAT = "%d/%m/%Y %H:%M"
@@ -31,24 +24,44 @@ class KDMSession:
     outputDir: str = ''
     status: str = 'ok'
     error: str = ''
+    html_start: str = dataclasses.field(init=False)
+    html_end: str = dataclasses.field(init=False)
 
     def __post_init__(self):
         if self.start:
+            self.html_start = self.start
             self.start = self._html_to_server_date(self.start)
         if self.end:
+            self.html_end = self.end
             self.end = self._html_to_server_date(self.end)            
 
     def as_dict(self) -> dict:
         return dataclasses.asdict(self)
 
-    def validate(self) -> None:
+    def validate(self, config: "Config") -> None:
         if self.status != "ok":
+            return
+        if not self._validate_sources(config):
             return
         if not self._validate_dates():
             return
-        if not self._validate_dir():
+        if not self._validate_output_dir():
             return
-        
+
+    def cli_cmd(self, config: "Config") -> str:
+        start, end = self._cli_dates()
+        clibin = f'"{config.clibin}"'
+        # r' -C "CERT.pem" -K "outputname" -o "OUTPUTDIR" -f "2024-03-21T17:41:00-07:00" -t "2024-03-21T19:41:00-07:00" "DKDM.xml"'
+        return ""
+
+    def _cli_dates(self) -> tuple[str, str]:
+        tz_prefix = self.timezone[0]
+        tz_padding = f"{int(self.timezone[1:]):02}:00"
+        tz = tz_prefix + tz_padding
+        start = self.html_start + tz
+        end = self.html_end + tz
+        return start, end
+    
     def _html_to_server_date(self, datestr: str) -> str:
         dateobj = datetime.strptime(datestr, HTML_DATE_FORMAT)
         return dateobj.strftime(SERVER_DATE_FORMAT)
@@ -57,7 +70,13 @@ class KDMSession:
         self.status = "error"
         self.error = msg
     
-    def _validate_dir(self) -> bool:
+    def _validate_sources(self, config: "Config") -> bool:
+        # if config.debug:
+
+        # server_cert = RosettaPath()
+        return True
+    
+    def _validate_output_dir(self) -> bool:
         outputdir = Path(self.outputDir)
         if not outputdir.is_dir():
             self._seterror(f"Not a valid directory: {self.outputDir}")
@@ -71,46 +90,6 @@ class KDMSession:
             self._seterror("End time is less than or equal to Start time")
             return False
         return True
-
-
-
-def process_request(userdata: Any, jobid: str) -> KDMSession:
-    if not isinstance(userdata, dict):
-        return _bad_request(jobid)
-    kdmsession = _create_session(userdata, jobid)
-    kdmsession.validate()
-    return kdmsession
-
-
-def _now_str() -> str:
-    return datetime.now().strftime(SERVER_DATE_FORMAT)
-
-def _bad_request(jobid: str) -> KDMSession:
-    return KDMSession(
-        jobid=jobid,
-        submitted=_now_str(),
-        status='error',
-        error='Malformed JSON from frontend'
-    )
     
-def _create_session(userdata: dict, jobid: str) -> KDMSession:
-    try:
-        start_str = userdata['startDate']
-        end_str = userdata['endDate']
-        cert = userdata['cert']
-        dkdm = userdata['dkdm']
-        timezone = userdata['timezone']
-        outputDir = userdata['outputDir']
-    except KeyError:
-        return _bad_request(jobid)
 
-    return KDMSession(
-        jobid=jobid,
-        submitted=_now_str(),
-        cert=cert,
-        dkdm=dkdm,
-        start=start_str,
-        end=end_str,
-        timezone=timezone,
-        outputDir=outputDir
-    )
+    
