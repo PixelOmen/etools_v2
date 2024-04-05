@@ -8,8 +8,9 @@ def set_config(config: Config) -> None:
     global CONFIG
     CONFIG = config
     RosettaPath.default_server_prefix = CONFIG.server
-    if CONFIG.server == "C:\\":
-        RosettaPath.input_mount_patterns['server'] = r"^C:"
+    if CONFIG.server[0] == "C":
+        server = CONFIG.server.replace("\\", "\\\\")
+        RosettaPath.input_mount_patterns['server'] = f'^{server}'
         
 
 def get_config() -> Config:

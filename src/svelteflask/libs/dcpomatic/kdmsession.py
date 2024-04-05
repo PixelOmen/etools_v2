@@ -71,13 +71,20 @@ class KDMSession:
         self.error = msg
     
     def _validate_sources(self, config: "Config") -> bool:
-        # if config.debug:
-
-        # server_cert = RosettaPath()
+        if self.cert:
+            serverpath = RosettaPath(config.certdir / self.cert).server_path()
+            if not Path(serverpath).is_file():
+                self._seterror(f"Invalid Cert path: {serverpath}")
+                return False
+        if self.dkdm:
+            serverpath = RosettaPath(config.dkdmdir / self.dkdm).server_path()
+            if not Path(serverpath).is_file():
+                self._seterror(f"Invalid DKDM path: {serverpath}")
+                return False            
         return True
     
     def _validate_output_dir(self) -> bool:
-        outputdir = Path(self.outputDir)
+        outputdir = Path(RosettaPath(Path(self.outputDir)).server_path())
         if not outputdir.is_dir():
             self._seterror(f"Not a valid directory: {self.outputDir}")
             return False
