@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from ..config import Config
 
 HTML_DATE_FORMAT = "%Y-%m-%dT%H:%M"
-SERVER_DATE_FORMAT = "%d/%m/%Y %H:%M"
+SERVER_DATE_FORMAT = "%m/%d/%Y %H:%M"
 
 @dataclass
 class KDMSession:
@@ -56,6 +56,10 @@ class KDMSession:
             return
         if not self._validate_output_dir():
             return
+        
+    def set_error(self, msg: str) -> None:
+        self.status = "error"
+        self.error = msg        
 
     def cli_cmd(self) -> str:
         # r' -C "CERT.pem" -K "outputname" -o "OUTPUTDIR" -f "2024-03-21T17:41:00-07:00" -t "2024-03-21T19:41:00-07:00" "DKDM.xml"'
@@ -73,32 +77,28 @@ class KDMSession:
         tz_prefix = self.timezone[0]
         tz_padding = f"{int(self.timezone[1:]):02}:00"
         tz = tz_prefix + tz_padding
-        start = f'"{self.html_start + tz}"'
-        end = f'"{self.html_end + tz}"'
+        start = f'"{self.html_start}:00{tz}"'
+        end = f'"{self.html_end}:00{tz}"'
         return start, end
     
     def _html_to_server_date(self, datestr: str) -> str:
         dateobj = datetime.strptime(datestr, HTML_DATE_FORMAT)
         return dateobj.strftime(SERVER_DATE_FORMAT)
-        
-    def _seterror(self, msg: str) -> None:
-        self.status = "error"
-        self.error = msg
     
     def _validate_sources(self) -> bool:
         if self.cert:
             if not Path(self.server_cert).is_file():
-                self._seterror(f"Invalid Cert path: {self.server_cert}")
+                self.set_error(f"Invalid Cert path: {self.server_cert}")
                 return False
         if self.dkdm:
             if not Path(self.server_dkdm).is_file():
-                self._seterror(f"Invalid DKDM path: {self.server_dkdm}")
+                self.set_error(f"Invalid DKDM path: {self.server_dkdm}")
                 return False
         return True
     
     def _validate_output_dir(self) -> bool:
         if not Path(self.server_outputdir).is_dir():
-            self._seterror(f"Not a valid directory: {self.outputDir}")
+            self.set_error(f"Not a valid directory: {self.outputDir}")
             return False
         return True
 
@@ -106,7 +106,7 @@ class KDMSession:
         start = datetime.strptime(self.start, SERVER_DATE_FORMAT)
         end = datetime.strptime(self.end, SERVER_DATE_FORMAT)
         if end <= start:
-            self._seterror("End time is less than or equal to Start time")
+            self.set_error("End time is less than or equal to Start time")
             return False
         return True
     

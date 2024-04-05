@@ -1,8 +1,6 @@
-import dataclasses
 import subprocess as sub
-from pathlib import Path
+from typing import Any
 from datetime import datetime
-from typing import Any, Union, TYPE_CHECKING
 
 from .config import Config, get_config
 from .kdmsession import KDMSession, SERVER_DATE_FORMAT
@@ -31,6 +29,16 @@ def process_request(userdata: Any, jobid: str) -> KDMSession:
 
 def _start_subprocess(kdmsession: KDMSession) -> None:
     cmd = kdmsession.cli_cmd()
+    process = sub.Popen(cmd, stdout=sub.PIPE, stderr=sub.PIPE)
+    _, stderr = process.communicate()
+    if stderr:
+        stderr_str = stderr.decode()
+        if stderr_str:
+            try:
+                error = stderr_str.split(f"{str(kdmsession.config.clibin)[1:-1]}: ")[1]
+            except IndexError:
+                error = stderr_str
+            kdmsession.set_error(f"DCP-o-matic error:\n {error}")
 
 def _now_str() -> str:
     return datetime.now().strftime(SERVER_DATE_FORMAT)
