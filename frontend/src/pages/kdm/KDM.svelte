@@ -6,6 +6,7 @@
 </script>
 
 <script lang="ts">
+    import LoadingIcon from '../shared/ui/LoadingIcon.svelte';
     import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
     import SearchList from "../shared/search/SearchList.svelte";
@@ -38,6 +39,8 @@
     }
     updateHistory();
     $: tableData = historyData;
+
+    let showLoading = false;
 
     let errorModal: SvelteComponent;
     let selectedCertElem: SvelteComponent;
@@ -108,10 +111,12 @@
             "outputDir": outputDir
         }
 
+        showLoading = true;
         let res = coms.submitJSON('/api/kdm/submit', data);
         res.then(res => {
             console.log(res.status);
             updateHistory();
+            showLoading = false;
         });
     }
 </script>
@@ -152,7 +157,13 @@
             </div>
             <div class="fileContainer">
                 <FsInput bind:this={outputDirComp} header="Output"/>
-                <ImportantBtn on:click={submit} content="Submit"/>
+                <div style="width: 130px; margin-right: auto; margin-left: auto;">
+                {#if showLoading}
+                    <LoadingIcon width="18px" height="18px"/>
+                {:else}
+                    <ImportantBtn on:click={submit} content="Submit"/>
+                {/if}
+                </div>
             </div>
         </div>
     </section>
