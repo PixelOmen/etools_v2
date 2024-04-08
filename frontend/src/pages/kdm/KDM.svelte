@@ -9,6 +9,8 @@
     import LoadingIcon from '../shared/ui/LoadingIcon.svelte';
     import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
+    import CertificateIcon from "../../assets/certificate.svg";
+    import FolderIcon from "../../assets/folder.svg"
     import SearchList from "../shared/search/SearchList.svelte";
     import Selected from "./Selected.svelte";
     import DateSelect from '../shared/dates/DateSelect.svelte';
@@ -132,7 +134,10 @@
                         bind:selected={selectedCertValue}
                         header="Certificate"
                         boxHeight="200px"
-                        searchPlaceholder="Search Certs"/>
+                        searchPlaceholder="Search Certs"
+                        fileIcon={CertificateIcon}
+                        dirIcon={FolderIcon}
+                    />
                 {/if}
                 <Selected bind:this={selectedCertElem} selected={selectedCertValue}/>
             </div>

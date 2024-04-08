@@ -13,6 +13,8 @@
     export let listData: ListData;
     export let header: string;
     export let searchPlaceholder = "Search";
+    export let fileIcon = "";
+    export let dirIcon = "";
 
     $: filteredData = listData;
 
@@ -48,7 +50,11 @@
     <SearchBox bind:searchInput={searchInput} boxWidth="auto" placeholder="{searchPlaceholder}"/>
     <ul style="height: {boxHeight}">
         {#each filteredData as item}
-            <ListItem listdata={item} on:searchItemSelected={searchItemSelected}/>
+            <ListItem 
+                data={item}
+                on:searchItemSelected={searchItemSelected}
+                {fileIcon} {dirIcon}
+            />
         {/each}
     </ul>
 </div>
@@ -56,14 +62,15 @@
 <style>
     ::-webkit-scrollbar {
         width: 8px;
+        border-radius: 30px;
     }
     ::-webkit-scrollbar-track {
         background-color: #334c5d;
-        border-radius: 10px;
+        border-radius: 30px;
     }
     ::-webkit-scrollbar-thumb {
         background-color: #5fa2ae;
-        border-radius: 20px;
+        border-radius: 30px;
     }
     ::-webkit-scrollbar-thumb:hover {
         background-color: #71becc;
@@ -79,10 +86,10 @@
 
     ul {
         margin-top: 5px;
-        border: 3px solid transparent;
+        border: 4px solid transparent;
         background: linear-gradient(#12232E, #12232E) padding-box,
                     linear-gradient(90deg, #923214, #ce4820 90%) border-box;
-        border-radius: 10px;
+        border-radius: 8px;
         display: flex;
         flex-direction: column;
         padding: 5px 5px;

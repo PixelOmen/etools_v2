@@ -13,26 +13,29 @@ ACCEPTED_DKDM_EXTS = [".xml"]
 @dataclass
 class ListItemData:
     pathobj: Path
-    filePath: str = field(init=False)
     displayName: str = field(init=False)
+    isFile: bool = field(init=False)
+    isDir: bool = field(init=False)
 
     def __post_init__(self):
-        self.filePath = str(self.pathobj)
         self.displayName = str(self.pathobj.name)
+        self.isFile = self.pathobj.is_file()
+        self.isDir = self.pathobj.is_dir()
 
     def as_dict(self) -> dict:
         return {
-            "filePath": self.filePath,
-            "displayName": self.displayName
+            "displayName": self.displayName,
+            "isFile": self.isFile,
+            "isDir": self.isDir
         }
 
 def get_certs(rootdir: str|Path) -> list[dict]:
     certs = []
     rootdir = Path(rootdir)
     for item in rootdir.iterdir():
-        if (not item.is_file() or
-            item.name[0] == "." or
-            item.suffix.lower() not in ACCEPTED_CERT_EXTS):
+        if (item.name[0] == "." or 
+            (item.is_file() and
+            item.suffix.lower() not in ACCEPTED_CERT_EXTS)):
             continue
         certs.append(ListItemData(item).as_dict())
     return certs
