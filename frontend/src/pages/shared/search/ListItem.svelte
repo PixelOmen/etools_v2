@@ -43,7 +43,7 @@
         border-radius: 5px;
         display: flex;
         width: 100%;
-        padding: 5px 10px;
+        padding: 8px 10px;
         font-family: inherit;
     }
     .container:hover {

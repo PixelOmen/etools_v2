@@ -1,0 +1,6 @@
+{
+    "certdir": "D:\\CodingProjects\\_testfiles\\kdm_testfiles\\rei08\\certs\\",
+    "dkdmdir": "D:\\CodingProjects\\_testfiles\\kdm_testfiles\\rei08\\dkdms\\",
+    "clibin": "C:\\Program Files\\DCP-o-matic 2\\bin\\dcpomatic2_kdm_cli.exe",
+    "server": "D:\\CodingProjects\\_testfiles\\kdm_testfiles\\"
+}

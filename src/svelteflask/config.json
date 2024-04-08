@@ -1,6 +1,6 @@
 {
-    "certdir": "D:\\CodingProjects\\_testfiles\\kdm_testfiles\\rei08\\certs\\",
-    "dkdmdir": "D:\\CodingProjects\\_testfiles\\kdm_testfiles\\rei08\\dkdms\\",
+    "certdir": "C:\\Users\\eman\\Projects\\_testfiles\\kdm_testing\\rei08\\certs",
+    "dkdmdir": "C:\\Users\\eman\\Projects\\_testfiles\\kdm_testing\\rei08\\dkdms",
     "clibin": "C:\\Program Files\\DCP-o-matic 2\\bin\\dcpomatic2_kdm_cli.exe",
-    "server": "D:\\CodingProjects\\_testfiles\\kdm_testfiles\\"
+    "server": "C:\\Users\\eman\\Projects\\_testfiles\\kdm_testing\\"
 }

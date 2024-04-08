@@ -38,14 +38,20 @@ class KDMSession:
             self.html_end = self.end
             self.end = self._html_to_server_date(self.end)
         if self.cert:
-            self.server_cert = server_cert(self.config, self.cert)
+            if Path(self.cert).is_file():
+                self.server_cert = self.cert
+            else:
+                self.server_cert = server_cert(self.config, self.cert)
         if self.dkdm:
             self.server_dkdm = server_dkdm(self.config, self.dkdm)
         if self.outputDir:
             self.server_outputdir = server_path(Path(self.outputDir))
 
     def as_dict(self) -> dict:
-        return {k:v for k,v in self.__dict__.items() if k != "config"}
+        session_dict = {k:v for k,v in self.__dict__.items() if k != "config"}
+        if self.cert:
+            session_dict["cert"] = Path(self.cert).name
+        return session_dict
 
     def validate(self) -> None:
         if self.status != "ok":
@@ -109,6 +115,3 @@ class KDMSession:
             self.set_error("End time is less than or equal to Start time")
             return False
         return True
-    
-
-    

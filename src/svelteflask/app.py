@@ -62,8 +62,8 @@ def submit():
     except Exception as e:
         return {"status": "error", "error": str(e)}
     
-    kdmsession = dcpomatic.process_request(jdict, jobid)
-    session['history'].append(kdmsession.as_dict())
+    kdmsessions = dcpomatic.process_request(jdict, jobid)
+    session['history'].extend([sess.as_dict() for sess in kdmsessions])
     return Response(status=200)
 
 @APP.route('/', defaults={'pathvar': ''})

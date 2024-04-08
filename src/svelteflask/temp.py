@@ -3,6 +3,7 @@ from pathlib import Path
 from libs import dcpomatic
 from libs.config import get_config
 
+from filescanner import Scanner
 from rosettapath import RosettaPath
 
 # config = get_config()
@@ -20,13 +21,10 @@ from rosettapath import RosettaPath
 # test = dcpomatic.process_request(TEST_REQUEST, "1")
 # print(test.cli_cmd())
 
+testdir = r"C:\Users\eman\Projects\_testfiles\kdm_testing\rei08\certs\clientfolder"
+scanner = Scanner()
+scanner.setroot(testdir)
+scanner.scan()
 
-DKDM_PATH = r"D:\CodingProjects\_testfiles\kdm_testfiles\rei08\dkdms"
-
-first = "DKDM_My_CTT_FOR_SOME_DCP"
-
-
-for i in range(1, 10):
-    testfile = f"{first}_{i}.xml"
-    full_path = Path(DKDM_PATH) / testfile
-    full_path.touch()
+for f in scanner.results.files:
+    print(f)

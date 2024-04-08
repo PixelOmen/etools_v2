@@ -9,9 +9,10 @@
     div {
         margin-left: 35px;
         margin-right: auto;
-        border: 4px solid #01010100;
-        border-top: 5px solid #cf6208;
-        border-bottom: 5px solid #08becf;
+        border-top: 4px solid #cf6208;
+        border-left: 4px solid #cf6208;
+        border-bottom: 4px solid #08cfb5;
+        border-right: 4px solid #08cfb5;
         border-radius: 90%;
         animation: spin 2s linear infinite;
     }

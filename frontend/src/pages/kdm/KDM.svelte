@@ -105,7 +105,7 @@
         let tz = timezoneComp.getValue();
 
         let data = {
-            "cert": selectedCertValue.displayName,
+            "cert": selectedCertValue,
             "dkdm": selectedDKDMValue.displayName,
             "startDate": start,
             "endDate": end,

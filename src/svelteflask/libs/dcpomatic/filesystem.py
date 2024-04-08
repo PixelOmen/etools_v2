@@ -2,6 +2,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 from dataclasses import dataclass, field
 
+from filescanner import Scanner
+
 from .config import RosettaPath
 
 if TYPE_CHECKING:
@@ -52,8 +54,15 @@ def get_dkdms(rootdir: str|Path) -> list[dict]:
         certs.append(ListItemData(item).as_dict())
     return certs
 
+def scan_for_certs(rootdir: str|Path) -> list[str]:
+    scanner = Scanner()
+    scanner.setroot(rootdir)
+    scanner.scan()
+    results = scanner.results.files
+    return [str(f) for f in results if f.suffix in ACCEPTED_CERT_EXTS]
 
-def server_path(userpath: Path) -> str:
+
+def server_path(userpath: Path|str) -> str:
     return RosettaPath(userpath).server_path()
 
 def server_cert(config: "Config", certname: str) -> str:
