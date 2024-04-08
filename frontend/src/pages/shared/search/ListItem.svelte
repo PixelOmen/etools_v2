@@ -45,6 +45,7 @@
         width: 100%;
         padding: 8px 10px;
         font-family: inherit;
+        color: inherit;
     }
     .container:hover {
         cursor: pointer;
