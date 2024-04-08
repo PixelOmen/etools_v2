@@ -6,11 +6,11 @@ def navlinks() -> str:
             "sectionName" : "Rendering",
             "contents": [
                 {
-                    "url": "/rendering/create",
+                    "url": "http://etools01.rndbtprvt.lan/external/Render/10.0.20.96:4040",
                     "displayName": "Create"
                 },
                 {
-                    "url": "localhost:4090",
+                    "url": "http://10.0.10.146/cf-web-ui/render",
                     "displayName": "Status"
                 }                
             ]
@@ -19,7 +19,7 @@ def navlinks() -> str:
             "sectionName" : "Reports",
             "contents": [
                 {
-                    "url": "/reports/schedule",
+                    "url": "http://etools01.rndbtprvt.lan/external/Schedule/10.0.30.24:80/callsheetbydate",
                     "displayName": "Schedule"
                 }
             ]
@@ -28,35 +28,35 @@ def navlinks() -> str:
             "sectionName" : "File Tools",
             "contents": [
                 {
-                    "url": "/filetools/audioflag",
+                    "url": "http://etools01.rndbtprvt.lan/tools/audioflag",
                     "displayName": "Flag Audio"
                 },
                 {
-                    "url": "/filetools/setTC",
+                    "url": "http://etools01.rndbtprvt.lan/tools/setTC",
                     "displayName": "Set TC"
                 },
                 {
-                    "url": "/filetools/dvmeta",
+                    "url": "http://etools01.rndbtprvt.lan/tools/dvmeta",
                     "displayName": "Validate DV"
                 },
                 {
-                    "url": "/filetools/dvhr0",
+                    "url": "http://etools01.rndbtprvt.lan/tools/dvhr0",
                     "displayName": "DV Hour 0"
                 },
                 {
-                    "url": "/filetools/ltolabels",
+                    "url": "http://etools01.rndbtprvt.lan/tools/ltolabels",
                     "displayName": "LTO Labels"
                 },
                 {
-                    "url": "/filetools/filediff",
+                    "url": "http://etools01.rndbtprvt.lan/tools/filediff",
                     "displayName": "File Diff"
                 },
                 {
-                    "url": "/filetools/calc",
+                    "url": "http://etools01.rndbtprvt.lan/tools/calc",
                     "displayName": "TC Calc"
                 },
                 {
-                    "url": "/filetools/ioextract",
+                    "url": "http://etools01.rndbtprvt.lan/tools/ioextract",
                     "displayName": "PDF Extract"
                 },                
             ]
