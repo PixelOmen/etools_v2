@@ -22,30 +22,29 @@
 
 
 <li>
-    <div class="container">
+    <button class="container" on:click={searchItemSelected}>
         {#if data.isFile && fileIcon}
             <img src={fileIcon} alt="File Icon" width="20" height="20">
         {/if}
         {#if data.isDir && dirIcon}
             <img src={dirIcon} alt="File Icon" width="20" height="20">
         {/if}
-        <button
-            title={data.displayName}
-            on:click="{searchItemSelected}">
+        <div class="itemLabel" title={data.displayName}>
             {data.displayName}
-        </button>
-    </div>
+        </div>
+    </button>
 </li>
 
 
 <style>
     .container {
-        padding: 8px;
-        padding-left: 10px;
         background-color: #162a37;
         border: 1px solid black;
         border-radius: 5px;
         display: flex;
+        width: 100%;
+        padding: 5px 10px;
+        font-family: inherit;
     }
     .container:hover {
         cursor: pointer;
@@ -53,7 +52,9 @@
         background-color: #1a7c89;
         font-weight: 900;        
     }
-    button {
+    .itemLabel {
+        padding: 0px 3px;
+        font-size: 10pt;
         font-family: inherit;
         color: inherit;
         width: 100%;
