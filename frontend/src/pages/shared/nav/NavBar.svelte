@@ -62,7 +62,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 90%;
+        max-width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -80,10 +80,19 @@
         letter-spacing: -2px;
         font-stretch: ultra-condensed;
     }
-    nav {
-        margin-right: 3%;
-    }
     ul {
         display: flex;
+        gap: 10px;
+    }
+    @media (max-width: 1200px) {
+        .container {
+            max-width: 90%;
+        }
+        a > span {
+            font-size: 20pt;
+        }
+        ul {
+            gap: 5px;
+        }
     }
 </style>

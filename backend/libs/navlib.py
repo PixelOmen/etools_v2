@@ -25,16 +25,21 @@ def navlinks() -> str:
             ]
         },
         {
-            "sectionName" : "File Tools",
+            "sectionName" : "Quicktime",
             "contents": [
-                {
-                    "url": "http://etools01.rndbtprvt.lan/tools/audioflag",
-                    "displayName": "Flag Audio"
-                },
                 {
                     "url": "http://etools01.rndbtprvt.lan/tools/setTC",
                     "displayName": "Set TC"
                 },
+                {
+                    "url": "http://etools01.rndbtprvt.lan/tools/audioflag",
+                    "displayName": "Flag Audio"
+                },
+            ]
+        },
+        {
+            "sectionName" : "Tools",
+            "contents": [
                 {
                     "url": "http://etools01.rndbtprvt.lan/tools/dvmeta",
                     "displayName": "Validate DV"
@@ -62,7 +67,7 @@ def navlinks() -> str:
             ]
         },
         {
-            "sectionName" : "San Tools",
+            "sectionName" : "SANs",
             "contents": [
                 {
                     "url": "http://10.0.20.6",

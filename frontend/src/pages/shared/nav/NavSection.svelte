@@ -39,7 +39,7 @@
 
 <style>
     button {
-        padding: 5px 10px;
+        padding: 5px 5px;
         cursor: pointer;
         border: none;
         outline: none;

@@ -5,9 +5,13 @@ from typing import Callable
 from datetime import datetime
 from collections import deque
 
+from flask import (
+    Flask, Response,
+    request, session,
+    send_from_directory,
+)
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
-from flask import Flask, request, Response, send_from_directory, session
 
 from libs import dcpomatic
 from libs.navlib import navlinks
