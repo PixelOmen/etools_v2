@@ -1,4 +1,5 @@
 from pathlib import Path
+from collections import deque
 
 from libs import dcpomatic
 from libs.config import get_config
@@ -21,10 +22,19 @@ from rosettapath import RosettaPath
 # test = dcpomatic.process_request(TEST_REQUEST, "1")
 # print(test.cli_cmd())
 
-testdir = r"C:\Users\eman\Projects\_testfiles\kdm_testing\rei08\certs\clientfolder"
-scanner = Scanner()
-scanner.setroot(testdir)
-scanner.scan()
+# testdir = r"C:\Users\eman\Projects\_testfiles\kdm_testing\rei08\certs\clientfolder"
+# scanner = Scanner()
+# scanner.setroot(testdir)
+# scanner.scan()
 
-for f in scanner.results.files:
-    print(f)
+# for f in scanner.results.files:
+#     print(f)
+
+prevlist = [1,2,3,4]
+newlist = [5,6,7,8]
+
+q = deque(maxlen=5)
+q.extend(prevlist)
+print(q)
+q.extend(newlist)
+print(q)

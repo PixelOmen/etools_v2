@@ -2,6 +2,8 @@ import uuid
 import signal
 import mimetypes
 from typing import Callable
+from datetime import datetime
+from collections import deque
 
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
@@ -21,6 +23,11 @@ APP.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 APP.secret_key = str(uuid.uuid4())
 
 
+def log_request(remoteip: str, msg: str) -> None:
+    now = datetime.now()
+    timeheader = now.strftime("[%d/%b/%Y %H:%M:%S]")
+    addrheader = f"{remoteip} - - "
+    print(f"{addrheader+timeheader} \"{msg}\"")
 
 def handle_request(environ: dict, start_response: Callable):
     return APP(environ, start_response)
@@ -62,8 +69,13 @@ def submit():
     except Exception as e:
         return {"status": "error", "error": str(e)}
     
+    log_request(request.remote_addr, "KDM Request") #type:ignore
     kdmsessions = dcpomatic.process_request(jdict, jobid)
-    session['history'].extend([sess.as_dict() for sess in kdmsessions])
+
+    session_q = deque(maxlen=100)
+    session_q.extend(session['history'])
+    session_q.extend([sess.as_dict() for sess in kdmsessions])
+    session['history'] = list(session_q)
     return Response(status=200)
 
 @APP.route('/', defaults={'pathvar': ''})
@@ -83,5 +95,6 @@ def shutdown(server: pywsgi.WSGIServer) -> None:
 if __name__ == "__main__":
     # server = pywsgi.WSGIServer(('0.0.0.0', 4090), handle_request, handler_class=WebSocketHandler)
     # signal.signal(signal.SIGINT, lambda num,info: shutdown(server))
+    # print("Server Started")
     # server.serve_forever()
     APP.run(host='0.0.0.0', port=4090, debug=True)
