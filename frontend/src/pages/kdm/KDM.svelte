@@ -6,6 +6,7 @@
 </script>
 
 <script lang="ts">
+    import Browser from '../shared/filesystem/browser/Browser.svelte';
     import LoadingIcon from '../shared/ui/LoadingIcon.svelte';
     import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
@@ -114,8 +115,7 @@
         }
 
         showLoading = true;
-        let res = coms.submitJSON('/api/kdm/submit', data);
-        res.then(res => {
+        coms.submitJSON('/api/kdm/submit', data).then(res => {
             console.log(res.status);
             updateHistory();
             showLoading = false;
@@ -125,6 +125,7 @@
 
 
 <main id="main">
+    <!-- <Browser/> -->
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection>
         <div class="certSection">
@@ -212,7 +213,6 @@
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
-        /* border: 1px solid yellow; */
         width: 80%;
         margin-left: auto;
         margin-right: auto;
@@ -234,7 +234,6 @@
     }
 
     .fileContainer {
-        /* border: 1px solid green; */
         display: flex;
         align-items: flex-end;
         width: 90%;
@@ -259,8 +258,6 @@
     }
 
     .footerSection {
-        /* background: radial-gradient(ellipse at 10% 120%, #081114 0%, #12232E 80%, transparent),
-                    radial-gradient(ellipse at 20% 120%, #163139 0%, #12232E 20%); */
         background: linear-gradient(#12232E 0%, #0e1f25 100%, transparent);   
     }
     

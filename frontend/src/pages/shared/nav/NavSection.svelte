@@ -29,7 +29,14 @@
 </script>
 
 <li class="navSection">
-    <button on:click={toggleSection}>{displayText}&#9207;</button>
+    <button on:click={toggleSection}>
+        <span>
+            {displayText}
+        </span>
+        <svg fill="none" viewBox="0 2 16 12" style="width:1em;height:1em;">
+            <polygon fill="currentColor" points="8 10.98 3.51 6.49 4.49 5.51 8 9.02 11.51 5.51 12.49 6.49 8 10.98"></polygon>
+        </svg>
+    </button>
     <ul bind:this={sectionUL} class="hidden">
         {#each sectionData as data}
             <NavAnchor {data}></NavAnchor>
@@ -39,6 +46,8 @@
 
 <style>
     button {
+        display: flex;
+        align-items: end;
         padding: 5px 5px;
         cursor: pointer;
         border: none;
@@ -46,7 +55,6 @@
         background: none;
         background-color: rgba(225, 225, 225, 0);
         color: rgb(225, 225, 225);
-        font-size: inherit;
         font-family: inherit;
         transition: color 0.3s;
         transition: background-color 0.3s;
