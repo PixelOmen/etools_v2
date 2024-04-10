@@ -48,7 +48,6 @@ def get_dkdms(rootdir: str|Path) -> list[dict]:
     for item in rootdir.iterdir():
         if (not item.is_file() or
             item.name[0] == "." or
-            not item.name.lower().startswith("dkdm") or
             item.suffix.lower() not in ACCEPTED_DKDM_EXTS):
             continue
         certs.append(ListItemData(item).as_dict())

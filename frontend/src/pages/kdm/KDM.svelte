@@ -37,7 +37,6 @@
             .then(res => res.json())
             .then(data => {
                 historyData = data;
-                console.log(historyData);
             });
     }
     updateHistory();
@@ -125,7 +124,7 @@
 
 
 <main id="main">
-    <Browser/>
+    <!-- <Browser/> -->
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection>
         <div class="certSection">
