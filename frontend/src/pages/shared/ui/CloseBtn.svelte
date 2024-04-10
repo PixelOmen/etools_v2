@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import img_closeBtn from "../../../../public/img_closeBtn.png";
+    import img_closeBtn from "../../../assets/img_closeBtn.png";
     export let size = "25px";
     let svgSize = `${Number(size.slice(0, 2)) - 10}px`;
 </script>

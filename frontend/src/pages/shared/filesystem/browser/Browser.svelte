@@ -1,7 +1,7 @@
 <script lang='ts'>
     import { createEventDispatcher } from "svelte";
     import CloseBtn from "../../ui/CloseBtn.svelte";
-    import backarrow from "../../../../../public/backarrow.png";
+    import backarrow from "../../../../assets/backarrow.png";
 
     export let rootPath = "ROOT";
     let pathInput: HTMLInputElement;
@@ -22,8 +22,8 @@
 
 
 <div class="container">
-    <div class="closeBtn">
-        <CloseBtn on:click={close}/>
+    <div class="closeBtnContainer">
+        <CloseBtn on:click={close} size="22px"/>
     </div>
     <div class="headerContainer">
         <img id="backArrow" src={backarrow} alt="Browse Back" width="25px">
@@ -51,9 +51,9 @@
             backdrop-filter: blur(10px);
         }
     }
-    .closeBtn {
+    .closeBtnContainer {
         margin-left: auto;
-        margin-right: 10px;
+        margin-right: 20px;
         margin-top: 8px;
         width: max-content;
     }
