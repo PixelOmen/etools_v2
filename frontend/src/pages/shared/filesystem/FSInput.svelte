@@ -2,7 +2,7 @@
     import type { SvelteComponent } from 'svelte';
     import ErrorCard from '../ui/ErrorCard.svelte';
 
-    export let header: string;
+    export let header: string = "";
     export let placeholder = "Output Directory";
 
     let inputElem: HTMLInputElement;
@@ -22,9 +22,11 @@
 </script>
 
 <div class="container">
-    <h3>
-        {header}
-    </h3>
+    {#if header}
+        <h3>
+            {header}
+        </h3>
+    {/if}
     <ErrorCard bind:this={errorCard}>
         <input bind:this={inputElem} type="text" placeholder={placeholder}>
     </ErrorCard>
@@ -32,7 +34,6 @@
 
 <style>
     .container {
-        /* border: 1px solid blue; */
         position: relative;
         width: 100%;
     }

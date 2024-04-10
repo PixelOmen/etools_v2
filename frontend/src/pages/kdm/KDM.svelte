@@ -125,7 +125,7 @@
 
 
 <main id="main">
-    <!-- <Browser/> -->
+    <Browser/>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection>
         <div class="certSection">
