@@ -1,31 +1,33 @@
 <script lang='ts'>
     import { createEventDispatcher } from "svelte";
-    import ImportantBtn from "../../ui/ImportantBtn.svelte";
+    import CloseBtn from "../../ui/CloseBtn.svelte";
     import backarrow from "../../../../../public/backarrow.png";
+
+    export let rootPath = "ROOT";
+    let pathInput: HTMLInputElement;
 
     const dispatch = createEventDispatcher();
     function close(e: Event): void {
-        dispatch("browserClose");
+        dispatch("browserClose", {
+            "path": pathInput.value
+        });
+    }
+
+    $: {
+        if (pathInput) {
+            pathInput.value = rootPath;
+        }
     }
 </script>
 
 
 <div class="container">
     <div class="closeBtn">
-        <ImportantBtn
-            on:click={close}
-            hasBG={true}
-            content="X"
-            isClose={true}
-            hasShadow={false}
-            padding = "2px 15px"
-            fontWeight = "normal"
-            fontSize = "8pt"
-        />
+        <CloseBtn on:click={close}/>
     </div>
     <div class="headerContainer">
         <img id="backArrow" src={backarrow} alt="Browse Back" width="25px">
-        <input type="text">
+        <input bind:this={pathInput} type="text">
     </div>
     <hr>
 </div>
@@ -39,9 +41,15 @@
         left: 10%;
         height: 80%;
         width: 80%;
-        background: rgb(37, 37, 37);
+        background-color: rgba(37, 37, 37, 0.9);
         border-radius: 10px;
         filter: drop-shadow(5px 20px 10px rgba(0, 0, 0, 0.5));
+    }
+    @supports (backdrop-filter: blur(15px)) {
+        .container {
+            background-color: rgba(37, 37, 37, 0.6);
+            backdrop-filter: blur(10px);
+        }
     }
     .closeBtn {
         margin-left: auto;
