@@ -9,29 +9,27 @@
     import BrowserItem from "./BrowserItem.svelte";
     import ImportantBtn from "../../ui/ImportantBtn.svelte";
 
-    export let rootPath = "ROOT";
     // export let dirOnly = false;
 
     let pathInput: HTMLInputElement;
+    $: {
+        if (pathInput) {
+            pathInput.value = "ROOT";
+        }
+    }
 
     const dispatch = createEventDispatcher();
-    function close(e: Event): void {
+    function close(): void {
         dispatch("browserClose", {
             "path": pathInput.value
         });
     }
 
-    function select(e: Event): void {
+    function select(): void {
         dispatch("browserSelect", {
             "path": pathInput.value
         });
     }    
-
-    $: {
-        if (pathInput) {
-            pathInput.value = rootPath;
-        }
-    }
 
     let testData = [
         {

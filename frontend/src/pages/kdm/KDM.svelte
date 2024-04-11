@@ -124,7 +124,7 @@
 
 
 <main id="main">
-    <Browser/>
+    <!-- <Browser/> -->
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection>
         <div class="certSection">
@@ -222,8 +222,6 @@
         padding: 20px 0px;
         width: 100%;
         background: linear-gradient(310deg, #197a87 0%, #652a6f 99%);
-        color: #45c2b7;
-        color: #0d4149;
     }
     .dateContainer {
         display: flex;

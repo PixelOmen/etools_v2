@@ -7,13 +7,18 @@
 </script>
 
 <script lang='ts'>
+    import { createEventDispatcher } from "svelte";
     import FolderIcon from "../../../../assets/folderIcon.svg";
     import FileIcon from "../../../../assets/fileIcon.svg";
 
     export let data: BrowserItemData;
+    const dispatch = createEventDispatcher();
+    function clicked(): void {
+        dispatch("browserItemClicked", data);
+    }
 </script>
 
-<button class="container">
+<button class="container" on:click={clicked}>
     <div class="icon">
         {#if data.isDir}
             <img src={FolderIcon} alt="Folder Icon" width="30px">
