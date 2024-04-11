@@ -1,9 +1,17 @@
+<script context="module" lang='ts'>
+    import type { BrowserItemData } from "./BrowserItem.svelte";
+</script>
+
 <script lang='ts'>
     import { createEventDispatcher } from "svelte";
     import CloseBtn from "../../ui/CloseBtn.svelte";
     import backarrow from "../../../../assets/backarrow.png";
+    import BrowserItem from "./BrowserItem.svelte";
+    import ImportantBtn from "../../ui/ImportantBtn.svelte";
 
     export let rootPath = "ROOT";
+    export let dirOnly = false;
+
     let pathInput: HTMLInputElement;
 
     const dispatch = createEventDispatcher();
@@ -13,11 +21,30 @@
         });
     }
 
+    function select(e: Event): void {
+        dispatch("browserSelect", {
+            "path": pathInput.value
+        });
+    }    
+
     $: {
         if (pathInput) {
             pathInput.value = rootPath;
         }
     }
+
+    let testData = [
+        {
+            displayName: "Test_item.xml",
+            isDir: true,
+            filePath: "some/path/"
+        },
+        {
+            displayName: "Test_item.xml",
+            isDir: false,
+            filePath: "some/path/"
+        }        
+    ]
 </script>
 
 
@@ -30,6 +57,17 @@
         <input bind:this={pathInput} type="text">
     </div>
     <hr>
+    <div class="fileContainer">
+        <BrowserItem data={testData[0]}/>
+        <BrowserItem data={testData[1]}/>
+    </div>
+    <div class="footerContainer">
+        <ImportantBtn
+            content="Select"
+            padding="5px 10px"
+            fontSize="10pt"
+        />
+    </div>
 </div>
 
 
@@ -42,8 +80,9 @@
         height: 80%;
         width: 80%;
         background-color: rgba(37, 37, 37, 0.9);
-        border-radius: 10px;
         filter: drop-shadow(5px 20px 10px rgba(0, 0, 0, 0.5));
+        border-radius: 10px;
+        border: 1px solid rgb(63, 63, 63);
     }
     @supports (backdrop-filter: blur(15px)) {
         .container {
@@ -86,7 +125,6 @@
         outline: none;
         padding: 3px 10px;
         background-color: rgba(0, 0, 0, 0);
-        /* background-color: rgba(0, 0, 0, 0.3); */
         border-radius: 5px;
     }
     .headerContainer > input:focus {
@@ -94,9 +132,23 @@
     }
 
     hr {
-        margin-top: 20px;
+        margin-top: 10px;
         border: none;
         border-top: 1px solid rgb(0, 0, 0);
         width: 100%;
+    }
+
+    .fileContainer {
+        padding: 10px 10px;
+        margin: 20px 30px;
+        height: 75%;
+        border: 1px solid black;
+        background-color: rgba(37, 37, 37, 0.94);
+    }
+
+    .footerContainer {
+        width: max-content;
+        margin-left: auto;
+        margin-right: 20px;
     }
 </style>

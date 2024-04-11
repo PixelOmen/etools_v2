@@ -11,7 +11,7 @@
     import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
     import CertificateIcon from "../../assets/certificate.svg";
-    import FolderIcon from "../../assets/folder.svg"
+    import FolderIcon from "../../assets/folderIcon.svg"
     import SearchList from "../shared/search/SearchList.svelte";
     import Selected from "./Selected.svelte";
     import DateSelect from '../shared/dates/DateSelect.svelte';
@@ -222,6 +222,8 @@
         padding: 20px 0px;
         width: 100%;
         background: linear-gradient(310deg, #197a87 0%, #652a6f 99%);
+        color: #45c2b7;
+        color: #0d4149;
     }
     .dateContainer {
         display: flex;
