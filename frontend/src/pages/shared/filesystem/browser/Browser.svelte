@@ -10,7 +10,7 @@
     import ImportantBtn from "../../ui/ImportantBtn.svelte";
 
     export let rootPath = "ROOT";
-    export let dirOnly = false;
+    // export let dirOnly = false;
 
     let pathInput: HTMLInputElement;
 
@@ -62,11 +62,14 @@
         <BrowserItem data={testData[1]}/>
     </div>
     <div class="footerContainer">
-        <ImportantBtn
-            content="Select"
-            padding="5px 10px"
-            fontSize="10pt"
-        />
+        <div class="btnContainer">
+            <ImportantBtn
+                content="Select"
+                padding="5px 10px"
+                fontSize="11pt"
+                hasShadow={false}
+            />
+        </div>
     </div>
 </div>
 
@@ -83,6 +86,7 @@
         filter: drop-shadow(5px 20px 10px rgba(0, 0, 0, 0.5));
         border-radius: 10px;
         border: 1px solid rgb(63, 63, 63);
+        padding-bottom: 10px;
     }
     @supports (backdrop-filter: blur(15px)) {
         .container {
@@ -147,6 +151,9 @@
     }
 
     .footerContainer {
+        /* border: 1px solid yellow; */
+    }
+    .btnContainer {
         width: max-content;
         margin-left: auto;
         margin-right: 20px;

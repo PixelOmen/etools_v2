@@ -38,6 +38,7 @@
         align-items: center;
         border-radius: 5px;
         width: 100%;
+        color: inherit;
     }
     .container:hover {
         background-color: #495c5f0f;
@@ -51,5 +52,6 @@
         margin-left: 10px;
         height: max-content;
         text-align: center;
+        color: inherit;
     }
 </style>
