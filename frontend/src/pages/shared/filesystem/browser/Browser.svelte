@@ -77,11 +77,13 @@
 <style>
     .container {
         z-index: 100;
+        display: flex;
+        flex-direction: column;
         position: fixed;
         top: 10%;
         left: 10%;
-        height: 80%;
         width: 80%;
+        height: 80%;
         background-color: rgba(37, 37, 37, 0.9);
         filter: drop-shadow(5px 20px 10px rgba(0, 0, 0, 0.5));
         border-radius: 10px;
@@ -151,7 +153,7 @@
     }
 
     .footerContainer {
-        /* border: 1px solid yellow; */
+        margin-bottom: 10px;
     }
     .btnContainer {
         width: max-content;
