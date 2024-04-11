@@ -9,40 +9,47 @@
     import BrowserItem from "./BrowserItem.svelte";
     import ImportantBtn from "../../ui/ImportantBtn.svelte";
 
-    // export let dirOnly = false;
+    export let startDir = "ROOT";
+    let selectedItem: BrowserItemData | null = null;
+
+    let dirContents = [
+        {
+            displayName: "Some_Folder",
+            isDir: true,
+            filePath: "some/path/to/Some_Folder"
+        },
+        {
+            displayName: "Some_file.xml",
+            isDir: false,
+            filePath: "some/path/to/Some_file.xml"
+        }        
+    ];
 
     let pathInput: HTMLInputElement;
     $: {
         if (pathInput) {
-            pathInput.value = "ROOT";
+            pathInput.value = startDir;
         }
+    }
+
+    function setSelected(e: CustomEvent): void {
+        selectedItem = e.detail;
     }
 
     const dispatch = createEventDispatcher();
     function close(): void {
         dispatch("browserClose", {
-            "path": pathInput.value
+            "path": pathInput.value,
+            "selected": selectedItem
         });
     }
 
     function select(): void {
         dispatch("browserSelect", {
-            "path": pathInput.value
+            "path": pathInput.value,
+            "selected": selectedItem
         });
     }    
-
-    let testData = [
-        {
-            displayName: "Test_item.xml",
-            isDir: true,
-            filePath: "some/path/"
-        },
-        {
-            displayName: "Test_item.xml",
-            isDir: false,
-            filePath: "some/path/"
-        }        
-    ]
 </script>
 
 
@@ -56,12 +63,14 @@
     </div>
     <hr>
     <div class="fileContainer">
-        <BrowserItem data={testData[0]}/>
-        <BrowserItem data={testData[1]}/>
+        {#each dirContents as item}
+            <BrowserItem data={item} on:browserItemClicked={setSelected}/>        
+        {/each}
     </div>
     <div class="footerContainer">
         <div class="btnContainer">
             <ImportantBtn
+                on:click={select}
                 content="Select"
                 padding="5px 10px"
                 fontSize="11pt"

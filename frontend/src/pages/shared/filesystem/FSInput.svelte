@@ -19,7 +19,10 @@
     }
 
     function browserSelect(e: CustomEvent): void {
-        
+        if (e.detail.selected) {
+            inputElem.value = e.detail.selected.filePath;
+        }
+        browserOpen = false;
     }    
 
     export function setError(): void {
@@ -88,25 +91,26 @@
         background-color: #12232E;
         width: 100%;
         border: 2px solid #00000000;
+        min-height: 100%;
+        box-sizing: border-box;
     }
     input:focus {
         outline: none;
         border: 2px solid #ce4820;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
     input::placeholder {
         color: grey;
     }
     .browseBtn {
-        position: relative;
-        left: 0px;
-        padding: 0px 11px;
+        padding: 0px 18px;
         cursor: pointer;
         border-radius: 0px;
         min-height: 100%;
         border: none;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
-        /* border-left: 1px solid #1c8896; */
         background: linear-gradient(90deg, #1c9bab, #12232E 99%);
         filter: none;
         color: rgb(227, 227, 227);
