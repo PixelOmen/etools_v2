@@ -105,7 +105,7 @@
         color: grey;
     }
     .browseBtn {
-        padding: 0px 18px;
+        padding: 0px 15px;
         cursor: pointer;
         border-radius: 0px;
         min-height: 100%;
@@ -116,6 +116,7 @@
         filter: none;
         color: rgb(227, 227, 227);
         font-family: inherit;
+        font-weight: bold;
     }
     .browseBtn:hover {
         filter: brightness(120%);
