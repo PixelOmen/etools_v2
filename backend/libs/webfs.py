@@ -31,8 +31,10 @@ def bad_request(dirpath: str, errmsg: str) -> DirResponse:
     )
 
 def get_dir(dirpath: str) -> dict:
+    if dirpath.lower() == "root" or dirpath.lower() == "mnt":
+        dirpath = "\\"
     server_path = Path(RosettaPath(dirpath).server_path())
-    linux_path = RosettaPath(server_path).linux_path()
+    linux_path = RosettaPath(dirpath).linux_path()
 
     if not server_path.is_dir():
         return bad_request(linux_path, f"Invalid directory: {dirpath}").asdict()

@@ -1,5 +1,13 @@
 <script context="module" lang='ts'>
     import type { BrowserItemData } from "./BrowserItem.svelte";
+    import * as coms from "../../../../libs/coms"
+
+    interface DirResponse {
+        dirPath: string;
+        contents: BrowserItemData[];
+        status: string;
+        error: string;
+    }
 </script>
 
 <script lang='ts'>
@@ -10,26 +18,29 @@
     import ImportantBtn from "../../ui/ImportantBtn.svelte";
 
     export let startDir = "ROOT";
+    export let apiURL = "/api/webfs";
+    let dirContents: BrowserItemData[] = [];
     let selectedItem: BrowserItemData | null = null;
-
-    let dirContents = [
-        {
-            displayName: "Some_Folder",
-            isDir: true,
-            filePath: "some/path/to/Some_Folder"
-        },
-        {
-            displayName: "Some_file.xml",
-            isDir: false,
-            filePath: "some/path/to/Some_file.xml"
-        }        
-    ];
-
+    let errormsg = "";
     let pathInput: HTMLInputElement;
-    $: {
-        if (pathInput) {
-            pathInput.value = startDir;
-        }
+
+
+    function getDir(path: string): void {
+        errormsg = "";
+        
+        coms.submitJSON(apiURL, {
+            "path": path
+        })
+        .then(res => res.json())
+        .then(resjson => {
+            if (resjson.status != "ok") {
+                errormsg = resjson.error;
+                dirContents = [];
+            } else {
+                pathInput.value = resjson.dirPath;
+                dirContents = resjson.contents;
+            }
+        });
     }
 
     function setSelected(e: CustomEvent): void {
@@ -49,7 +60,22 @@
             "path": pathInput.value,
             "selected": selectedItem
         });
-    }    
+    }
+
+
+    getDir(startDir);
+    // dirContents = [
+    //     {
+    //         displayName: "Some_Folder",
+    //         isDir: true,
+    //         filePath: "some/path/to/Some_Folder"
+    //     },
+    //     {
+    //         displayName: "Some_file.xml",
+    //         isDir: false,
+    //         filePath: "some/path/to/Some_file.xml"
+    //     }        
+    // ];    
 </script>
 
 
@@ -63,6 +89,11 @@
     </div>
     <hr>
     <div class="fileContainer">
+        {#if errormsg}
+            <div class="errorContainer">
+                {errormsg}
+            </div>            
+        {/if}
         {#each dirContents as item}
             <BrowserItem data={item} on:browserItemClicked={setSelected}/>        
         {/each}
@@ -157,6 +188,17 @@
         height: 75%;
         border: 1px solid black;
         background-color: rgba(37, 37, 37, 0.94);
+    }
+
+    .errorContainer {
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        top: 30%;
+        border: 1px solid yellow;
+        text-align: center;
+        white-space: pre-line;
+        overflow-wrap: break-word;
     }
 
     .footerContainer {

@@ -21,6 +21,6 @@ from rosettapath import RosettaPath
 
 testpath = r"C:\Users\eman\Projects\_testfiles\kdm_testing\rei08"
 
-result = webfs.get_dir(testpath)
+result = webfs.get_dir("\\")
 
 print(result)
