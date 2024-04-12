@@ -36,6 +36,18 @@ def log_request(remoteip: str, msg: str) -> None:
 def handle_request(environ: dict, start_response: Callable):
     return APP(environ, start_response)
 
+@APP.route("/api/webfs", methods=["POST"])
+def webfs():
+    if request.method != "POST":
+        return Response(status=400)    
+
+    try:
+        jdict = request.json
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+        
+    return {}
+
 @APP.route('/api/nav')
 def nav():
     return navlinks()

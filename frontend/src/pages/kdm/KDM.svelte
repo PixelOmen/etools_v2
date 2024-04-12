@@ -164,9 +164,12 @@
                 <FsInput bind:this={outputDirComp} header="Output"/>
                 <div style="width: 130px; margin-right: auto; margin-left: auto;">
                 {#if showLoading}
-                    <LoadingIcon width="18px" height="18px"/>
+                    <LoadingIcon width="30px" height="30px"/>
                 {:else}
-                    <ImportantBtn on:click={submit} content="Submit"/>
+                    <ImportantBtn
+                        on:click={submit}
+                        content="Submit"
+                    />
                 {/if}
                 </div>
             </div>
