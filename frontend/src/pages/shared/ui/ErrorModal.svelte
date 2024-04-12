@@ -50,11 +50,17 @@
         min-width: 500px;
         max-width: 80%;
         z-index: 100;
-        background-color: #16323ab0;
-        backdrop-filter: blur(5px);
+        background-color: #16323ae6;
         border-radius: 10px;
         filter: drop-shadow(5px 20px 10px rgba(0, 0, 0, 0.5));
     }
+    @supports (backdrop-filter: blur(5px)) {
+        .container {
+            background-color: #16323ab0;
+            backdrop-filter: blur(5px);
+        }
+    }
+
     .header {
         display: flex;
         margin-bottom: 15px;

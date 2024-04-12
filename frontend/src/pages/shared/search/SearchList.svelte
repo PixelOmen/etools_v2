@@ -60,22 +60,6 @@
 </div>
 
 <style>
-    ::-webkit-scrollbar {
-        width: 8px;
-        border-radius: 30px;
-    }
-    ::-webkit-scrollbar-track {
-        background-color: #334c5d;
-        border-radius: 30px;
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: #5fa2ae;
-        border-radius: 30px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background-color: #71becc;
-    }    
-
     .container {
         flex-direction: column;
     }

@@ -17,6 +17,7 @@
     import backarrow from "../../../../assets/backarrow.png";
     import BrowserItem from "./BrowserItem.svelte";
     import ImportantBtn from "../../ui/ImportantBtn.svelte";
+    import LoadingIcon from "../../ui/LoadingIcon.svelte";
 
     export let startDir = "ROOT";
     export let apiURL = "/api/webfs";
@@ -28,6 +29,8 @@
     let selectedItem: BrowserItemData | null = null;
     let currentDir: DirResponse | null = null;
     let errormsg = "";
+    let isLoading = false;
+    let showLoading = false;
 
     $: {
         dirContents.sort((a, b) => {
@@ -40,17 +43,25 @@
 
     function getDir(path: string): void {
         errormsg = "";
+        isLoading = true;
+        setTimeout(() => {
+            if (isLoading) {
+                showLoading = true;
+            }
+        }, 150);
+        dirContents = [];
         
         coms.submitJSON(apiURL, {
             "path": path
         })
         .then(res => res.json())
         .then(resjson => {
+            isLoading = false;
+            showLoading = false;
             if (resjson.status != "ok") {
                 errormsg = resjson.error;
                 dirContents = [];
             } else {
-                console.log(resjson.parentPath);
                 currentDir = resjson;
                 pathInput.value = resjson.dirPath;
                 dirContents = resjson.contents;
@@ -104,6 +115,11 @@
     </div>
     <hr>
     <div class="fileContainer">
+        {#if showLoading}
+            <div class="loadingContainer">
+                <LoadingIcon/>
+            </div>            
+        {/if}
         {#if errormsg}
             <div class="errorContainer">
                 {errormsg}
@@ -193,6 +209,7 @@
         padding: 3px 10px;
         background-color: rgba(0, 0, 0, 0);
         border-radius: 5px;
+        text-overflow: ellipsis;
     }
     .headerContainer > input:focus {
         background-color: rgb(62, 61, 64);
@@ -215,7 +232,7 @@
         overflow: auto;
     }
 
-    .errorContainer {
+    .errorContainer, .loadingContainer {
         position: relative;
         margin-left: auto;
         margin-right: auto;
