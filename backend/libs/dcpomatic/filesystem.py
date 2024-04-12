@@ -4,10 +4,10 @@ from dataclasses import dataclass, field
 
 from filescanner import Scanner
 
-from .config import RosettaPath
+from ..config import RosettaPath
 
 if TYPE_CHECKING:
-    from .config import Config
+    from ..config import Config
 
 ACCEPTED_CERT_EXTS = [".pem", ".cert", ".crt"]
 ACCEPTED_DKDM_EXTS = [".xml"]

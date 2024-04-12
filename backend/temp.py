@@ -1,7 +1,7 @@
 from pathlib import Path
 from collections import deque
 
-from libs import dcpomatic
+from libs import dcpomatic, webfs
 from libs.config import get_config
 
 from filescanner import Scanner
@@ -19,22 +19,8 @@ from rosettapath import RosettaPath
 #     "outputDir": r"mnt\rei08\outputtest",
 # }
 
-# test = dcpomatic.process_request(TEST_REQUEST, "1")
-# print(test.cli_cmd())
+testpath = r"C:\Users\eman\Projects\_testfiles\kdm_testing\rei08"
 
-# testdir = r"C:\Users\eman\Projects\_testfiles\kdm_testing\rei08\certs\clientfolder"
-# scanner = Scanner()
-# scanner.setroot(testdir)
-# scanner.scan()
+result = webfs.get_dir(testpath)
 
-# for f in scanner.results.files:
-#     print(f)
-
-prevlist = [1,2,3,4]
-newlist = [5,6,7,8]
-
-q = deque(maxlen=5)
-q.extend(prevlist)
-print(q)
-q.extend(newlist)
-print(q)
+print(result)

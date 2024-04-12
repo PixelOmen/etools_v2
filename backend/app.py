@@ -13,12 +13,11 @@ from flask import (
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 
-from libs import dcpomatic
+from libs import dcpomatic, webfs
 from libs.navlib import navlinks
 from libs.config import get_config
 
 CONFIG = get_config()
-dcpomatic.set_config(CONFIG)
 
 mimetypes.add_type("application/javascript", ".js", True)
 APP = Flask(__name__)
@@ -37,16 +36,17 @@ def handle_request(environ: dict, start_response: Callable):
     return APP(environ, start_response)
 
 @APP.route("/api/webfs", methods=["POST"])
-def webfs():
+def webfs_request():
     if request.method != "POST":
         return Response(status=400)    
 
     try:
         jdict = request.json
+        userpath = jdict["path"] #type:ignore
     except Exception as e:
-        return {"status": "error", "error": str(e)}
+        return webfs.bad_request("", f"Unable to parse JSON: {str(e)}").asdict()
         
-    return {}
+    return webfs.get_dir(userpath)
 
 @APP.route('/api/nav')
 def nav():

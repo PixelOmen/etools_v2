@@ -3,7 +3,7 @@ from typing import Any
 from pathlib import Path
 from datetime import datetime
 
-from .config import Config, get_config
+from ..config import get_config
 from .filesystem import scan_for_certs, server_path
 from .kdmsession import KDMSession, SERVER_DATE_FORMAT, HTML_DATE_FORMAT
 
