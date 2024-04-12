@@ -4,6 +4,7 @@
 
     interface DirResponse {
         dirPath: string;
+        parentPath: string;
         contents: BrowserItemData[];
         status: string;
         error: string;
@@ -19,10 +20,22 @@
 
     export let startDir = "ROOT";
     export let apiURL = "/api/webfs";
+
+    const dispatch = createEventDispatcher();
+
+    let pathInput: HTMLInputElement;
     let dirContents: BrowserItemData[] = [];
     let selectedItem: BrowserItemData | null = null;
+    let currentDir: DirResponse | null = null;
     let errormsg = "";
-    let pathInput: HTMLInputElement;
+
+    $: {
+        dirContents.sort((a, b) => {
+            if (a.isDir === b.isDir) return 0;
+            if (a.isDir) return -1;
+            return 1;
+        });
+    }
 
 
     function getDir(path: string): void {
@@ -37,6 +50,8 @@
                 errormsg = resjson.error;
                 dirContents = [];
             } else {
+                console.log(resjson.parentPath);
+                currentDir = resjson;
                 pathInput.value = resjson.dirPath;
                 dirContents = resjson.contents;
             }
@@ -47,7 +62,18 @@
         selectedItem = e.detail;
     }
 
-    const dispatch = createEventDispatcher();
+    function enterFolder(e: CustomEvent): void {
+        getDir(e.detail.filePath);
+        pathInput.focus();
+        pathInput.blur();
+    }
+
+    function back(): void {
+        if (currentDir) {
+            getDir(currentDir.parentPath);
+        }
+    }
+    
     function close(): void {
         dispatch("browserClose", {
             "path": pathInput.value,
@@ -62,20 +88,7 @@
         });
     }
 
-
-    getDir(startDir);
-    // dirContents = [
-    //     {
-    //         displayName: "Some_Folder",
-    //         isDir: true,
-    //         filePath: "some/path/to/Some_Folder"
-    //     },
-    //     {
-    //         displayName: "Some_file.xml",
-    //         isDir: false,
-    //         filePath: "some/path/to/Some_file.xml"
-    //     }        
-    // ];    
+    getDir(startDir);   
 </script>
 
 
@@ -84,7 +97,9 @@
         <CloseBtn on:click={close} size="22px"/>
     </div>
     <div class="headerContainer">
-        <img id="backArrow" src={backarrow} alt="Browse Back" width="25px">
+        <button id="backBtn" on:click={back}>
+            <img id="backArrow" src={backarrow} alt="Browse Back" width="25px">
+        </button>
         <input bind:this={pathInput} type="text">
     </div>
     <hr>
@@ -95,7 +110,11 @@
             </div>            
         {/if}
         {#each dirContents as item}
-            <BrowserItem data={item} on:browserItemClicked={setSelected}/>        
+            <BrowserItem
+                data={item}
+                on:browserItemClick={setSelected}
+                on:browserItemDblClick={enterFolder}
+            />        
         {/each}
     </div>
     <div class="footerContainer">
@@ -128,12 +147,12 @@
         border: 1px solid rgb(63, 63, 63);
         padding-bottom: 10px;
     }
-    @supports (backdrop-filter: blur(15px)) {
+    /* @supports (backdrop-filter: blur(15px)) {
         .container {
             background-color: rgba(37, 37, 37, 0.6);
             backdrop-filter: blur(10px);
         }
-    }
+    } */
     .closeBtnContainer {
         margin-left: auto;
         margin-right: 20px;
@@ -147,9 +166,13 @@
         margin-left: 20px;
         margin-right: 20px;
     }
-    #backArrow {
-        margin-right: 10px;
+
+    #backBtn {
         cursor: pointer;
+        border: none;
+        outline: none;
+        background: none;
+        margin-right: 5px;
     }
     #backArrow:hover {
         filter: brightness(110%);
@@ -185,9 +208,11 @@
     .fileContainer {
         padding: 10px 10px;
         margin: 20px 30px;
+        margin-top: 10px;
         height: 75%;
         border: 1px solid black;
         background-color: rgba(37, 37, 37, 0.94);
+        overflow: auto;
     }
 
     .errorContainer {
@@ -195,7 +220,6 @@
         margin-left: auto;
         margin-right: auto;
         top: 30%;
-        border: 1px solid yellow;
         text-align: center;
         white-space: pre-line;
         overflow-wrap: break-word;

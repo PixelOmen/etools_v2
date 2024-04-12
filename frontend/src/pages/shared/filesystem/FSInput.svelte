@@ -87,7 +87,7 @@
         color: inherit;
         border: none;
         padding: 0px 10px;
-        font-size: 12pt;
+        font-size: 11pt;
         font-family: inherit;
         background-color: #12232E;
         width: 100%;
@@ -117,6 +117,7 @@
         color: rgb(227, 227, 227);
         font-family: inherit;
         font-weight: bold;
+        font-size: 11pt;
     }
     .browseBtn:hover {
         filter: brightness(120%);

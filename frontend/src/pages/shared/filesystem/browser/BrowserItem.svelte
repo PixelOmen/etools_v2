@@ -14,11 +14,14 @@
     export let data: BrowserItemData;
     const dispatch = createEventDispatcher();
     function clicked(): void {
-        dispatch("browserItemClicked", data);
+        dispatch("browserItemClick", data);
+    }
+    function dblclicked(): void {
+        dispatch("browserItemDblClick", data);
     }
 </script>
 
-<button class="container" on:click={clicked}>
+<button class="container" on:click={clicked} on:dblclick={dblclicked}>
     <div class="icon">
         {#if data.isDir}
             <img src={FolderIcon} alt="Folder Icon" width="30px">
@@ -42,7 +45,7 @@
         display: flex;
         align-items: center;
         border-radius: 5px;
-        width: 100%;
+        min-width: 100%;
         color: inherit;
     }
     .container:hover {
@@ -56,6 +59,7 @@
     .itemName {
         margin-left: 10px;
         height: max-content;
+        width: max-content;
         text-align: center;
         color: inherit;
     }
