@@ -33,7 +33,7 @@ def bad_request(dirpath: str, errmsg: str) -> DirResponse:
     )
 
 def get_dir(dirpath: str) -> dict:
-    if dirpath.lower() == "root" or dirpath.lower() == "mnt":
+    if dirpath.lower() == "root" or dirpath.lower() == "mnt" or not dirpath:
         if CONFIG.server.startswith("\\\\"):
             return DirResponse(
                 dirPath="ROOT",

@@ -21,6 +21,7 @@
 
     export let startDir = "ROOT";
     export let apiURL = "/api/webfs";
+    export let dironly = false;
 
     const dispatch = createEventDispatcher();
 
@@ -33,11 +34,28 @@
     let showLoading = false;
 
     $: {
+        dirContents = dirContents.filter((item) => {
+            if (dironly) {
+                return item.isDir;
+            } else {
+                return true;
+            }
+        });
         dirContents.sort((a, b) => {
             if (a.isDir === b.isDir) return 0;
             if (a.isDir) return -1;
             return 1;
         });
+    }
+
+    $: {
+        if (pathInput) {
+            pathInput.addEventListener("keydown", (e) => {
+                if (e.key == "Enter" || e.keyCode === 13) {
+                    getDir(pathInput.value);
+                }
+            })
+        }
     }
 
 
@@ -152,6 +170,7 @@
         z-index: 100;
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
         position: fixed;
         top: 10%;
         left: 10%;
@@ -163,12 +182,12 @@
         border: 1px solid rgb(63, 63, 63);
         padding-bottom: 10px;
     }
-    /* @supports (backdrop-filter: blur(15px)) {
+    @supports (backdrop-filter: blur(15px)) {
         .container {
             background-color: rgba(37, 37, 37, 0.6);
             backdrop-filter: blur(10px);
         }
-    } */
+    }
     .closeBtnContainer {
         margin-left: auto;
         margin-right: 20px;

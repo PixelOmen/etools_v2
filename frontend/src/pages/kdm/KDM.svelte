@@ -161,7 +161,7 @@
                 <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>
             <div class="fileContainer">
-                <FsInput bind:this={outputDirComp} header="Output"/>
+                <FsInput bind:this={outputDirComp} header="Output" dironly={true}/>
                 <div style="width: 130px; margin-right: auto; margin-left: auto;">
                 {#if showLoading}
                     <LoadingIcon width="30px" height="30px"/>
