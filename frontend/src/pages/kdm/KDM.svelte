@@ -6,7 +6,6 @@
 </script>
 
 <script lang="ts">
-    import Browser from '../shared/filesystem/browser/Browser.svelte';
     import LoadingIcon from '../shared/ui/LoadingIcon.svelte';
     import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
@@ -124,7 +123,9 @@
 
 
 <main id="main">
-    <!-- <Browser/> -->
+    <div class="hidden">
+        <LoadingIcon width="30px" height="30px"/>
+    </div>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection>
         <div class="certSection">
@@ -161,7 +162,7 @@
                 <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>
             <div class="fileContainer">
-                <FsInput bind:this={outputDirComp} header="Output" dironly={true}/>
+                <FsInput bind:this={outputDirComp} header="Output" dirOnly={true}/>
                 <div style="width: 130px; margin-right: auto; margin-left: auto;">
                 {#if showLoading}
                     <LoadingIcon width="30px" height="30px"/>
@@ -274,5 +275,9 @@
         width: 100%;
         margin-top: 0px;
         margin-bottom: 20px;
+    }
+
+    .hidden {
+        display: none;
     }
 </style>

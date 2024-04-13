@@ -5,7 +5,7 @@
 
     export let header: string = "";
     export let placeholder = "Output Directory";
-    export let dironly = false;
+    export let dirOnly = false;
 
     let inputElem: HTMLInputElement;
     let errorCard: SvelteComponent;
@@ -44,7 +44,7 @@
         <Browser
             on:browserClose={browserClose}
             on:browserSelect={browserSelect}
-            dironly={dironly}
+            dirOnly={dirOnly}
         />
     {/if}
     {#if header}

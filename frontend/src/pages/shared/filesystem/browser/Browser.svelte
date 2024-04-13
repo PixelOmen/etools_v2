@@ -21,7 +21,7 @@
 
     export let startDir = "ROOT";
     export let apiURL = "/api/webfs";
-    export let dironly = false;
+    export let dirOnly = false;
 
     const dispatch = createEventDispatcher();
 
@@ -35,7 +35,7 @@
 
     $: {
         dirContents = dirContents.filter((item) => {
-            if (dironly) {
+            if (dirOnly) {
                 return item.isDir;
             } else {
                 return true;
