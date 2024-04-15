@@ -89,7 +89,7 @@
         color: inherit;
         border: none;
         padding: 0px 10px;
-        font-size: 11pt;
+        font-size: 12pt;
         font-family: inherit;
         background-color: #12232E;
         width: 100%;
@@ -100,8 +100,6 @@
     input:focus {
         outline: none;
         border: 2px solid #ce4820;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
     }
     input::placeholder {
         color: grey;

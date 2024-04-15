@@ -176,7 +176,7 @@
         left: 10%;
         width: 80%;
         height: 80%;
-        background-color: rgba(37, 37, 37, 0.9);
+        background-color: rgba(37, 37, 37, 1);
         filter: drop-shadow(5px 20px 10px rgba(0, 0, 0, 0.5));
         border-radius: 10px;
         border: 1px solid rgb(63, 63, 63);
