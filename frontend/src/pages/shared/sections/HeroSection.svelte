@@ -1,10 +1,15 @@
 <script>
     import NavBar from '../nav/NavBar.svelte'
+    export let paddingTop = "60px";
+    export let paddingBottom = "30px";
 </script>
 
 <main>
     <NavBar/>
-    <section class="container">
+    <section class="container" style="
+      padding-top: {paddingTop};
+      padding-bottom: {paddingBottom};
+    ">
       <slot></slot>
     </section>
 </main>
@@ -18,8 +23,6 @@
   section {
     margin-left: auto;
     margin-right: auto;
-    padding-top: 60px;
-    padding-bottom: 30px;
   }
 </style>
   

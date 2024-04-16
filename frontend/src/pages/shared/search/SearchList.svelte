@@ -70,9 +70,9 @@
 
     ul {
         margin-top: 5px;
-        border: 4px solid transparent;
+        border: 3px solid transparent;
         background: linear-gradient(#12232E, #12232E) padding-box,
-                    linear-gradient(90deg, #923214, #ce4820 90%) border-box;
+                    linear-gradient(90deg, #923214, #bd7532 90%) border-box;
         border-radius: 8px;
         display: flex;
         flex-direction: column;

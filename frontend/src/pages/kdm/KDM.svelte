@@ -200,7 +200,7 @@
 <style>
     main {
         position: relative;
-        min-width: 950px;
+        min-width: 900px;
     }
 
     .certSection {
@@ -225,7 +225,7 @@
     .dateSection {
         padding: 20px 0px;
         width: 100%;
-        background: linear-gradient(310deg, #197a87 0%, #652a6fb9 99%);
+        background: linear-gradient(310deg, #17656f 0%, #652a6fb9 99%);
     }
     .dateContainer {
         display: flex;
