@@ -225,7 +225,7 @@
     .dateSection {
         padding: 20px 0px;
         width: 100%;
-        background: linear-gradient(310deg, #197a87 0%, #652a6f 99%);
+        background: linear-gradient(310deg, #197a87 0%, #652a6fb9 99%);
     }
     .dateContainer {
         display: flex;

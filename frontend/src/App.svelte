@@ -8,6 +8,6 @@
 </script>
 
 <Router {url}>
-  <Route path="/another" component={Another}></Route>
-  <Route path="/" component={KDM}></Route>
+  <Route path="/kdm" component={KDM}></Route>
+  <Route path="/" component={Home}></Route>
 </Router>

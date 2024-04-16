@@ -14,7 +14,7 @@ from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 
 from libs import dcpomatic, webfs
-from libs.navlib import navlinks
+from libs.navlib import NAVLINKS
 from libs.config import get_config
 
 CONFIG = get_config()
@@ -50,7 +50,7 @@ def webfs_request():
 
 @APP.route('/api/nav')
 def nav():
-    return navlinks()
+    return NAVLINKS
 
 @APP.route('/api/certs')
 def certs():
