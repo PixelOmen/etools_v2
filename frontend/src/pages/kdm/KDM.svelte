@@ -189,13 +189,13 @@
             </div>
         </section>
     {/if}
-    <footer class="footerSection">
-        <div class="footerContainer">
-            <hr>
-            <FooterLinks/>
-        </div>
-    </footer>
 </main>
+<footer class="footerSection">
+    <div class="footerContainer">
+        <hr>
+        <FooterLinks/>
+    </div>
+</footer>
 
 <style>
     main {
@@ -261,7 +261,8 @@
     }
 
     .footerSection {
-        background: linear-gradient(#12232E 0%, #0e1f25 100%, transparent);   
+        background: linear-gradient(#12232E 0%, #0e1f25 100%, transparent);
+        flex: 1;
     }
     
     .footerContainer {

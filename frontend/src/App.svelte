@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Router, Route } from "svelte-routing";
   import Home from "./pages/home/Home.svelte";
-  import Another from "./pages/another/Another.svelte";
   import KDM from "./pages/kdm/KDM.svelte"
 
   export let url = "";
