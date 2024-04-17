@@ -7,7 +7,7 @@
     export let isClose = false;
     // export let hasBG = true;
 
-    let shadowSpec = hasShadow? "drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3))" : "";
+    let shadowSpec = hasShadow? "filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3))" : "";
     let paddingBottom = isClose? "padding-bottom: 6px;" : "";
 </script>
 
@@ -17,6 +17,7 @@
     font-weight: {fontWeight};
     padding: {padding};
     {paddingBottom};
+    {shadowSpec};
     "
 >
     {content}
@@ -24,17 +25,16 @@
 
 <style>
     button {
-        background: linear-gradient(45deg, #a43d17, #d06b18 99%);
+        background: linear-gradient(45deg, #a43d17, #b96017 99%);
         cursor: pointer;
         border: none;
         outline: none;
         border-radius: 5px;
         color: rgb(218, 218, 218);
         font-family: inherit;
-        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3));
     }
     button:hover {
-        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3)) brightness(110%);
+        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3)) brightness(110%) !important;
     }
     button:active {
         filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.0));

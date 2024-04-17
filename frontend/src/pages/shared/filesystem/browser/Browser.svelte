@@ -123,7 +123,7 @@
 
 <div class="container">
     <div class="closeBtnContainer">
-        <CloseBtn on:click={close} size="22px"/>
+        <CloseBtn on:click={close}/>
     </div>
     <div class="headerContainer">
         <button id="backBtn" on:click={back}>
@@ -152,7 +152,7 @@
         {/each}
     </div>
     <div class="footerContainer">
-        <div class="btnContainer">
+        <div class="selectBtnContainer">
             <ImportantBtn
                 on:click={select}
                 content="Select"
@@ -170,7 +170,7 @@
         z-index: 100;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        /* justify-content: flex-end; */
         position: fixed;
         top: 10%;
         left: 10%;
@@ -182,16 +182,15 @@
         border: 1px solid rgb(63, 63, 63);
         padding-bottom: 10px;
     }
-    @supports (backdrop-filter: blur(10px)) {
+    /* @supports (backdrop-filter: blur(10px)) {
         .container {
             background-color: rgba(37, 37, 37, 0.6);
             backdrop-filter: blur(10px);
         }
-    }
+    } */
     .closeBtnContainer {
         margin-left: auto;
-        margin-right: 20px;
-        margin-top: 8px;
+        margin-right: 0px;
         width: max-content;
     }
 
@@ -245,9 +244,9 @@
         padding: 10px 10px;
         margin: 20px 30px;
         margin-top: 10px;
-        height: 75%;
+        height: 80%;
         border: 1px solid black;
-        background-color: rgba(37, 37, 37, 0.94);
+        background-color: rgb(43, 45, 45);
         overflow: auto;
     }
 
@@ -264,9 +263,10 @@
     .footerContainer {
         margin-bottom: 10px;
     }
-    .btnContainer {
+    .selectBtnContainer {
         width: max-content;
         margin-left: auto;
         margin-right: 20px;
+        margin-top: auto;
     }
 </style>

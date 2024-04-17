@@ -1,24 +1,33 @@
 <script lang='ts'>
     import img_closeBtn from "../../../assets/img_closeBtn.png";
-    export let size = "25px";
-    let svgSize = `${Number(size.slice(0, 2)) - 10}px`;
 </script>
 
-<button on:click style="width:{size};height:{size};">
-    <img src={img_closeBtn} alt="" width={size} height={size}>
+<button on:click>
+    &#10005;
+    <!-- <img src={img_closeBtn} alt="" width={size} height={size}> -->
 </button>
 
 <style>
     button {
+        padding: 5px 20px;
+        /* padding-top: 8px; */
         cursor: pointer;
         outline: none;
         border: none;
+        /* border: 1px solid rgb(0, 0, 0); */
+        /* border-top: none; */
         background-color: rgba(0, 0, 0, 0);
-        padding: 0;
         margin: 0;
+        filter: saturate(0.9);
+        text-align: center;
+        color: inherit;
     }
     button:hover {
         filter: brightness(110%);
+        background: linear-gradient(45deg, #a43d17, #b96017 99%);
+        /* border: 1px solid rgba(0, 0, 0, 0); */
+        /* border-top: none; */
+        border-radius: 3px;
     }
     button:active {
         filter: brightness(80%);
