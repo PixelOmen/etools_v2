@@ -41,7 +41,7 @@
             </select>
         {:else}
             <input bind:this={inputElem} class="inputBox"
-                type="datetime-local" id="dateInput-from"
+                type="datetime-local"
                 min="2022-01-01" max="2099-01-01">
         {/if}
     </ErrorCard>

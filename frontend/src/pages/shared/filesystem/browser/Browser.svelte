@@ -182,7 +182,7 @@
         border: 1px solid rgb(63, 63, 63);
         padding-bottom: 10px;
     }
-    @supports (backdrop-filter: blur(15px)) {
+    @supports (backdrop-filter: blur(10px)) {
         .container {
             background-color: rgba(37, 37, 37, 0.6);
             backdrop-filter: blur(10px);
