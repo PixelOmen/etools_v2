@@ -170,6 +170,8 @@
                     <ImportantBtn
                         on:click={submit}
                         content="Submit"
+                        fontSize="12pt"
+                        padding="3px 12px"
                     />
                 {/if}
                 </div>

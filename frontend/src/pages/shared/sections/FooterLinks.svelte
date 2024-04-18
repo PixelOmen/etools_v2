@@ -31,10 +31,10 @@
 <style>
     .footerSection {
         background: radial-gradient(
-                ellipse at 40% -50%,
+                ellipse at 20% -10%,
                 #0e282f 0%,
-                transparent 60%
-        ), linear-gradient(#12232e 0%, #0a1c21 50%, transparent 100%);
+                transparent 40%
+        ), linear-gradient(#12232e 0%, #0a1c21 90%);
         flex: 1;
         display: flex;
     }
