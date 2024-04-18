@@ -22,12 +22,8 @@
         </div>
     </section>
 </main>
-<footer class="footerSection">
-    <div class="footerContainer">
-        <hr />
-        <FooterLinks />
-    </div>
-</footer>
+<FooterLinks />
+
 
 <style>
     main {
@@ -62,25 +58,5 @@
         width: 100%;
         height: 100%;
         filter: blur(10px) brightness(65%);
-    }
-
-
-    .footerSection {
-        background: radial-gradient(
-                ellipse at 40% -50%,
-                #0e282f 0%,
-                transparent 60%
-        ), linear-gradient(#12232e 0%, #0a1c21 50%, transparent 100%);
-        flex: 1;
-        display: flex;
-    }
-
-    .footerContainer {
-        align-self: flex-end;
-        width: 80%;
-        padding-top: 50px;
-        padding-bottom: 20px;
-        margin-left: auto;
-        margin-right: auto;
     }
 </style>

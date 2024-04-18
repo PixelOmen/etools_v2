@@ -190,12 +190,7 @@
         </section>
     {/if}
 </main>
-<footer class="footerSection">
-    <div class="footerContainer">
-        <hr>
-        <FooterLinks/>
-    </div>
-</footer>
+<FooterLinks/>
 
 <style>
     main {
@@ -225,7 +220,7 @@
     .dateSection {
         padding: 20px 0px;
         width: 100%;
-        background: linear-gradient(310deg, #17656f 0%, #652a6fb9 99%);
+        background: linear-gradient(310deg, #125a64 0%, #572360b9 99%);
     }
     .dateContainer {
         display: flex;
@@ -258,24 +253,6 @@
     }
     #historyHeader {
         margin: 0;
-    }
-
-    .footerSection {
-        background: linear-gradient(#12232E 0%, #0e1f25 100%, transparent);
-        flex: 1;
-    }
-    
-    .footerContainer {
-        width: 80%;
-        padding-top: 50px;
-        padding-bottom: 10px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    hr {
-        width: 100%;
-        margin-top: 0px;
-        margin-bottom: 20px;
     }
 
     .hidden {

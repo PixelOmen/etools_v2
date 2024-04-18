@@ -8,22 +8,46 @@
         .then(output => allsections = output);
 </script>
 
-<nav>
-    {#each allsections as footerSection}
-        <section>
-            <h3>
-                {footerSection.sectionName}
-            </h3>
-            <ul>
-                {#each footerSection.contents as data}
-                    <NavAnchor {data}/>
-                {/each}
-            </ul>
-        </section>
-    {/each}
-</nav>
+<footer class="footerSection">
+    <div class="footerContainer">
+        <hr />
+        <nav>
+            {#each allsections as footerSection}
+                <section>
+                    <h3>
+                        {footerSection.sectionName}
+                    </h3>
+                    <ul>
+                        {#each footerSection.contents as data}
+                            <NavAnchor {data}/>
+                        {/each}
+                    </ul>
+                </section>
+            {/each}
+        </nav>
+    </div>
+</footer>
 
 <style>
+    .footerSection {
+        background: radial-gradient(
+                ellipse at 40% -50%,
+                #0e282f 0%,
+                transparent 60%
+        ), linear-gradient(#12232e 0%, #0a1c21 50%, transparent 100%);
+        flex: 1;
+        display: flex;
+    }
+
+    .footerContainer {
+        align-self: flex-end;
+        width: 80%;
+        padding-top: 50px;
+        padding-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     nav {
         display: flex;
         justify-content: space-around;
@@ -37,5 +61,5 @@
     }
     ul {
         font-size: 10pt;
-    }
+    }    
 </style>
