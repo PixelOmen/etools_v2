@@ -148,7 +148,8 @@
                         bind:selected={selectedDKDMValue}
                         header="CPL DKDM"
                         boxHeight="200px"
-                        searchPlaceholder="Search CPLs"/>
+                        searchPlaceholder="Search CPLs"
+                    />
                 {/if}
                 <Selected bind:this={selectedDKDMElem} selected={selectedDKDMValue}/>
             </div>
@@ -161,19 +162,19 @@
                 <DateSelect bind:this={endDateComp} header="End"/>
                 <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>
-            <div class="fileContainer">
+            <div class="outputContainer">
                 <FsInput bind:this={outputDirComp} header="Output" dirOnly={true}/>
                 <div style="width: 130px; margin-right: auto; margin-left: auto;">
-                {#if showLoading}
-                    <LoadingIcon width="30px" height="30px"/>
-                {:else}
-                    <ImportantBtn
-                        on:click={submit}
-                        content="Submit"
-                        fontSize="12pt"
-                        padding="3px 12px"
-                    />
-                {/if}
+                    {#if showLoading}
+                        <LoadingIcon width="30px" height="30px"/>
+                    {:else}
+                        <ImportantBtn
+                            on:click={submit}
+                            content="Submit"
+                            fontSize="12pt"
+                            padding="3px 12px"
+                        />
+                    {/if}
                 </div>
             </div>
         </div>
@@ -233,25 +234,19 @@
         margin-right: auto;
     }
 
-    .fileContainer {
+    .outputContainer {
         display: flex;
         align-items: flex-end;
-        width: 90%;
+        width: 800px;
         padding: 5px;
         gap: 10px
-    }
-    @media (min-width: 1200px) {
-        .fileContainer {
-            max-width: 60%;
-        }
     }
 
     .historySection {
         padding: 20px 0px;
         width: 100%;
         background: radial-gradient(ellipse at 50% -10%, #16323a 0%, #12232E 50%, transparent), 
-                    linear-gradient(0deg, #12232E 10%, #5a2251 99%);
-        
+                    linear-gradient(0deg, #12232E 10%, #5a2251 99%);        
     }
     #historyHeader {
         margin: 0;

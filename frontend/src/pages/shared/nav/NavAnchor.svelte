@@ -7,11 +7,13 @@
 
 <script lang='ts'>
     export let data: AnchorData
+
+    $: atarget = data.displayName.toLowerCase() == "status" ? "_blank" : "_self";
 </script>
 
 
 <li>
-    <a href={data.url}>
+    <a href={data.url} target={atarget}>
         {data.displayName}
     </a>
 </li>
