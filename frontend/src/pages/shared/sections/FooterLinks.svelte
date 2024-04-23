@@ -2,6 +2,8 @@
     import NavAnchor from "../nav/NavAnchor.svelte";
     import type { AllNavSections } from "../nav/NavBar.svelte"
 
+    export let paddingTop = "50px";
+
     let allsections: AllNavSections = [];
     fetch("/api/nav")
         .then(res => res.json())
@@ -9,7 +11,7 @@
 </script>
 
 <footer class="footerSection">
-    <div class="footerContainer">
+    <div class="footerContainer" style="padding-top: {paddingTop}">
         <hr />
         <nav>
             {#each allsections as footerSection}
@@ -42,7 +44,6 @@
     .footerContainer {
         align-self: flex-end;
         width: 80%;
-        padding-top: 50px;
         padding-bottom: 20px;
         margin-left: auto;
         margin-right: auto;

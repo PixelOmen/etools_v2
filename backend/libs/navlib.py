@@ -18,7 +18,8 @@ _navdict = [
         "sectionName" : "Reports",
         "contents": [
             {
-                "url": "http://etools01.rndbtprvt.lan/external/Schedule/10.0.30.24:80/callsheetbydate",
+                # "url": "http://etools01.rndbtprvt.lan/external/Schedule/10.0.30.24:80/callsheetbydate",
+                "url": "/schedule",
                 "displayName": "Schedule"
             }
         ]
