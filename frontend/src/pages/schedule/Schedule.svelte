@@ -1,20 +1,27 @@
 <script lang="ts">
     import HeroSection from "../shared/sections/HeroSection.svelte";
-    import FooterLinks from "../shared/sections/FooterLinks.svelte";
+    import DateSelect from "../shared/dates/DateSelect.svelte";
+    import ImportantBtn from "../shared/ui/ImportantBtn.svelte";
     import PieChart from "../shared/charts/pie/PieChart.svelte";
+    import FooterLinks from "../shared/sections/FooterLinks.svelte";
 </script>
 
 <main>
     <HeroSection paddingBottom="0px" paddingTop="70px">
         <section class="sectionContainer topSection">
-            Test info
-        </section>
-        <section class="sectionContainer bottomSection">
-            <div class="contentContainer">
+            <div class="inputContainer">
+                <div class="dateSelectContainer">
+                    <DateSelect header="Select Date"/>
+                </div>
+                <div class="btnContainer">
+                    <ImportantBtn content="Generate" fontSize="11pt" padding="5px 10px"/>
+                </div>
+            </div>
+            <div class="summaryContainer">
                 <h3>
-                    Summary for 04/23/2024
+                    Report Summary for 04/23/2024
                 </h3>
-                <div class="summaryContainer">
+                <div class="summarySubContainer">
                     <div class="statsContainer">
                         <div>
                             Jobs: 10
@@ -32,6 +39,8 @@
                 </div>
             </div>
         </section>
+        <section class="sectionContainer bottomSection">
+        </section>
     </HeroSection>
 </main>
 <FooterLinks paddingTop="0px"/>
@@ -48,19 +57,40 @@
         margin-left: auto;
         margin-right: auto;
         justify-content: center;
-        overflow: hidden;
-        /* border-bottom: 2px solid #a46d39; */
     }
     .topSection {
-        /* border-top: 2px solid #a46d39; */
-        height: 200px;
+        width: 80%;
+        padding-top: 0px;
+        /* border: 1px solid yellow; */
+        box-sizing: border-box;
+        flex-wrap: wrap;
     }
     .bottomSection {
+        padding: 40px 0px;
         border-bottom: 2px solid #a46d39;
-        padding: 20px 0px;
     }
 
-    .contentContainer {
+    .inputContainer {
+        width: max-content;
+        height: max-content;
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 40px;
+        /* border: 1px solid blue; */
+    }
+    .dateSelectContainer {
+        /* border: 1px solid yellow; */
+        height: max-content;
+    }
+    .btnContainer {
+        /* border: 1px solid red; */
+        margin-left: 20px;
+        margin-right: auto;
+        height: max-content;
+        width: max-content;
+    }
+
+    .summaryContainer {
         background-color: rgba(0, 77, 79, 0.124);
         border: 2px solid rgb(86, 86, 86);
         border-radius: 20px;
@@ -76,7 +106,7 @@
         font-family: "Montserrat";
         /* text-align: center; */
     }
-    .summaryContainer {
+    .summarySubContainer {
         margin-top: 20px;
     }
     .statsContainer {

@@ -79,7 +79,8 @@
                     labels: testinfo.map((i) => i.name),
                     datasets: [{
                         data: testinfo.map((i) => i.amount),
-                        backgroundColor: colorPool
+                        backgroundColor: colorPool,
+                        borderColor: "black"
                     }]
                 },
                 options: {

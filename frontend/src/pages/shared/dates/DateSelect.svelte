@@ -29,9 +29,11 @@
 </script>
 
 <div style="width: {width}">
-    <h3>
-        {header}
-    </h3>
+    {#if header}
+        <h3>
+            {header}
+        </h3>
+    {/if}
     <ErrorCard bind:this={errorCard}>
         {#if isTimezone}
             <select bind:this={selectElem} name="Timezone" class="inputBox tzbox">

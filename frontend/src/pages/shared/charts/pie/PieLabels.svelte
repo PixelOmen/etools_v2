@@ -71,6 +71,7 @@
         height: 10px;
         flex-shrink: 0;
         filter: brightness(90%);
+        border: 1px solid black;
     }
     .nameContainer {
         font-family: "Montserrat";
