@@ -158,7 +158,7 @@
     <section class="dateSection">
         <div class="sectionContainer">
             <div class="dateContainer">
-                <DateSelect bind:this={startDateComp}/>
+                <DateSelect bind:this={startDateComp} header="Start"/>
                 <DateSelect bind:this={endDateComp} header="End"/>
                 <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>

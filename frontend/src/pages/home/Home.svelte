@@ -15,7 +15,7 @@
         </CenteredBanner>
     </HeroSection>
 </main>
-<FooterLinks />
+<FooterLinks paddingTop="120px" />
 
 
 <style>

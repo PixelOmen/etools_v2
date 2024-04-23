@@ -3,6 +3,7 @@
     import type { AllNavSections } from "../nav/NavBar.svelte"
 
     export let paddingTop = "50px";
+    export let showBorder = true;
 
     let allsections: AllNavSections = [];
     fetch("/api/nav")
@@ -12,7 +13,9 @@
 
 <footer class="footerSection">
     <div class="footerContainer" style="padding-top: {paddingTop}">
-        <hr />
+        {#if showBorder}
+            <hr />
+        {/if}
         <nav>
             {#each allsections as footerSection}
                 <section>
@@ -39,10 +42,15 @@
         ), linear-gradient(#12232e 0%, #0a1c21 90%);
         flex: 1;
         display: flex;
+        min-width: 900px;
+    }
+
+    hr {
+        margin-top: 0;
     }
 
     .footerContainer {
-        align-self: flex-end;
+        align-self: flex-start;
         width: 80%;
         padding-bottom: 20px;
         margin-left: auto;

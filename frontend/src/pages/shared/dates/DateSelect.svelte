@@ -2,9 +2,11 @@
     import type { SvelteComponent } from 'svelte';
     import ErrorCard from "../ui/ErrorCard.svelte";
 
-    export let header = "Start";
+    export let header = "";
     export let width = "auto";
     export let isTimezone = false;
+    export let dateOnly = false;
+    export let padding = "3px 10px";
 
     let tzOffsets = Array.from({length: 24}, (_, i) => {
         let hroffset = i - 11;
@@ -42,9 +44,17 @@
                 {/each}
             </select>
         {:else}
-            <input bind:this={inputElem} class="inputBox"
-                type="datetime-local"
-                min="2022-01-01" max="2099-01-01">
+            {#if dateOnly}
+                <input bind:this={inputElem} class="inputBox"
+                    style="padding: {padding}"
+                    type="date"
+                    min="2022-01-01" max="2099-01-01">
+            {:else}
+                <input bind:this={inputElem} class="inputBox"
+                    style="padding: {padding}"
+                    type="datetime-local"
+                    min="2022-01-01" max="2099-01-01">
+            {/if}
         {/if}
     </ErrorCard>
 </div>
@@ -63,7 +73,6 @@
         cursor: pointer;
         border-radius: 10px;
         border: none;
-        padding: 3px 10px;
         font-size: 12pt;
         background-color: #162a37;
         border: 2px solid transparent;

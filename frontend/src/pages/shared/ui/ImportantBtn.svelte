@@ -37,6 +37,6 @@
         filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3)) brightness(110%) !important;
     }
     button:active {
-        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.0));
+        filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.0)) !important;
     }
 </style>
