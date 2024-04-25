@@ -2,6 +2,7 @@
     import * as coms from "../../libs/coms"
     import type { SvelteComponent } from 'svelte';
     import type { ClientInfo } from "../shared/charts/pie/PieChart.svelte";
+    import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import LoadingIcon from '../shared/ui/LoadingIcon.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
     import DateSelect from "../shared/dates/DateSelect.svelte";
@@ -9,6 +10,7 @@
     import PieChart from "../shared/charts/pie/PieChart.svelte";
     import FooterLinks from "../shared/sections/FooterLinks.svelte";
 
+    let errorModal: SvelteComponent;
     let dateSelect: SvelteComponent;
     let tomorrowString = "";
     let summaryLoading = true;
@@ -20,26 +22,23 @@
     let summaryJobs = "";
     let noJobs = false;
 
-    fetch("/api/nextdate")
-    .then(res => res.json())
-    .then((jsoninfo) => {
-        tomorrowString = jsoninfo.standardDate;
-    });
-
     fetch("/api/schedulestats")
     .then(res => res.json())
     .then((jsoninfo) => {
         if (jsoninfo.err) {
             summaryError = true;
+            console.error(jsoninfo.err);
+            errorModal.setError(jsoninfo.err);
+            errorModal.show();
         } else {
             summaryLoading = false;
             if (jsoninfo.clients.length < 1) {
                 noJobs = true;
                 summaryEquipment = "N/A";
                 summaryRooms = "N/A";
-                summaryJobs = "N/A";
-                
+                summaryJobs = "N/A";                
             } else {
+                tomorrowString = jsoninfo.date.standardDate;
                 summaryClients = jsoninfo.clients;
                 summaryEquipment = jsoninfo.equipment;
                 summaryRooms = jsoninfo.rooms;
@@ -47,6 +46,10 @@
             }
         }
     });
+
+    function closeError() {
+        errorModal.hide();
+    }
 
     function submit() {
         let dateValue = dateSelect.getValue();
@@ -68,6 +71,8 @@
             generateLoading = false;
             if (jsoninfo.err) {
                 console.error(jsoninfo.err);
+                errorModal.setError(jsoninfo.err);
+                errorModal.show();
             } else {
                 window.open(`/api/callsheet_pdf/${jsoninfo.pdfurl}`, '_blank');
             }
@@ -78,6 +83,7 @@
 </script>
 
 <main>
+    <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection paddingBottom="0px" paddingTop="100px">
         <section class="sectionContainer topSection">
             <div class="summaryContainer">
