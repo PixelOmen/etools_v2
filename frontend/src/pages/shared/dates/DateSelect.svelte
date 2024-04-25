@@ -38,7 +38,11 @@
     {/if}
     <ErrorCard bind:this={errorCard}>
         {#if isTimezone}
-            <select bind:this={selectElem} name="Timezone" class="inputBox tzbox">
+            <select bind:this={selectElem}
+                name="Timezone"
+                class="inputBox tzbox"
+                style="padding: {padding}"
+            >
                 {#each tzOffsets as tzoffset}
                     <option value={tzoffset}>{`UTC${tzoffset}`}</option>
                 {/each}

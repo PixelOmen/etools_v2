@@ -21,6 +21,8 @@ from libs.config import get_config
 
 CONFIG = get_config()
 
+PULSELIB_PORT = 8080
+
 mimetypes.add_type("application/javascript", ".js", True)
 APP = Flask(__name__)
 APP.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -38,18 +40,29 @@ def forward_get_request(url: str) -> Response:
     res = requests.get(url)
     return Response(res.content, status=res.status_code, headers=dict(res.headers))
 
-def handle_request(environ: dict, start_response: Callable):
+def forward_post_request(url: str, jdict: dict) -> Response:
+    res = requests.post(url=url, json=jdict)
+    return Response(res.content, status=res.status_code, headers=dict(res.headers))
+
+def pywsgi_handle_request(environ: dict, start_response: Callable):
     return APP(environ, start_response)
 
-# requests.post(url=url, auth=(CONFIG.USERNAME, CONFIG.PASSWORD), json=jdict)
 
 @APP.route('/api/nextdate')
 def nextdate():
-    return forward_get_request("http://10.0.30.24:8080/api/nextdate")
+    return forward_get_request(f"http://10.0.30.24:{PULSELIB_PORT}/api/nextdate")
 
 @APP.route('/api/schedulestats')
 def schedulestats():
-    return forward_get_request("http://10.0.30.24:8080/api/schedulestats")
+    return forward_get_request(f"http://10.0.30.24:{PULSELIB_PORT}/api/schedulestats")
+
+@APP.route('/api/callsheet_query', methods=["POST"])
+def callsheeet_query():
+    return forward_post_request(f"http://10.0.30.24:{PULSELIB_PORT}/callsheet_query", request.get_json())
+
+@APP.route('/api/callsheet_pdf/<string:filename>')
+def send_pdf(filename: str):
+    return forward_get_request(f"http://10.0.30.24:{PULSELIB_PORT}/callsheetbydate/{filename}")
 
 @APP.route("/api/webfs", methods=["POST"])
 def webfs_request():

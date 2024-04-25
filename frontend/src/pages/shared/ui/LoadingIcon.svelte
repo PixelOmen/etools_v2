@@ -3,12 +3,13 @@
     export let width = "30px";
     export let height = "30px";
     export let offsetLeft = "35px";
+    export let paddingTop = "0px";
 </script>
 
 <!-- <div style="width: {width}; height: {height}"></div> -->
 <div>
     <img src={LoadingIcon} alt="Loading Icon" width={width} height={height}
-        style="margin-left: {offsetLeft}"
+        style="margin-left: {offsetLeft}; padding-top: {paddingTop}"
     >
 </div>
 

@@ -12,6 +12,7 @@
     let dateSelect: SvelteComponent;
     let tomorrowString = "";
     let summaryLoading = true;
+    let generateLoading = false;
     let summaryError = false;
     let summaryClients: ClientInfo[] = [];
     let summaryEquipment = "";
@@ -37,17 +38,40 @@
                 summaryEquipment = "N/A";
                 summaryRooms = "N/A";
                 summaryJobs = "N/A";
-                return
+                
+            } else {
+                summaryClients = jsoninfo.clients;
+                summaryEquipment = jsoninfo.equipment;
+                summaryRooms = jsoninfo.rooms;
+                summaryJobs = jsoninfo.jobs;
             }
-            summaryClients = jsoninfo.clients;
-            summaryEquipment = jsoninfo.equipment;
-            summaryRooms = jsoninfo.rooms;
-            summaryJobs = jsoninfo.jobs;
         }
     });
 
-    function test() {
-        console.log(dateSelect.getValue());
+    function submit() {
+        let dateValue = dateSelect.getValue();
+        if (!dateValue) return;
+        
+        generateLoading = true;
+
+        const payload = {
+            date: {
+                from: dateValue,
+                to: ""
+            },
+            type: "scheduling"
+        }
+        
+        coms.submitJSON('/api/callsheet_query', payload)
+        .then(res => res.json())
+        .then((jsoninfo) => {
+            generateLoading = false;
+            if (jsoninfo.err) {
+                console.error(jsoninfo.err);
+            } else {
+                window.open(`/api/callsheet_pdf/${jsoninfo.pdfurl}`, '_blank');
+            }
+        });
     }
 
   
@@ -74,11 +98,19 @@
                             />
                         </div>
                         <div class="btnContainer">
-                            <ImportantBtn on:click={test}
-                                content="Generate"
-                                fontSize="11pt"
-                                padding="5px 10px"
-                            />
+                            {#if generateLoading}
+                                <LoadingIcon
+                                    width="30px"
+                                    height="30px"
+                                    offsetLeft="30px"
+                                />                            
+                            {:else}
+                                <ImportantBtn on:click={submit}
+                                    content="Generate"
+                                    fontSize="11pt"
+                                    padding="5px 10px"
+                                />
+                            {/if}
                         </div>
                     </div>
                 </div>
@@ -100,13 +132,13 @@
                     </div>
                     <div class="chartContainer">
                         {#if summaryLoading}
-                        <div class="summaryLoadingContainer">
-                            <LoadingIcon
-                                width="60px"
-                                height="60px"
-                                offsetLeft="0px"
-                            />
-                        </div>
+                            <div class="summaryLoadingContainer">
+                                <LoadingIcon
+                                    width="60px"
+                                    height="60px"
+                                    offsetLeft="0px"
+                                />
+                            </div>
                         {:else if !noJobs}
                             <PieChart header="Clients"
                                 clientInfo={summaryClients} pieHeight="150px"
@@ -123,9 +155,8 @@
         <section class="sectionContainer bottomSection">
         </section>
     </HeroSection>
-    <section class="spacerContainer"></section>
 </main>
-<FooterLinks paddingTop="30px" showBorder={true}/>
+<FooterLinks paddingTop="30px" showBorder={false}/>
 
 
 <style>
@@ -180,7 +211,7 @@
         margin-left: 20px;
         margin-right: auto;
         height: max-content;
-        width: max-content;
+        width: 95px;
     }
 
     .summaryContainer {
@@ -232,13 +263,5 @@
         /* border: 2px solid green; */
         border-radius: 20px;
         box-sizing: border-box;
-    }
-
-    .spacerContainer {
-        width: 100%;
-        background: linear-gradient(310deg, #125a64 0%, #572360b9 99%);
-        /* height: 20px; */
-        /* border-top: 2px solid #a46d39;
-        border-bottom: 2px solid #a46d39;    */
     }
 </style>
