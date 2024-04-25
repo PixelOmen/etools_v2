@@ -2,6 +2,7 @@
     import * as coms from "../../libs/coms"
     import type { SvelteComponent } from 'svelte';
     import type { ClientInfo } from "../shared/charts/pie/PieChart.svelte";
+    import { onMount } from "svelte";
     import ErrorModal from '../shared/ui/ErrorModal.svelte';
     import LoadingIcon from '../shared/ui/LoadingIcon.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
@@ -22,29 +23,31 @@
     let summaryJobs = "";
     let noJobs = false;
 
-    fetch("/api/schedulestats")
-    .then(res => res.json())
-    .then((jsoninfo) => {
-        if (jsoninfo.err) {
-            summaryError = true;
-            console.error(jsoninfo.err);
-            errorModal.setError(jsoninfo.err);
-            errorModal.show();
-        } else {
-            summaryLoading = false;
-            if (jsoninfo.clients.length < 1) {
-                noJobs = true;
-                summaryEquipment = "N/A";
-                summaryRooms = "N/A";
-                summaryJobs = "N/A";                
+    onMount(() => {
+        fetch("/api/schedulestats")
+        .then(res => res.json())
+        .then((jsoninfo) => {
+            if (jsoninfo.err) {
+                summaryError = true;
+                console.error(jsoninfo.err);
+                errorModal.setError(jsoninfo.err);
+                errorModal.show();
             } else {
-                tomorrowString = jsoninfo.date.standardDate;
-                summaryClients = jsoninfo.clients;
-                summaryEquipment = jsoninfo.equipment;
-                summaryRooms = jsoninfo.rooms;
-                summaryJobs = jsoninfo.jobs;
+                summaryLoading = false;
+                if (jsoninfo.clients.length < 1) {
+                    noJobs = true;
+                    summaryEquipment = "N/A";
+                    summaryRooms = "N/A";
+                    summaryJobs = "N/A";                
+                } else {
+                    tomorrowString = jsoninfo.date.standardDate;
+                    summaryClients = jsoninfo.clients;
+                    summaryEquipment = jsoninfo.equipment;
+                    summaryRooms = jsoninfo.rooms;
+                    summaryJobs = jsoninfo.jobs;
+                }
             }
-        }
+        });
     });
 
     function closeError() {
@@ -83,6 +86,9 @@
 </script>
 
 <main>
+    <div style="display: none">
+        <LoadingIcon width="30px" height="30px"/>
+    </div>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection paddingBottom="0px" paddingTop="100px">
         <section class="sectionContainer topSection">

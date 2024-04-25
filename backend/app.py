@@ -138,7 +138,7 @@ def shutdown(server: pywsgi.WSGIServer) -> None:
     server.close()
 
 if __name__ == "__main__":
-    # server = pywsgi.WSGIServer(('0.0.0.0', 4090), handle_request, handler_class=WebSocketHandler)
+    # server = pywsgi.WSGIServer(('0.0.0.0', 4090), pywsgi_handle_request, handler_class=WebSocketHandler)
     # signal.signal(signal.SIGINT, lambda num,info: shutdown(server))
     # print("Server Started")
     # server.serve_forever()
