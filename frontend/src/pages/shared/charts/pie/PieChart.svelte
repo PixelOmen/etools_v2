@@ -1,7 +1,7 @@
 <script context='module' lang='ts'>
     export interface ClientInfo {
-        amount: number;
         name: string;
+        count: number;
     }
 </script>
 
@@ -9,42 +9,9 @@
     import Chart from "chart.js/auto";
     import PieLabels from "./PieLabels.svelte";
 
-    let testinfo: ClientInfo[] = [
-        {
-            name: "test1",
-            amount: 9
-        },
-        {
-            name: "Lionsgate Entertainment",
-            amount: 3
-        },
-        {
-            name: "test3 lsd",
-            amount: 5
-        },
-        {
-            name: "test4test4test4test4test4test4",
-            amount: 20
-        },
-        {
-            name: "test",
-            amount: 9
-        },
-        {
-            name: "test6",
-            amount: 3
-        },
-        {
-            name: "test7",
-            amount: 5
-        },
-        {
-            name: "test8",
-            amount: 2
-        },        
-    ]
     
     export let header: string;
+    export let clientInfo: ClientInfo[]
     export let pieHeight = "200px";
     export let colorPool = [
         '#ff7675', // Tomato
@@ -76,9 +43,9 @@
             new Chart(pieCanvas, {
                 type: 'doughnut',
                 data: {
-                    labels: testinfo.map((i) => i.name),
+                    labels: clientInfo.map((i) => i.name),
                     datasets: [{
-                        data: testinfo.map((i) => i.amount),
+                        data: clientInfo.map((i) => i.count),
                         backgroundColor: colorPool,
                         borderColor: "black"
                     }]
@@ -105,7 +72,7 @@
         <canvas bind:this={pieCanvas}></canvas>
     </div>
     <div class="labelContainer">
-        <PieLabels labels={testinfo.map((i) => i.name)} {colorPool} {header}/>
+        <PieLabels labels={clientInfo.map((i) => i.name)} {colorPool} {header}/>
     </div>
 </div>
 
@@ -115,7 +82,6 @@
         display: flex;
         margin-top: 10px;
         padding: 5px 20px;
-        /* border: 2px solid rgb(2, 89, 103); */
         border-radius: 10px;
         align-items: center;
     }

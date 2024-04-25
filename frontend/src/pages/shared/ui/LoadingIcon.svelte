@@ -2,11 +2,14 @@
     import LoadingIcon from "../../../assets/LoadingIcon.png"
     export let width = "30px";
     export let height = "30px";
+    export let offsetLeft = "35px";
 </script>
 
 <!-- <div style="width: {width}; height: {height}"></div> -->
 <div>
-    <img src={LoadingIcon} alt="Loading Icon" width={width} height={height}>
+    <img src={LoadingIcon} alt="Loading Icon" width={width} height={height}
+        style="margin-left: {offsetLeft}"
+    >
 </div>
 
 <style>
@@ -16,13 +19,7 @@
     img {
         margin: 0;
         padding: 0;
-        margin-left: 35px;
         margin-right: auto;
-        /* border-top: 4px solid #cf6208;
-        border-left: 4px solid #cf6208;
-        border-bottom: 4px solid #08cfb5;
-        border-right: 4px solid #08cfb5;
-        border-radius: 90%; */
         animation: spin 3s linear infinite;
     }
 

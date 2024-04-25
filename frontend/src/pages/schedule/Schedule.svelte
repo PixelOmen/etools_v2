@@ -1,6 +1,8 @@
 <script lang="ts">
     import * as coms from "../../libs/coms"
     import type { SvelteComponent } from 'svelte';
+    import type { ClientInfo } from "../shared/charts/pie/PieChart.svelte";
+    import LoadingIcon from '../shared/ui/LoadingIcon.svelte';
     import HeroSection from "../shared/sections/HeroSection.svelte";
     import DateSelect from "../shared/dates/DateSelect.svelte";
     import ImportantBtn from "../shared/ui/ImportantBtn.svelte";
@@ -9,6 +11,12 @@
 
     let dateSelect: SvelteComponent;
     let tomorrowString = "";
+    let summaryLoading = true;
+    let summaryError = false;
+    let summaryClients: ClientInfo[] = [];
+    let summaryEquipment = "";
+    let summaryRooms = "";
+    let summaryJobs = "";
 
     fetch("http://10.0.30.24:8080/api/nextdate")
     .then(res => res.json())
@@ -16,9 +24,25 @@
         tomorrowString = jsoninfo.standardDate;
     });
 
+    fetch("http://10.0.30.24:8080/api/schedulestats")
+    .then(res => res.json())
+    .then((jsoninfo) => {
+        if (jsoninfo.err) {
+            summaryError = true;
+        } else {
+            summaryClients = jsoninfo.clients;
+            summaryEquipment = jsoninfo.equipment;
+            summaryRooms = jsoninfo.rooms;
+            summaryJobs = jsoninfo.jobs;
+            summaryLoading = false;
+        }
+    });
+
     function test() {
         console.log(dateSelect.getValue());
     }
+
+  
 </script>
 
 <main>
@@ -27,7 +51,11 @@
             <div class="summaryContainer">
                 <div class="summaryHeaderContainer">
                     <h3 class="summaryHeaderText">
-                        Schedule Summary for {tomorrowString}
+                        {#if summaryLoading}
+                            Loading Summary...
+                        {:else}
+                            Schedule Summary for {tomorrowString}
+                        {/if}
                     </h3>
                     <div class="inputContainer">
                         <div class="dateSelectContainer">
@@ -46,20 +74,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="summarySubContainer">
+                <div class="summaryContentContainer">
                     <div class="statsContainer">
-                        <div>
-                            Jobs: 10
-                        </div>
-                        <div>
-                            Rooms: 10
-                        </div>
-                        <div>
-                            Resources: 20
-                        </div>
+                        {#if summaryLoading}
+                            Loading...
+                        {:else}
+                            <div>
+                                Rooms: 10
+                            </div>
+                            <div>
+                                Jobs: 10
+                            </div>
+                            <div>
+                                Equipment: 20
+                            </div>
+                        {/if}
                     </div>
                     <div class="chartContainer">
-                        <PieChart pieHeight="150px" header="Clients"/>
+                        {#if summaryLoading}
+                        <div class="summaryLoadingContainer">
+                            <LoadingIcon
+                                width="60px"
+                                height="60px"
+                                offsetLeft="0px"
+                            />
+                        </div>
+                        {:else}
+                            <PieChart header="Clients"
+                                clientInfo={summaryClients} pieHeight="150px"
+                            />
+                        {/if}                        
                     </div>
                 </div>
             </div>
@@ -131,6 +175,10 @@
         padding: 10px;
         max-width: 1000px;
         font-family: "Montserrat";
+        min-height: 250px;
+        min-width: 730px;
+        display: flex;
+        flex-direction: column;
     }
     .summaryHeaderText {
         margin: 0;
@@ -139,23 +187,28 @@
         padding: 0;
         font-family: "Montserrat";
     }
-    .summarySubContainer {
+    .summaryContentContainer {
         margin-top: 20px;
+        /* border: 1px solid red; */
     }
     .statsContainer {
         /* border: 2px solid blue; */
         font-size: 12pt;
         width: 100%;
-        flex-grow: 3;
-        flex-shrink: 1;
         display: flex;
         justify-content: space-evenly;
         font-weight: bold;
         border-bottom: 1px solid grey;
         border-top: 1px solid grey;
     }
+    .summaryLoadingContainer {
+        width: max-content;
+        margin: auto;
+        margin-top: 40px;
+    }
     .chartContainer {
         /* border: 2px solid green; */
         border-radius: 20px;
+        box-sizing: border-box;
     }
 </style>
