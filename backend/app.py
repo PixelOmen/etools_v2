@@ -5,6 +5,8 @@ from typing import Callable
 from datetime import datetime
 from collections import deque
 
+import requests
+
 from flask import (
     Flask, Response,
     request, session,
@@ -32,8 +34,22 @@ def log_request(remoteip: str, msg: str) -> None:
     addrheader = f"{remoteip} - - "
     print(f"{addrheader+timeheader} \"{msg}\"")
 
+def forward_get_request(url: str) -> Response:
+    res = requests.get(url)
+    return Response(res.content, status=res.status_code, headers=dict(res.headers))
+
 def handle_request(environ: dict, start_response: Callable):
     return APP(environ, start_response)
+
+# requests.post(url=url, auth=(CONFIG.USERNAME, CONFIG.PASSWORD), json=jdict)
+
+@APP.route('/api/nextdate')
+def nextdate():
+    return forward_get_request("http://10.0.30.24:8080/api/nextdate")
+
+@APP.route('/api/schedulestats')
+def schedulestats():
+    return forward_get_request("http://10.0.30.24:8080/api/schedulestats")
 
 @APP.route("/api/webfs", methods=["POST"])
 def webfs_request():

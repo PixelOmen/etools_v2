@@ -17,24 +17,32 @@
     let summaryEquipment = "";
     let summaryRooms = "";
     let summaryJobs = "";
+    let noJobs = false;
 
-    fetch("http://10.0.30.24:8080/api/nextdate")
+    fetch("/api/nextdate")
     .then(res => res.json())
     .then((jsoninfo) => {
         tomorrowString = jsoninfo.standardDate;
     });
 
-    fetch("http://10.0.30.24:8080/api/schedulestats")
+    fetch("/api/schedulestats")
     .then(res => res.json())
     .then((jsoninfo) => {
         if (jsoninfo.err) {
             summaryError = true;
         } else {
+            summaryLoading = false;
+            if (jsoninfo.clients.length < 1) {
+                noJobs = true;
+                summaryEquipment = "N/A";
+                summaryRooms = "N/A";
+                summaryJobs = "N/A";
+                return
+            }
             summaryClients = jsoninfo.clients;
             summaryEquipment = jsoninfo.equipment;
             summaryRooms = jsoninfo.rooms;
             summaryJobs = jsoninfo.jobs;
-            summaryLoading = false;
         }
     });
 
@@ -80,13 +88,13 @@
                             Loading...
                         {:else}
                             <div>
-                                Rooms: 10
+                                Rooms: {summaryRooms}
                             </div>
                             <div>
-                                Jobs: 10
+                                Jobs: {summaryJobs}
                             </div>
                             <div>
-                                Equipment: 20
+                                Equipment: {summaryEquipment}
                             </div>
                         {/if}
                     </div>
@@ -99,10 +107,14 @@
                                 offsetLeft="0px"
                             />
                         </div>
-                        {:else}
+                        {:else if !noJobs}
                             <PieChart header="Clients"
                                 clientInfo={summaryClients} pieHeight="150px"
                             />
+                        {:else}
+                            <div class="noJobsContainer">
+                                No Jobs
+                            </div>
                         {/if}                        
                     </div>
                 </div>
@@ -111,13 +123,15 @@
         <section class="sectionContainer bottomSection">
         </section>
     </HeroSection>
+    <section class="spacerContainer"></section>
 </main>
-<FooterLinks paddingTop="30px" showBorder={false}/>
+<FooterLinks paddingTop="30px" showBorder={true}/>
 
 
 <style>
     main {
         min-width: 900px;
+        border-bottom: 2px solid #a46d39;   
     }
     .sectionContainer {
         position: relative;
@@ -132,10 +146,11 @@
         box-sizing: border-box;
         align-items: center;
         flex-direction: column;
+        
     }
     .bottomSection {
-        padding: 50px 0px;
-        border-bottom: 2px solid #cbcbcb;
+        padding: 40px 0px;     
+        /* border-bottom: 2px solid #cbcbcb; */
     }
 
     .summaryHeaderContainer {
@@ -206,9 +221,24 @@
         margin: auto;
         margin-top: 40px;
     }
+    .noJobsContainer {
+        margin: auto;
+        margin-top: 50px;
+        font-family: "Montserrat";
+        font-size: 14pt;
+        width: max-content;
+    }
     .chartContainer {
         /* border: 2px solid green; */
         border-radius: 20px;
         box-sizing: border-box;
+    }
+
+    .spacerContainer {
+        width: 100%;
+        background: linear-gradient(310deg, #125a64 0%, #572360b9 99%);
+        /* height: 20px; */
+        /* border-top: 2px solid #a46d39;
+        border-bottom: 2px solid #a46d39;    */
     }
 </style>
