@@ -21,7 +21,7 @@ from libs.config import get_config
 
 CONFIG = get_config()
 
-PULSELIB_PORT = 8080
+PULSELIB_PORT = 80
 
 mimetypes.add_type("application/javascript", ".js", True)
 APP = Flask(__name__)
