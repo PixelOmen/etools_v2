@@ -12,9 +12,6 @@
     import NavSection from './NavSection.svelte';
     
     let allsections: AllNavSections = [];
-    fetch("/api/nav")
-        .then(res => res.json())
-        .then(output => allsections = output);
 
     let openSection: string|null = null;
     function setOpenSection(e: CustomEvent): void {
@@ -29,6 +26,9 @@
     }
 
     onMount(() => {
+        fetch("/api/nav")
+        .then(res => res.json())
+        .then(output => allsections = output);
         window.addEventListener('click', clickOutside)
     })
     onDestroy(() => {

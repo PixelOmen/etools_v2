@@ -24,30 +24,32 @@
     let noJobs = false;
 
     onMount(() => {
-        fetch("/api/schedulestats")
-        .then(res => res.json())
-        .then((jsoninfo) => {
-            if (jsoninfo.err) {
-                summaryError = true;
-                console.error(jsoninfo.err);
-                errorModal.setError(jsoninfo.err);
-                errorModal.show();
-            } else {
-                summaryLoading = false;
-                if (jsoninfo.clients.length < 1) {
-                    noJobs = true;
-                    summaryEquipment = "N/A";
-                    summaryRooms = "N/A";
-                    summaryJobs = "N/A";                
+        setTimeout(() => {
+            fetch("/api/schedulestats")
+            .then(res => res.json())
+            .then((jsoninfo) => {
+                if (jsoninfo.err) {
+                    summaryError = true;
+                    console.error(jsoninfo.err);
+                    errorModal.setError(jsoninfo.err);
+                    errorModal.show();
                 } else {
-                    tomorrowString = jsoninfo.date.standardDate;
-                    summaryClients = jsoninfo.clients;
-                    summaryEquipment = jsoninfo.equipment;
-                    summaryRooms = jsoninfo.rooms;
-                    summaryJobs = jsoninfo.jobs;
+                    summaryLoading = false;
+                    if (jsoninfo.clients.length < 1) {
+                        noJobs = true;
+                        summaryEquipment = "N/A";
+                        summaryRooms = "N/A";
+                        summaryJobs = "N/A";                
+                    } else {
+                        tomorrowString = jsoninfo.date.standardDate;
+                        summaryClients = jsoninfo.clients;
+                        summaryEquipment = jsoninfo.equipment;
+                        summaryRooms = jsoninfo.rooms;
+                        summaryJobs = jsoninfo.jobs;
+                    }
                 }
-            }
-        });
+            });
+        }, 1000);
     });
 
     function closeError() {
