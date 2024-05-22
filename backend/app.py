@@ -142,4 +142,6 @@ if __name__ == "__main__":
     # signal.signal(signal.SIGINT, lambda num,info: shutdown(server))
     # print("Server Started")
     # server.serve_forever()
+
+    # Debug server
     APP.run(host='0.0.0.0', port=4090, debug=True)
