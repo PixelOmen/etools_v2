@@ -1,4 +1,4 @@
-# SvelteFlask
+# Etools V2
 
 Internal POC website that provides tools to assist colleagues with post-production workflows. It attempts to integrate Svelte for the frontend with Flask on the backend.
 
